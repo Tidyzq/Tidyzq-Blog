@@ -1,0 +1,11 @@
+
+<h1>Todo list</h1>
+<hr/>
+<form name="todoForm" novalidate="novalidate" ng-submit="addTodo()">
+  <div ng-class="{'has-error': todoForm.content.$invalid &amp;&amp; todoForm.content.$dirty}" class="form-group">
+    <input type="text" name="content" placeholder="Content" autocomplete="off" required="required" ng-model="newTodo.content" class="form-control focus"/><span ng-show="todoForm.content.$invalid &amp;&amp; todoForm.content.$dirty" class="has-error control-label">Content is required.</span>
+  </div>
+  <button ng-disabled="todoForm.$invalid" class="btn btn-default">Add</button>
+</form>
+<hr/>
+<div class="list-group"><a ng-repeat="todo in todos" class="list-group-item">{{todo.content}}&nbsp;<span class="text-muted">{{ todo.owner.username }}</span><i ng-click="removeTodo(todo)" class="glyphicon glyphicon-remove pull-right"></i></a></div>

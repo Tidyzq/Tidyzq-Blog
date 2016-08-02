@@ -1,0 +1,57 @@
+{
+  "name": "Tidyzq-Blog",
+  "version": "0.0.0",
+  "description": "Tidyzq Blog",
+  "main": "server/server.js",
+  "scripts": {
+    "pretest": "jshint .",
+    "postinstall": "bower install",
+    "start": "node .",
+    "test": "mocha tests/**/*test.js"
+  },
+  "dependencies": {
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "debug": "^2.2.0",
+    "errorhandler": "^1.1.1",
+    "loopback": "^2.14.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-connector-sqlite": "^1.4.5",
+    "loopback-datasource-juggler": "^2.19.0",
+    "serve-favicon": "^2.0.1",
+    "sqlite": "^2.2.0"
+  },
+  "optionalDependencies": {
+    "loopback-component-explorer": "^2.1.0"
+  },
+  "devDependencies": {
+    "bower": "^1.5.2",
+    "browser-sync": "^2.13.0",
+    "browser-sync-spa": "^1.0.3",
+    "del": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-inject": "^4.1.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-livescript": "^3.0.1",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-loopback-sdk-angular": "^0.1.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-size": "^2.1.0",
+    "gulp-uglify": "^1.5.4",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.5.6",
+    "livescript": "^1.5.0",
+    "merge-stream": "^1.0.0",
+    "mocha": "^2.3.3",
+    "nodemon": "^1.10.0",
+    "supertest": "^1.1.0",
+    "wiredep": "^4.0.0",
+    "wrench": "^1.5.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tidyzq/Tidyzq-Blog"
+  },
+  "license": "MIT"
+}

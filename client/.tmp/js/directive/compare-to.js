@@ -1,0 +1,1 @@
+(function(){var e;e=function(){return{require:"ngModel",scope:{otherModelValue:"=compareTo"},link:function(e,o,a,r){r.$validators.compareTo=function(o){return o===e.otherModelValue},e.$watch("otherModelValue",function(){r.$validate()})}}},angular.module("app").directive("compareTo",e)}).call(this);

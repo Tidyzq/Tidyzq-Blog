@@ -1,0 +1,12 @@
+{
+  "memory": {
+    "name": "memory",
+    "connector": "memory"
+  },
+  "db": {
+    "name": "db",
+    "connector": "sqlite",
+    "file_name": "storage/data.db",
+    "debug": false
+  }
+}
