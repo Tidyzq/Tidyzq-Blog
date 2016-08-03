@@ -20,8 +20,8 @@ gulp.task('watch', ['inject'], function () {
         path.join(conf.paths.src, '/*.html'),
         path.join(conf.paths.src, '/*.jade'),
         'bower.json'
-    ], ['htmls-reload'], function (event) {
-        gulp.start('inject-reload');
+    ], function (event) {
+        gulp.start('htmls-inject-reload');
     });
 
     gulp.watch([
@@ -50,7 +50,8 @@ gulp.task('watch', ['inject'], function () {
     gulp.watch([
         path.join(conf.paths.src, '/**/*.jade'),
         path.join(conf.paths.src, '/**/*.html'),
-        '!' + path.join(conf.paths.tmp, '/**/*.html')
+        '!' + path.join(conf.paths.src, '/*.jade'),
+        '!' + path.join(conf.paths.src, '/*.html')
     ], function (event) {
         gulp.start('htmls-reload');
     });

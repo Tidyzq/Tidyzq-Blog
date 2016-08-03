@@ -29,11 +29,26 @@
   },
   "todo": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "faker": {
+      "count": 20,
+      "properties": {
+        "content": "lorem.sentence",
+        "ownerId": ["random.number", {"min": 1, "max": 5}]
+      }
+    }
   },
   "user": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "faker": {
+      "count": 5,
+      "properties": {
+        "username": "internet.userName",
+        "email": "internet.email",
+        "password": "internet.password"
+      }
+    }
   },
   "setting": {
     "dataSource": "db",

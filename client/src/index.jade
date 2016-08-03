@@ -4,7 +4,7 @@ html(ng-app="app", lang="en")
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    title LoopBack Angular example
+    title Tidyzq's Blog
     // bower:css
     // css of bower components will be insert here
     // endbower
@@ -90,15 +90,19 @@ html(ng-app="app", lang="en")
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
             li.btn-group
-              a.dropdown-toggle(href="#", type="button", data-toggle="dropdown") Sign In
+              a#dropdown-sign-in.dropdown-toggle(ng-hide="vm.currentUser.id", href="#", type="button", data-toggle="dropdown") Sign In
                 span.caret
-              ul.dropdown-menu(role="menu")
-                li(ng-hide="vm.currentUser.id")
+              ul.dropdown-menu(role="menu", aria-labelledby="dropdown-sign-in")
+                li
                   a.btn.btn-lg(href="#", type="button", data-toggle="modal", data-target="#sign-in") Sign In
-                li(ng-hide="vm.currentUser.id")
+                li
                   a.btn.btn-lg(href="#", type="button", data-toggle="modal", data-target="#sign-up") Sign Up
-                li(ng-show="vm.currentUser.id")
-                  a.btn.btn-lg(href="#", type="button", ng-click="vm.logout()") Log Out
+            li.btn-group
+              a#dropdown-user.dropdown-toggle(ng-show="vm.currentUser.id", href="#", type="button", data-toggle="dropdown") {{vm.currentUser.username}}
+                span.caret
+              ul.dropdown-menu(role="menu", aria-labelledby="dropdown-user")
+                li
+                  a.btn.btn-lg(href="#", type="button", ng-click="vm.logOut()") Log Out
                 //- li
                   //- a(href="#") {{ vm }}
     #main-content.container

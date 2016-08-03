@@ -29,6 +29,7 @@
     "browser-sync": "^2.13.0",
     "browser-sync-spa": "^1.0.3",
     "del": "^2.2.1",
+    "faker": "^3.1.0",
     "gulp": "^3.9.1",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-inject": "^4.1.0",

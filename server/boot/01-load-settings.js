@@ -78,6 +78,7 @@ module.exports = function(app, done) {
   });
 
   work.then(function() {
+    log('done');
     done();
   }, console.error);
 };

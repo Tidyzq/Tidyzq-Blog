@@ -1,6 +1,6 @@
 'use strict'
 angular
-  .module \app <[ lbServices ui.router ]>
+  .module \app <[ lbServices ui.router app.services ]>
   .config ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) !->
 
     $stateProvider

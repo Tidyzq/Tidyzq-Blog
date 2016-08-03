@@ -64,6 +64,18 @@
         "updateAll",
         "upsert"
       ]
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": [
+        "deleteById",
+        "updateAttributes",
+        "updateAll",
+        "upsert"
+      ]
     }
   ],
   "methods": {}

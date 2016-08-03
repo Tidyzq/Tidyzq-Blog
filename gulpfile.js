@@ -27,3 +27,8 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
 gulp.task('default', ['clean'], function () {
   gulp.start('serve');
 });
+
+// quit on ctrl+c
+process.once('SIGINT', function(){
+    process.exit(0);
+});

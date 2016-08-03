@@ -5,6 +5,8 @@ var modelConfig = require('../model-config.json');
 
 module.exports = function(app, done) {
 
+  var migrate = !!process.env.INIT;
+
   function getModels(sourceName) {
     var models = [];
     for (var model in modelConfig) {
@@ -17,11 +19,34 @@ module.exports = function(app, done) {
 
   function initSource(sourceName, dataSource) {
     return new Promise(function(resolve, reject) {
+
       log('initializing source: ' + sourceName);
+
+      if (dataSource.connected) {
+        onSourceConnected(sourceName, dataSource)
+          .then(resolve, reject);
+      } else {
+        log('connecting ' + sourceName);
+        dataSource.once('connected', function() {
+          onSourceConnected(sourceName, dataSource)
+            .then(resolve, reject);
+        });
+      }
+    });
+  }
+
+  function onSourceConnected(sourceName, dataSource) {
+    return new Promise(function(resolve, reject) {
+      log(sourceName + ' connected');
 
       var models = getModels(sourceName);
 
       log(sourceName, models);
+
+      migrate ?
+
+      migrateSource(sourceName, dataSource, models)
+        .then(resolve, reject) :
 
       dataSource.isActual(models, function(err, actual) {
         if (err) {
@@ -35,6 +60,20 @@ module.exports = function(app, done) {
             log(sourceName + ' is already up to date');
             resolve();
           }
+        }
+      });
+    });
+  }
+
+  function migrateSource(sourceName, dataSource, models) {
+    return new Promise(function(resolve, reject) {
+      log('migrating source: ' + sourceName);
+      dataSource.automigrate(models, function(err, result) {
+        if (err) {
+          console.error('Error on updateSource:', err);
+          reject(err);
+        } else {
+          resolve();
         }
       });
     });
@@ -66,6 +105,7 @@ module.exports = function(app, done) {
   }
 
   Promise.all(promises).then(function() { // finish
+    log('done');
     done();
   }, console.error);
 

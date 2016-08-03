@@ -1,1 +1,0 @@
-(function(){"use strict";angular.module("app",["lbServices","ui.router"]).config(["$stateProvider","$urlRouterProvider",function(o,t){o.state("todo",{url:"",templateUrl:"views/todo.html",controller:"TodoController"}),t.otherwise("todo")}])}).call(this);

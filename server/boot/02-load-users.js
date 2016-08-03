@@ -101,6 +101,7 @@ module.exports = function(app, done) {
   }
 
   createDefaultRoleAndUsers().then(function () {
+    log('done');
     done();
   }, console.error);
 

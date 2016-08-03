@@ -29,7 +29,8 @@ function copyScripts() {
     path.join(conf.paths.src, '/**/*.js'),
     '!' + path.join(conf.paths.tmp, '/**/*.js')
   ])
-    .pipe($.uglify())
+    // .pipe($.uglify())
+    .on('error', conf.errorHandler('uglify'))
     .pipe(gulp.dest(conf.paths.tmp));
 }
 
@@ -37,6 +38,7 @@ function buildScripts() {
   return gulp.src(path.join(conf.paths.src, '/**/*.ls'))
     .pipe($.livescript({bare: false}))
     .on('error', conf.errorHandler('livescript'))
-    .pipe($.uglify())
+    // .pipe($.uglify())
+    .on('error', conf.errorHandler('uglify'))
     .pipe(gulp.dest(conf.paths.tmp));
 }

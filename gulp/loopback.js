@@ -23,7 +23,8 @@ function buildLoopbackService() {
   return gulp.src(conf.paths.server)
     .pipe(loopbackAngular())
     .on('error', conf.errorHandler('loopbackAngular'))
-    .pipe($.uglify())
+    // .pipe($.uglify())
+    .on('error', conf.errorHandler('uglify'))
     .pipe(rename(conf.paths.lbServices))
     .pipe(gulp.dest(conf.paths.tmp));
 }
