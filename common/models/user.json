@@ -8,12 +8,44 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "todos": {
+    "posts": {
       "type": "hasMany",
-      "model": "Todo",
+      "model": "post",
       "foreignKey": "ownerId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": [
+        "create",
+        "upsert"
+      ]
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": [
+        "getRolesById"
+      ]
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": [
+        "create",
+        "updateAttributes",
+        "resetPassword",
+        "deleteById"
+      ]
+    }
+  ],
   "methods": {}
 }

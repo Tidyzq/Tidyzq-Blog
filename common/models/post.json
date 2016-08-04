@@ -1,30 +1,55 @@
 {
-  "name": "todo",
+  "name": "post",
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
-    "content": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "id": true
+    },
+    "url": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "default": "draft"
+    },
+    "markdown": {
       "type": "string",
       "required": true
     },
-    "createdDate": {
+    "html": {
+      "type": "string"
+    },
+    "createdAt": {
       "type": "date"
     },
-    "modifiedDate": {
+    "updatedAt": {
       "type": "date"
     },
-    "ownerId": {
-      "type": {
-        "required": true
-      }
+    "authorId": {
+      "type": "Number",
+      "required": true
+    },
+    "updatedBy": {
+      "type": "Number"
     }
   },
   "validations": [],
   "relations": {
-    "owner": {
+    "author": {
       "type": "belongsTo",
       "model": "user",
-      "foreignKey": "ownerId"
+      "foreignKey": "authorId"
+    },
+    "updater": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "updatedBy"
     }
   },
   "acls": [
@@ -42,8 +67,7 @@
         "find",
         "findById",
         "exists",
-        "count",
-        "__get__user"
+        "count"
       ]
     },
     {

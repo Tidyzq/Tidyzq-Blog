@@ -1,14 +1,45 @@
 'use strict'
 angular
   .module \app <[ lbServices ui.router app.services ]>
-  .config ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) !->
+  .config ['$stateProvider', '$urlRouterProvider' '$locationProvider', ($state-provider, $url-router-provider, $location-provider) !->
 
-    $stateProvider
-      .state \todo {
-        url: ''
-        templateUrl: 'views/todo.html'
-        controller: 'TodoController'
+    $location-provider.html5-mode true
+
+    $state-provider
+      .state 'app' {
+          abstract: true
+      }
+      .state 'app.todos' {
+        url: '/'
+        views:
+          'content@app':
+            template-url: '/views/todo.html'
+            controller: 'TodoController as vm'
+        resolve:
+          dataSource: (Todo) ->
+            ->
+              Todo
+                .find filter:
+                  include: 'owner'
+                .$promise
+      }
+      .state 'app.todo-detail' {
+        url: '/:id'
+        views:
+          'content@app':
+            template-url: '/views/todo-detail.html'
+            controller: 'TodoDetailController as vm'
+        resolve:
+          dataSource: (Todo, $state-params) ->
+            ->
+              Todo
+                .findById {
+                  id: $state-params.id
+                  filter:
+                    include: 'owner'
+                }
+                .$promise
       }
 
-    $urlRouterProvider .otherwise \todo
+    $url-router-provider .otherwise \todos
   ]

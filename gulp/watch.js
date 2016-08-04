@@ -17,11 +17,11 @@ gulp.task('clean', function (cb) {
 
 gulp.task('watch', ['inject'], function () {
     gulp.watch([
-        path.join(conf.paths.src, '/*.html'),
-        path.join(conf.paths.src, '/*.jade'),
+        path.join(conf.paths.src, '/**/*.html'),
+        path.join(conf.paths.src, '/**/*.jade'),
         'bower.json'
     ], function (event) {
-        gulp.start('htmls-inject-reload');
+        gulp.start('htmls-reload');
     });
 
     gulp.watch([
@@ -45,15 +45,6 @@ gulp.task('watch', ['inject'], function () {
         } else {
             gulp.start('inject-reload');
         }
-    });
-
-    gulp.watch([
-        path.join(conf.paths.src, '/**/*.jade'),
-        path.join(conf.paths.src, '/**/*.html'),
-        '!' + path.join(conf.paths.src, '/*.jade'),
-        '!' + path.join(conf.paths.src, '/*.html')
-    ], function (event) {
-        gulp.start('htmls-reload');
     });
 
     gulp.watch([

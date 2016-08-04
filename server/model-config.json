@@ -27,16 +27,21 @@
     "dataSource": "db",
     "public": false
   },
-  "todo": {
+  "post": {
     "dataSource": "db",
     "public": true,
     "faker": {
       "count": 20,
       "properties": {
-        "content": "lorem.sentence",
-        "ownerId": ["random.number", {"min": 1, "max": 5}]
+        "title": "name.title",
+        "markdown": ["fake", "> {{lorem.sentence}}"],
+        "authorId": ["random.number", {"min": 1, "max": 5}]
       }
     }
+  },
+  "page": {
+    "dataSource": "memory",
+    "public": true
   },
   "user": {
     "dataSource": "db",

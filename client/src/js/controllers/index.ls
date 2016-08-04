@@ -10,7 +10,7 @@ index-controller = ($scope, Auth, User) !->
   sign-in-success = (response) !->
     # console.log response
     vm.sign-in-user = {}
-    $scope.sign-in-form.$setPristine()
+    $scope.sign-in-form.$set-pristine()
     # vm.current-user = response.user
     $('#sign-in').modal('hide')
 
@@ -29,7 +29,7 @@ index-controller = ($scope, Auth, User) !->
     vm.sign-in-user.username = vm.sign-up-user.username
     # clear sign-up-user
     vm.sign-up-user = {}
-    $scope.sign-up-form.$setPristine()
+    $scope.sign-up-form.$set-pristine()
     # close sign up form
     $('#sign-up').modal('hide')
     # open sign in form
@@ -44,7 +44,7 @@ index-controller = ($scope, Auth, User) !->
 
   vm.sign-up = ->
     vm.hide-sign-up-fail-msg!
-    sign-up-user = _.cloneDeep(vm.sign-up-user)
+    sign-up-user = _.clone-deep(vm.sign-up-user)
     delete sign-up-user.rpassword
     User
       .create sign-up-user

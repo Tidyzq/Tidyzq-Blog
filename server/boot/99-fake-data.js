@@ -12,6 +12,9 @@ module.exports = function(app, done) {
     return;
   }
 
+  // getting child objects using dot expression
+  // for example:
+  // getDescendantProp(a, 'b.c') === a.b.c
   function getDescendantProp(obj, desc) {
     var arr = desc.split(".");
     while(arr.length && (obj = obj[arr.shift()]));
@@ -25,16 +28,20 @@ module.exports = function(app, done) {
       var methodDef = properties[property],
           fakeMethod;
       if (methodDef) {
-        log(methodDef);
+        // log(methodDef);
+
+        // if defintion is a string
         if (typeof methodDef === 'string') {
           fakeMethod = getDescendantProp(faker, methodDef);
+        // if defintion is an array
+        // bind method with given arguments
         } else if (typeof methodDef === 'object' && Array.isArray(methodDef) && methodDef[0]) {
           var method = getDescendantProp(faker, methodDef[0]),
               args = [null];
           for (var i = 1; i < methodDef.length; ++i) {
             args.push(methodDef[i]);
           }
-          fakeMethod = Function.prototype.bind.apply(method, args);
+          fakeMethod = Function.prototype.bind.apply(method, args); // bind arguments
         }
       }
       structure[property] = fakeMethod;
@@ -62,7 +69,7 @@ module.exports = function(app, done) {
         if (err) {
           reject('Error on fakeModel: ' + err);
         } else {
-          log('created data:', models);
+          log('created ' + model.definition.name + ':', models);
           resolve();
         }
       });

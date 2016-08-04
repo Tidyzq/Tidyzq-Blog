@@ -1,0 +1,13 @@
+h1 Todo detail
+hr
+form.form-horizontal
+  .form-group
+    label.col-sm-2.control-label Content
+    .col-sm-10
+      p.form-control-static {{ vm.todo.content }}
+  .form-group
+    label.col-sm-2.control-label Owner
+    .col-sm-10
+      p.form-control-static.text-muted {{ vm.todo.owner.username }}
+  button.btn.btn-danger(type="button", ng-click="vm.delete()") Delete
+

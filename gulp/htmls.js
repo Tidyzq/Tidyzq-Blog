@@ -9,9 +9,8 @@ var browserSync = require('browser-sync');
 
 var $ = require('gulp-load-plugins')();
 
-gulp.task('htmls-reload', function() {
-  return merge(buildJade(), copyHtml())
-    .pipe(browserSync.stream());
+gulp.task('htmls-reload', ['htmls'], function() {
+  return gulp.start('inject-reload');
 });
 
 gulp.task('htmls', ['htmls:build', 'htmls:copy']);

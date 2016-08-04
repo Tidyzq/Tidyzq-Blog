@@ -11,11 +11,6 @@ var _ = require('lodash');
 
 var browserSync = require('browser-sync');
 
-gulp.task('htmls-inject-reload', ['htmls'], function() {
-    return buildInjection()
-        .pipe(browserSync.stream());
-});
-
 gulp.task('inject-reload', function() {
     return buildInjection()
         .pipe(browserSync.stream());

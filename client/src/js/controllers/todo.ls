@@ -1,34 +1,32 @@
-todo-controller = ($scope, $state, Todo, LoopBackAuth) !->
+todo-controller = (dataSource, $scope, $state, Todo, LoopBackAuth) !->
 
-  $scope.todos = []
+  vm = @
+  vm.todos = []
 
-  get-todos = !->
-    Todo
-      .find filter:
-          include: 'owner'
-      .$promise
+  vm.get-todos = !->
+    dataSource!
       .then (results) !->
-        $scope.todos = results
+        vm.todos = results
 
-  $scope.addTodo = !->
+  vm.addTodo = !->
     Todo
-      .create $scope.new-todo
+      .create vm.new-todo
       .$promise
       .then (todo) !->
-        $scope.new-todo = ''
-        $scope.todo-from.content.$set-pristine!
+        vm.new-todo = ''
+        $scope.todo-form.$set-pristine!
         $('.focus').focus!
-        get-todos!
+        vm.get-todos!
 
-  $scope.remove-todo = (item) !->
+  vm.remove-todo = (item) !->
     Todo
       .delete-by-id item
       .$promise
       .then !->
-        get-todos!
+        vm.get-todos!
 
-  get-todos!
+  vm.get-todos!
 
 angular
   .module \app
-  .controller 'TodoController', ['$scope', '$state', 'Todo', 'LoopBackAuth', todo-controller]
+  .controller 'TodoController', todo-controller

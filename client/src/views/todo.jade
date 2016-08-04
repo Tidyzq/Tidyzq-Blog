@@ -1,13 +1,13 @@
 h1 Todo list
 hr
-form(name="todoForm", novalidate, ng-submit="addTodo()")
+form(name="todoForm", novalidate, ng-submit="vm.addTodo()")
   .form-group(ng-class="{'has-error': todoForm.content.$invalid && todoForm.content.$dirty}")
     input.form-control.focus(type="text", name="content", placeholder="Content",
-    autocomplete="off", required, ng-model="newTodo.content")
+    autocomplete="off", required, ng-model="vm.newTodo.content")
     span.has-error.control-label(ng-show="todoForm.content.$invalid && todoForm.content.$dirty") Content is required.
   button.btn.btn-default(ng-disabled="todoForm.$invalid") Add
 hr
 .list-group
-  a.list-group-item(ng-repeat="todo in todos") {{todo.content}}&nbsp;
+  a.list-group-item(ng-repeat="todo in vm.todos", ui-sref="app.todo-detail({ id: todo.id })") {{ todo.content }}&nbsp;
     span.text-muted {{ todo.owner.username }}
-    i.glyphicon.glyphicon-remove.pull-right(ng-click="removeTodo(todo)")
+    i.glyphicon.glyphicon-remove.pull-right(ng-click="vm.removeTodo(todo)")
