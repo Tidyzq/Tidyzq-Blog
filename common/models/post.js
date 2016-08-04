@@ -1,149 +1,95 @@
 var _ = require('lodash');
-var marked = require('marked');
-var katex = require('katex');
-
-marked.setOptions({
-  math: function(text) {
-    try {
-      return katex.renderToString(text, { displayMode: true });
-    } catch (error) {
-      return error.message;
-    }
-  },
-  inlineMath: function(text) {
-    try {
-      return katex.renderToString(text, { displayMode: false });
-    } catch (error) {
-      return error.message;
-    }
-  }
-});
+var utils = require('loopback/lib/utils');
+var overrideRemoteMethod = require('../utils/override-remote-method');
 
 module.exports = function(Post) {
 
   var disabledMethods = [
-    { name: 'createChangeStream', isStatic: true }
+    { name: 'createChangeStream', isStatic: true },
+    { name: 'create',             isStatic: true },
+    { name: 'createMany',         isStatic: true },
+    { name: 'deleteById',         isStatic: true },
+    { name: 'updateAttribute',    isStatic: true },
+    { name: 'updateAttributes',   isStatic: false },
+    { name: 'updateAll',          isStatic: true },
+    { name: 'upsert',             isStatic: true }
   ];
 
-  // var readOnlyProperties = [
-  //   'html',
-  //   'status',
-  //   'authorId',
-  //   'updatedBy',
-  //   'createdAt',
-  //   'updatedAt'
-  // ];
-
+  // disable remote methods
   disabledMethods.forEach(function (method) {
     Post.disableRemoteMethod(method.name, method.isStatic);
   });
 
-  // set author id
-  Post.beforeRemote('create', function(context, modelInstance, next) {
-    // console.log(context.args);
-    context.args.data.authorId = context.req.accessToken.userId;
-    next();
-  });
-
-  // // set updater id
-  // Post.beforeRemote('create', function(context, modelInstance, next) {
-  //   // console.log(context.args);
-  //   context.args.data.authorId = context.req.accessToken.userId;
-  //   next();
-  // });
-
-  var $now = function() {
-    return new Date();
+  var isPost = {
+    status: 'published',
+    isPage: false
   };
 
-  // set default value for date
-  Post.definition.rawProperties.createdAt.default = $now;
-  Post.definition.properties.createdAt.default = $now;
-  Post.definition.rawProperties.updatedAt.default = $now;
-  Post.definition.properties.updatedAt.default = $now;
+  // override build-in find
+  Post.remoteFind = function (filter, callback) {
+    var Document = Post.app.models.document;
+    filter = _.extend(filter, {
+      where: isPost
+    });
+    return Document.find(filter, callback);
+  };
 
-  // set create date and modified date
-  Post.observe('before save', function(context, next) {
-    // console.log('isNewInstance:', context.isNewInstance);
-    if (context.isNewInstance) {
-      context.instance.html = marked(context.instance.markdown);
+  // override build-in findOne
+  Post.remoteFindOne = function (filter, callback) {
+    var Document = Post.app.models.document;
+    filter = _.extend(filter, {
+      where: isPost
+    });
+    return Document.findOne(filter, callback);
+  };
 
-      if (!context.instance.url) {
-        context.instance.url = encodeURI(context.instance.title);
+  // override build-in findById
+  Post.remoteFindById = function (id, filter, callback) {
+    callback = callback || utils.createPromiseCallback();
+    var Document = Post.app.models.document;
+    Document.findById(id, filter, function(err, post) {
+      if (!err && _.isMatch(post, isPost)) {
+        callback(null, post);
+      } else {
+        var err1 = new Error('Unknown "post" id "' + id + '".');
+        err1.statusCode = 404;
+        err1.code = 'MODEL_NOT_FOUND';
+        callback(err || err1);
       }
+    });
+    return callback.promise;
+  };
 
-    } else {
-      // context.data = _.omit(context.data, readOnlyProperties);
+  // override build-in count
+  Post.remoteCount = function (where, callback) {
+    var Document = Post.app.models.document;
+    where = _.extend(where, isPost);
+    return Document.count(where, callback);
+  };
 
-      // context.data.modifiedDate = new Date();
-      if (context.data) {
-        context.data.html = marked(context.data.markdown);
+  // override build-in exists
+  Post.remoteExists = function (id, callback) {
+    callback = callback || utils.createPromiseCallback();
+    var Document = Post.app.models.document;
+    Document.findById(id, {}, function(err, post) {
+      if (!err && _.isMatch(post, isPost)) {
+        callback(null, true);
+      } else {
+        callback(err, false);
       }
-    }
-    next();
+    });
+    return callback.promise;
+  };
+
+  // override build in methods
+  Post.on('attached',function () {
+
+    overrideRemoteMethod(Post, 'find', Post.remoteFind);
+    overrideRemoteMethod(Post, 'findOne', Post.remoteFindOne);
+    overrideRemoteMethod(Post, 'findById', Post.remoteFindById);
+    overrideRemoteMethod(Post, 'count', Post.remoteCount);
+    overrideRemoteMethod(Post, 'exists', Post.remoteExists);
+
   });
-
-  // override find method
-  Post.findAll = Post.find;
-  Post.find = function (filter, cb) {
-    _.extend(filter, {
-      where: {
-        status: 'published',
-        isPage: false
-      }
-    });
-    return Post.findAll(filter, cb);
-  }
-
-  Post.remoteMethod(
-    'findAll',
-    {
-      description: 'Find all posts include drafts and pages',
-      accepts: {arg: 'filter', type: 'object', http: {source: 'query'}},
-      http: {path: '/all', verb: 'get'},
-      returns: {root:true, type: 'object'}
-    }
-  );
-
-  Post.publish = function (credentials, cb) {
-    var Page = User.app.models.Page;
-    Post.updateAttribute({
-      id: credentials.id,
-      status: 'published'
-    }, function(err, post) {
-      cb(err, post);
-    });
-  }
-
-  Post.remoteMethod(
-    'publish',
-    {
-      description: 'Publish a post',
-      accepts: {arg: 'credentials', type: 'object', required: true, http: {source: 'body'}},
-      http: {path: '/publish', verb: 'post'},
-      returns: {root:true, type: 'object'}
-    }
-  );
-
-  Post.unpublish = function (credentials, cb) {
-    var Page = User.app.models.Page;
-    Post.updateAttribute({
-      id: credentials.id,
-      status: 'draft'
-    }, function(err, post) {
-      cb(err, post);
-    });
-  }
-
-  Post.remoteMethod(
-    'unpublish',
-    {
-      description: 'Unpublish a post',
-      accepts: {arg: 'credentials', type: 'object', required: true, http: {source: 'body'}},
-      http: {path: '/unpublish', verb: 'post'},
-      returns: {root:true, type: 'object'}
-    }
-  );
-
 
 };

@@ -2,61 +2,14 @@
   "name": "post",
   "base": "PersistedModel",
   "idInjection": true,
-  "properties": {
-    "title": {
-      "type": "string",
-      "required": true,
-      "id": true
-    },
-    "url": {
-      "type": "string"
-    },
-    "image": {
-      "type": "string"
-    },
-    "status": {
-      "type": "string",
-      "default": "draft"
-    },
-    "markdown": {
-      "type": "string",
-      "required": true
-    },
-    "html": {
-      "type": "string"
-    },
-    "createdAt": {
-      "type": "date"
-    },
-    "updatedAt": {
-      "type": "date"
-    },
-    "authorId": {
-      "type": "Number",
-      "required": true
-    },
-    "updatedBy": {
-      "type": "Number"
-    }
-  },
+  "properties": {},
   "validations": [],
-  "relations": {
-    "author": {
-      "type": "belongsTo",
-      "model": "user",
-      "foreignKey": "authorId"
-    },
-    "updater": {
-      "type": "belongsTo",
-      "model": "user",
-      "foreignKey": "updatedBy"
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "principalType": "ROLE",
       "principalId": "$everyone",
-      "permission": "DENY"
+      "permission": "ALLOW"
     },
     {
       "accessType": "EXECUTE",
@@ -68,37 +21,6 @@
         "findById",
         "exists",
         "count"
-      ]
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "create"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW",
-      "property": [
-        "deleteById",
-        "updateAttributes",
-        "updateAll",
-        "upsert"
-      ]
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "admin",
-      "permission": "ALLOW",
-      "property": [
-        "deleteById",
-        "updateAttributes",
-        "updateAll",
-        "upsert"
       ]
     }
   ],

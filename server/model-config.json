@@ -27,7 +27,7 @@
     "dataSource": "db",
     "public": false
   },
-  "post": {
+  "document": {
     "dataSource": "db",
     "public": true,
     "faker": {
@@ -35,9 +35,15 @@
       "properties": {
         "title": "name.title",
         "markdown": ["fake", "> {{lorem.sentence}}"],
-        "authorId": ["random.number", {"min": 1, "max": 5}]
+        "authorId": ["random.number", {"min": 1, "max": 5}],
+        "status": ["random.arrayElement", ["published", "draft"]],
+        "isPage": "random.boolean"
       }
     }
+  },
+  "post": {
+    "dataSource": "memory",
+    "public": true
   },
   "page": {
     "dataSource": "memory",
