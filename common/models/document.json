@@ -1,7 +1,6 @@
 {
   "name": "document",
   "base": "PersistedModel",
-  "idInjection": true,
   "properties": {
     "title": {
       "type": "string",
@@ -49,6 +48,10 @@
       "type": "belongsTo",
       "model": "user",
       "foreignKey": "updatedBy"
+    },
+    "tags": {
+      "type": "hasAndBelongsToMany",
+      "model": "tag"
     }
   },
   "acls": [

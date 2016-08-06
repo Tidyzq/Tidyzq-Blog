@@ -12,7 +12,9 @@ module.exports = function(Page) {
     { name: 'updateAttribute',    isStatic: true },
     { name: 'updateAttributes',   isStatic: false },
     { name: 'updateAll',          isStatic: true },
-    { name: 'upsert',             isStatic: true }
+    { name: 'upsert',             isStatic: true },
+    { name: 'findById',           isStatic: true },
+    { name: 'exists',             isStatic: true }
   ];
 
   // disable remote methods
@@ -22,7 +24,7 @@ module.exports = function(Page) {
 
   var isPage = {
     status: 'published',
-    isPage: true
+    isPage: false
   };
 
   // override build-in find
@@ -38,26 +40,9 @@ module.exports = function(Page) {
   Page.remoteFindOne = function (filter, callback) {
     var Document = Page.app.models.document;
     filter = _.extend(filter, {
-      where: isPage
+      where: _.extend(filter.where, isPage)
     });
     return Document.findOne(filter, callback);
-  };
-
-  // override build-in findById
-  Page.remoteFindById = function (id, filter, callback) {
-    callback = callback || utils.createPromiseCallback();
-    var Document = Page.app.models.document;
-    Document.findById(id, filter, function(err, post) {
-      if (!err && _.isMatch(post, isPage)) {
-        callback(null, post);
-      } else {
-        var err1 = new Error('Unknown "post" id "' + id + '".');
-        err1.statusCode = 404;
-        err1.code = 'MODEL_NOT_FOUND';
-        callback(err || err1);
-      }
-    });
-    return callback.promise;
   };
 
   // override build-in count
@@ -67,29 +52,96 @@ module.exports = function(Page) {
     return Document.count(where, callback);
   };
 
-  // override build-in exists
-  Page.remoteExists = function (id, callback) {
-    callback = callback || utils.createPromiseCallback();
-    var Document = Page.app.models.document;
-    Document.findById(id, {}, function(err, post) {
-      if (!err && _.isMatch(post, isPage)) {
-        callback(null, true);
-      } else {
-        callback(err, false);
-      }
-    });
-    return callback.promise;
-  };
-
   // override build in methods
   Page.on('attached',function () {
 
     overrideRemoteMethod(Page, 'find', Page.remoteFind);
     overrideRemoteMethod(Page, 'findOne', Page.remoteFindOne);
-    overrideRemoteMethod(Page, 'findById', Page.remoteFindById);
     overrideRemoteMethod(Page, 'count', Page.remoteCount);
-    overrideRemoteMethod(Page, 'exists', Page.remoteExists);
 
   });
+
+  // find by url
+  Page.findByUrl = function(url, filter, callback) {
+    callback = callback || utils.createPromiseCallback();
+    filter = _.extend(filter, {
+      where: {
+        url: url
+      }
+    });
+    Page.remoteFindOne(filter, function (err, result) {
+      if (!err && result) {
+        callback(null, result);
+      } else {
+        var err1 = new Error('Unknown "page" url "' + url + '".');
+        err1.statusCode = 404;
+        err1.code = 'MODEL_NOT_FOUND';
+        callback(err || err1);
+      }
+    })
+    return callback.promise;
+  };
+
+  Page.remoteMethod(
+    'findByUrl',
+    {
+      description: 'Find a model instance by url from the data source.',
+      accepts: [
+        {arg: 'url', type: 'string', required: true},
+        {arg: 'filter', type: 'object', http: {source: 'query'}}
+      ],
+      http: {path: '/:url', verb: 'get'},
+      returns: {root: true, type: 'object'}
+    }
+  );
+
+  // exists by url
+  Page.existsByUrl = function (url, callback) {
+    callback = callback || utils.createPromiseCallback();
+    var filter = {
+      where: {
+        url: url
+      }
+    };
+    Page.remoteFindOne(filter, function (err, result) {
+      callback(err, !!result);
+    });
+    return callback.promise;
+  };
+
+  Page.remoteMethod(
+    'existsByUrl',
+    {
+      description: 'Check whether a model instance exists in the data source.',
+      accepts: [
+        {arg: 'url', type: 'string', description:'Model url.', required: true}
+      ],
+      http: [
+        {path: '/:url/exists', verb: 'get'},
+        {path: '/:url', verb: 'head'}
+      ],
+      returns: {arg: 'exists', type: 'boolean'},
+      rest: {
+        // After hook to map exists to 200/404 for HEAD
+        after: function(ctx, cb) {
+          if (ctx.req.method === 'GET') {
+            // For GET, return {exists: true|false} as is
+            return cb();
+          }
+          if (!ctx.result.exists) {
+            var modelName = ctx.method.sharedClass.name;
+            var id = ctx.getArgByName('id');
+            var msg = 'Unknown "' + modelName + '" id "' + id + '".';
+            var error = new Error(msg);
+            error.statusCode = error.status = 404;
+            error.code = 'MODEL_NOT_FOUND';
+            cb(error);
+          } else {
+            cb();
+          }
+        }
+      }
+    }
+  );
 
 };

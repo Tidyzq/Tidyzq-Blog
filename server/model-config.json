@@ -16,28 +16,54 @@
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "dev",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "dev",
     "public": false
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "dev",
     "public": false
   },
   "document": {
-    "dataSource": "db",
+    "dataSource": "dev",
     "public": true,
     "faker": {
       "count": 20,
       "properties": {
         "title": "name.title",
-        "markdown": ["fake", "> {{lorem.sentence}}"],
-        "authorId": ["random.number", {"min": 1, "max": 5}],
-        "status": ["random.arrayElement", ["published", "draft"]],
+        "markdown": [
+          "fake",
+          "> {{lorem.sentence}}"
+        ],
+        "authorId": [
+          "random.number",
+          {
+            "min": 1,
+            "max": 5
+          }
+        ],
+        "status": [
+          "random.arrayElement",
+          [
+            "published",
+            "draft"
+          ]
+        ],
         "isPage": "random.boolean"
+      }
+    }
+  },
+  "tag": {
+    "dataSource": "dev",
+    "public": true,
+    "faker": {
+      "count": 10,
+      "properties": {
+        "name": "name.title",
+        "image": "image.image"
       }
     }
   },
@@ -50,7 +76,7 @@
     "public": true
   },
   "user": {
-    "dataSource": "db",
+    "dataSource": "dev",
     "public": true,
     "faker": {
       "count": 5,
@@ -62,7 +88,7 @@
     }
   },
   "setting": {
-    "dataSource": "db",
+    "dataSource": "dev",
     "public": true
   }
 }

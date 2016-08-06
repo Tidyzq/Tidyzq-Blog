@@ -3,10 +3,14 @@
     "name": "memory",
     "connector": "memory"
   },
-  "db": {
-    "name": "db",
-    "connector": "sqlite",
-    "file_name": "storage/data.db",
-    "debug": false
+  "dev": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "blog",
+    "password": "",
+    "name": "dev",
+    "user": "",
+    "connector": "mongodb"
   }
 }

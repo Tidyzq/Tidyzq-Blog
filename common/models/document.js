@@ -1,25 +1,12 @@
 var _ = require('lodash');
-var marked = require('marked');
-var katex = require('katex');
-
-marked.setOptions({
-  math: function(text) {
-    try {
-      return katex.renderToString(text, { displayMode: true });
-    } catch (error) {
-      return error.message;
-    }
-  },
-  inlineMath: function(text) {
-    try {
-      return katex.renderToString(text, { displayMode: false });
-    } catch (error) {
-      return error.message;
-    }
-  }
-});
+var utils = require('loopback/lib/utils');
+var marked = require('../utils/render-markdown');
+var generateUrl = require('../utils/generate-url');
 
 module.exports = function(Document) {
+
+  // set unique constraint for url field
+  Document.validatesUniquenessOf('url');
 
   var disabledMethods = [
     { name: 'createChangeStream', isStatic: true }
@@ -56,12 +43,18 @@ module.exports = function(Document) {
 
   // set create date and modified date
   Document.observe('before save', function(context, next) {
+    var wait = false;
     if (context.isNewInstance) {
       context.instance.html = marked(context.instance.markdown);
 
       // if url not set
       if (!context.instance.url) {
-        context.instance.url = encodeURI(context.instance.title);
+        wait = true;
+        generateUrl(Document, context.instance.title)
+          .then(function (url) {
+            context.instance.url = url;
+            next();
+          }, console.error);
       }
 
     } else {
@@ -70,7 +63,7 @@ module.exports = function(Document) {
         context.data.html = marked(context.data.markdown);
       }
     }
-    next();
+    if (!wait) next();
   });
 
   Document.publish = function (credentials, cb) {
@@ -113,5 +106,36 @@ module.exports = function(Document) {
     }
   );
 
+  Document.findByUrl = function (url, filter, callback) {
+    callback = callback || utils.createPromiseCallback();
+    filter = _.extend(filter, {
+      where: {
+        url: url
+      }
+    });
+    Document.findOne(filter, function (err, result) {
+      if (!err && result) {
+        callback(null, result);
+      } else {
+        var err1 = new Error('Unknown "document" url "' + url + '".');
+        err1.statusCode = 404;
+        err1.code = 'MODEL_NOT_FOUND';
+        callback(err || err1);
+      }
+    });
+    return callback.promise;
+  };
 
+  Document.remoteMethod(
+    'findByUrl',
+    {
+      description: 'Find a model instance by url from the data source.',
+      accepts: [
+        {arg: 'url', type: 'string', required: true},
+        {arg: 'filter', type: 'object', http: {source: 'query'}}
+      ],
+      http: {path: '/url/:url', verb: 'get'},
+      returns: {root: true, type: 'object'}
+    }
+  );
 };

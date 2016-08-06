@@ -17,11 +17,11 @@
     "katex": "^0.6.0",
     "loopback": "^2.14.0",
     "loopback-boot": "^2.6.5",
-    "loopback-connector-sqlite": "^1.4.5",
+    "loopback-connector-mongodb": "^1.15.2",
     "loopback-datasource-juggler": "^2.19.0",
     "marked": "git@github.com:Tidyzq/marked.git",
     "serve-favicon": "^2.0.1",
-    "sqlite": "^2.2.0"
+    "unidecode": "^0.1.8"
   },
   "optionalDependencies": {
     "loopback-component-explorer": "^2.1.0"

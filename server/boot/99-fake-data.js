@@ -67,7 +67,11 @@ module.exports = function(app, done) {
 
       model.create(data, function(err, models) {
         if (err) {
-          reject('Error on fakeModel: ' + err);
+          if (Array.isArray(err) && err.every(function (e) { return !e || e.code === 11000 })) {
+            resolve();
+          } else {
+            reject('Error on fakeModel: ' + err);
+          }
         } else {
           log('created ' + model.definition.name + ':', models);
           resolve();

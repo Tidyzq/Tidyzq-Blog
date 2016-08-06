@@ -1,0 +1,32 @@
+{
+  "name": "tag",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "documents": {
+      "type": "hasAndBelongsToMany",
+      "model": "document"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
