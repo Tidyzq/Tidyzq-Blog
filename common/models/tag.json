@@ -11,7 +11,9 @@
       "required": true
     },
     "url": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "index": {"unique": true}
     },
     "description": {
       "type": "string"

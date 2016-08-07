@@ -5,8 +5,9 @@ var generateUrl = require('../utils/generate-url');
 
 module.exports = function(Document) {
 
-  // set unique constraint for url field
-  Document.validatesUniquenessOf('url');
+  Document.validatesInclusionOf('status', {
+    in: ['published', 'draft']
+  });
 
   var disabledMethods = [
     { name: 'createChangeStream', isStatic: true }
@@ -66,15 +67,15 @@ module.exports = function(Document) {
     if (!wait) next();
   });
 
-  Document.publish = function (credentials, cb) {
-    var Page = User.app.models.Page;
-    Document.updateAttribute({
-      id: credentials.id,
+  Document.prototype.publish = function (cb) {
+    cb = cb || utils.createPromiseCallback();
+    this.updateAttribute({
       status: 'published'
-    }, function(err, post) {
-      cb(err, post);
+    }, function(err, result) {
+      cb(err, result);
     });
-  }
+    return cb.promise;
+  };
 
   Document.remoteMethod(
     'publish',
@@ -82,19 +83,20 @@ module.exports = function(Document) {
       description: 'Publish a post',
       accepts: {arg: 'credentials', type: 'object', required: true, http: {source: 'body'}},
       http: {path: '/publish', verb: 'post'},
-      returns: {root:true, type: 'object'}
+      returns: {root: true, type: 'object'},
+      isStatic: false
     }
   );
 
-  Document.unpublish = function (credentials, cb) {
-    var Page = User.app.models.Page;
-    Document.updateAttribute({
-      id: credentials.id,
+  Document.prototype.unpublish = function (cb) {
+    cb = cb || utils.createPromiseCallback();
+    this.updateAttribute({
       status: 'draft'
-    }, function(err, post) {
-      cb(err, post);
+    }, function(err, result) {
+      cb(err, result);
     });
-  }
+    return cb.promise;
+  };
 
   Document.remoteMethod(
     'unpublish',
@@ -102,7 +104,8 @@ module.exports = function(Document) {
       description: 'Unpublish a post',
       accepts: {arg: 'credentials', type: 'object', required: true, http: {source: 'body'}},
       http: {path: '/unpublish', verb: 'post'},
-      returns: {root:true, type: 'object'}
+      returns: {root: true, type: 'object'},
+      isStatic: false
     }
   );
 

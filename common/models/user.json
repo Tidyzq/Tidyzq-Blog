@@ -8,10 +8,10 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "posts": {
+    "documents": {
       "type": "hasMany",
-      "model": "post",
-      "foreignKey": "ownerId"
+      "model": "document",
+      "foreignKey": "authorId"
     }
   },
   "acls": [
@@ -28,10 +28,17 @@
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
-      "principalId": "$everyone",
+      "principalId": "$owner",
       "permission": "ALLOW",
       "property": [
-        "getRolesById"
+        "getRolesById",
+        "__get__documents",
+        "__create__documents",
+        "__delete__documents",
+        "__findById__documents",
+        "__updateById__documents",
+        "__destroyById__documents",
+        "__count__documents"
       ]
     },
     {
@@ -40,10 +47,22 @@
       "principalId": "admin",
       "permission": "ALLOW",
       "property": [
+        "find",
+        "findById",
         "create",
         "updateAttributes",
         "resetPassword",
-        "deleteById"
+        "deleteById",
+        "getRolesById",
+        "addRolesById",
+        "deleteRoleById",
+        "__get__documents",
+        "__create__documents",
+        "__delete__documents",
+        "__findById__documents",
+        "__updateById__documents",
+        "__destroyById__documents",
+        "__count__documents"
       ]
     }
   ],

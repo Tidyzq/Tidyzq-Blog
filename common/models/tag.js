@@ -4,8 +4,6 @@ var _ = require('lodash');
 
 module.exports = function(Tag) {
 
-  Tag.validatesUniquenessOf('url');
-
   var disabledMethods = [
 
   ];

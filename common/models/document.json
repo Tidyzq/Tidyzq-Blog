@@ -11,7 +11,9 @@
       "default": false
     },
     "url": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "index": {"unique": true}
     },
     "image": {
       "type": "string"
@@ -58,26 +60,19 @@
     {
       "principalType": "ROLE",
       "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": [
-        "find",
-        "findById",
-        "exists",
-        "count"
-      ]
+      "permission": "DENY"
     },
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "create"
+      "property": [
+        "create",
+        "find",
+        "findById",
+        "findAll"
+      ]
     },
     {
       "accessType": "EXECUTE",
@@ -88,21 +83,25 @@
         "deleteById",
         "updateAttributes",
         "updateAll",
-        "upsert"
+        "upsert",
+        "publish",
+        "unpublish"
       ]
     },
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "admin",
-      "permission": "ALLOW",
-      "property": [
-        "deleteById",
-        "updateAttributes",
-        "updateAll",
-        "upsert"
-      ]
+      "permission": "ALLOW"
     }
   ],
-  "methods": {}
+  "methods": {},
+  "indexes": {
+    "isPage_status_index": {
+      "keys": {
+        "isPage": 1,
+        "status": 1
+      }
+    }
+  }
 }

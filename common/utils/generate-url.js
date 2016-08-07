@@ -46,10 +46,14 @@ module.exports = function (model, title) {
           url: (postfix ? url + '-' + postfix : url)
         }
       }, function (err, results) {
-        err ? reject(err) : resolve(results.length);
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results.length);
+        }
       });
     });
-  }
+  };
 
   var recursion = function () {
     return findUrl()
@@ -64,4 +68,4 @@ module.exports = function (model, title) {
   };
 
   return recursion();
-}
+};

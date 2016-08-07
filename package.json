@@ -7,7 +7,7 @@
     "pretest": "jshint .",
     "postinstall": "bower install",
     "start": "node .",
-    "test": "mocha tests/**/*test.js"
+    "test": "INIT=1 mocha tests/**/*.test.js"
   },
   "dependencies": {
     "compression": "^1.0.3",

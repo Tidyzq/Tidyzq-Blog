@@ -36,7 +36,7 @@ module.exports = function(app, done) {
         model.dataSource.autoupdate(model, function(err, result) {
           if (err) {
             console.error('Error on autoUpdateModel:', err);
-            throw err
+            throw err;
           } else {
             return result;
           }
@@ -44,7 +44,7 @@ module.exports = function(app, done) {
       } else { // don't need update
         log(model.definition.name + ' is already up to date');
       }
-    })
+    });
   }
 
   function initModel(model) {

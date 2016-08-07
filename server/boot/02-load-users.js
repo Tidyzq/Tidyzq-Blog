@@ -42,8 +42,11 @@ module.exports = function(app, done) {
           if (err) {
             reject('Error on createRole: ' + err);
           } else {
-            created ? log('creating role: ' + roleName)
-                    : log('found role: ' + roleName);
+            if (created) {
+              log('creating role: ' + roleName);
+            } else {
+              log('found role: ' + roleName);
+            }
 
             var promises = [];
             users.forEach(function(user) {
@@ -66,8 +69,11 @@ module.exports = function(app, done) {
           if (err) {
             reject('Error on createUser: ' + err);
           } else {
-            created ? log('creating user: ' + user.username)
-                    : log('found user: ' + user.username);
+            if (created) {
+              log('creating user: ' + user.username);
+            } else {
+              log('found user: ' + user.username);
+            }
 
             createPrincipal(role, createdUser)
               .then(resolve, reject);
@@ -92,8 +98,11 @@ module.exports = function(app, done) {
         if (err) {
           reject('Error on createPrincipal: ' + err);
         } else {
-          created ? log('creating principal: ' + user.username + ' => ' + role.name)
-                  : log('found principal: ' + user.username + ' => ' + role.name);
+          if (created) {
+            log('creating principal: ' + user.username + ' => ' + role.name);
+          } else {
+            log('found principal: ' + user.username + ' => ' + role.name);
+          }
           resolve();
         }
       });

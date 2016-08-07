@@ -78,7 +78,7 @@ module.exports = function(Page) {
         err1.code = 'MODEL_NOT_FOUND';
         callback(err || err1);
       }
-    })
+    });
     return callback.promise;
   };
 

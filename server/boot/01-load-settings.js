@@ -32,7 +32,7 @@ module.exports = function(app, done) {
         promises.push(new Promise(function (resolve, reject) {
           Setting.create(setting, function(err) {
             if (err) {
-              reject('Error on initSettings: ' + err)
+              reject('Error on initSettings: ' + err);
             } else {
               resolve();
             }
@@ -68,10 +68,10 @@ module.exports = function(app, done) {
       } else {
         if (result) {
           loadSettings()
-            .then(resolve, reject)
+            .then(resolve, reject);
         } else {
           initSettings()
-            .then(resolve, reject)
+            .then(resolve, reject);
         }
       }
     });
