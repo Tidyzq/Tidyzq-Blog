@@ -1,6 +1,7 @@
 'use strict';
 
 var log = require('debug')('boot:02-load-users');
+var _ = require('lodash');
 
 module.exports = function(app, done) {
   var User = app.models.user,

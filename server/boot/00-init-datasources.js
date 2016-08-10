@@ -67,7 +67,6 @@ module.exports = function(app, done) {
   // }
 
   app.models().forEach(function (model) {
-    log(model.modelName);
     promises.push(initModel(model));
   });
 
