@@ -147,13 +147,9 @@ module.exports = function(Page) {
   Page['__get__tags'] = function (url, callback) {
     callback = callback || utils.createPromiseCallback();
     var filter = {
-      where: {
-        url: url
-      },
       include: 'tags'
     };
-    Page.remoteFindOne(filter, function (err, result) {
-      console.log(result.tags());
+    Page.findByUrl(url, filter, function (err, result) {
       callback(err, err ? null : result.tags());
     });
     return callback.promise;
@@ -175,13 +171,8 @@ module.exports = function(Page) {
 
   Page['__count__tags'] = function (url, callback) {
     callback = callback || utils.createPromiseCallback();
-    var filter = {
-      where: {
-        url: url
-      }
-    };
-    Page.remoteFindOne(filter, function (err, result) {
-      if (!err && result) {
+    Page.findByUrl(url, {}, function (err, result) {
+      if (!err) {
         result['__count__tags']({}, callback);
       } else {
         callback(err);
@@ -206,14 +197,9 @@ module.exports = function(Page) {
 
   Page['__exists__tags'] = function (url, fk, callback) {
     callback = callback || utils.createPromiseCallback();
-    var filter = {
-      where: {
-        url: url
-      }
-    };
-    Page.remoteFindOne(filter, function (err, result) {
-      if (!err && result) {
-        result['__count__tags'](fk, callback);
+    Page.findByUrl(url, {}, function (err, result) {
+      if (!err) {
+        result['__exists__tags'](fk, callback);
       } else {
         callback(err);
       }
