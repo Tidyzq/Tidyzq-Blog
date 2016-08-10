@@ -24,7 +24,7 @@ module.exports = function(Page) {
 
   var isPage = {
     status: 'published',
-    isPage: false
+    isPage: true
   };
 
   // override build-in find
@@ -141,6 +141,98 @@ module.exports = function(Page) {
           }
         }
       }
+    }
+  );
+
+  Page['__get__tags'] = function (url, callback) {
+    callback = callback || utils.createPromiseCallback();
+    var filter = {
+      where: {
+        url: url
+      },
+      include: 'tags'
+    };
+    Page.remoteFindOne(filter, function (err, result) {
+      console.log(result.tags());
+      callback(err, err ? null : result.tags());
+    });
+    return callback.promise;
+  };
+
+  Page.remoteMethod(
+    '__get__tags',
+    {
+      description: 'Queries tags of page.',
+      accepts: [
+        {arg: 'url', type: 'string', description:'Model url.', required: true}
+      ],
+      http: [
+        {path: '/:url/tags', verb: 'get'},
+      ],
+      returns: {root: true, type: 'object'}
+    }
+  );
+
+  Page['__count__tags'] = function (url, callback) {
+    callback = callback || utils.createPromiseCallback();
+    var filter = {
+      where: {
+        url: url
+      }
+    };
+    Page.remoteFindOne(filter, function (err, result) {
+      if (!err && result) {
+        result['__count__tags']({}, callback);
+      } else {
+        callback(err);
+      }
+    });
+    return callback.promise;
+  };
+
+  Page.remoteMethod(
+    '__count__tags',
+    {
+      description: 'Counts tags of page.',
+      accepts: [
+        {arg: 'url', type: 'string', description:'Model url.', required: true}
+      ],
+      http: [
+        {path: '/:url/tags/count', verb: 'get'},
+      ],
+      returns: {arg: 'count', type: 'number'}
+    }
+  );
+
+  Page['__exists__tags'] = function (url, fk, callback) {
+    callback = callback || utils.createPromiseCallback();
+    var filter = {
+      where: {
+        url: url
+      }
+    };
+    Page.remoteFindOne(filter, function (err, result) {
+      if (!err && result) {
+        result['__count__tags'](fk, callback);
+      } else {
+        callback(err);
+      }
+    });
+    return callback.promise;
+  };
+
+  Page.remoteMethod(
+    '__exists__tags',
+    {
+      description: 'Check the existence of tags relation to an item by url.',
+      accepts: [
+        {arg: 'url', type: 'string', description:'Model url.', required: true},
+        {arg: 'fk', type: 'string', description:'Foreign key.', required: true},
+      ],
+      http: [
+        {path: '/:url/tags/rel/:fk', verb: 'head'},
+      ],
+      returns: {root: true, type: 'object'}
     }
   );
 

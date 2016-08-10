@@ -1,0 +1,38 @@
+{
+  "name": "tagdocument",
+  "base": "PersistedModel",
+  "properties": {
+    "tagId": {
+      "required": true
+    },
+    "documentId": {
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "tag": {
+      "type": "belongsTo",
+      "model": "tag",
+      "foreignKey": "tagId"
+    },
+    "document": {
+      "type": "belongsTo",
+      "model": "document",
+      "foreignKey": "documentId"
+    }
+  },
+  "acls": [],
+  "methods": {},
+  "indexes": {
+    "tagId_documentId_index": {
+      "keys": {
+        "tagId": 1,
+        "documentId": 1
+      },
+      "options": {
+        "unique": true
+      }
+    }
+  }
+}

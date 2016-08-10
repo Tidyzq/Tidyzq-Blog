@@ -10,7 +10,8 @@ module.exports = function(Document) {
   });
 
   var disabledMethods = [
-    { name: 'createChangeStream', isStatic: true }
+    { name: 'createChangeStream', isStatic: true },
+    { name: '__delete__tags', isStatic: false }
   ];
 
   // disable remote methods
@@ -66,48 +67,6 @@ module.exports = function(Document) {
     }
     if (!wait) next();
   });
-
-  Document.prototype.publish = function (cb) {
-    cb = cb || utils.createPromiseCallback();
-    this.updateAttribute({
-      status: 'published'
-    }, function(err, result) {
-      cb(err, result);
-    });
-    return cb.promise;
-  };
-
-  Document.remoteMethod(
-    'publish',
-    {
-      description: 'Publish a post',
-      accepts: {arg: 'credentials', type: 'object', required: true, http: {source: 'body'}},
-      http: {path: '/publish', verb: 'post'},
-      returns: {root: true, type: 'object'},
-      isStatic: false
-    }
-  );
-
-  Document.prototype.unpublish = function (cb) {
-    cb = cb || utils.createPromiseCallback();
-    this.updateAttribute({
-      status: 'draft'
-    }, function(err, result) {
-      cb(err, result);
-    });
-    return cb.promise;
-  };
-
-  Document.remoteMethod(
-    'unpublish',
-    {
-      description: 'Unpublish a post',
-      accepts: {arg: 'credentials', type: 'object', required: true, http: {source: 'body'}},
-      http: {path: '/unpublish', verb: 'post'},
-      returns: {root: true, type: 'object'},
-      isStatic: false
-    }
-  );
 
   Document.findByUrl = function (url, filter, callback) {
     callback = callback || utils.createPromiseCallback();

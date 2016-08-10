@@ -25,10 +25,61 @@
   "validations": [],
   "relations": {
     "documents": {
-      "type": "hasAndBelongsToMany",
-      "model": "document"
+      "type": "hasMany",
+      "model": "document",
+      "foreignKey": "tagId",
+      "through": "tagdocument"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": [
+        "exists",
+        "count",
+        "find",
+        "findById",
+        "findByUrl",
+        "existsByUrl",
+        "findAll",
+        "__get__posts",
+        "__count__posts",
+        "__exists__posts",
+        "__get__pages",
+        "__count__pages",
+        "__exists__pages"
+      ]
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": [
+        "create",
+        "deleteById",
+        "updateAttributes",
+        "updateAll",
+        "upsert",
+        "__get__documents",
+        "__count__documents",
+        "__exists__documents"
+      ]
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

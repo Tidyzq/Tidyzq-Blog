@@ -52,8 +52,10 @@
       "foreignKey": "updatedBy"
     },
     "tags": {
-      "type": "hasAndBelongsToMany",
-      "model": "tag"
+      "type": "hasMany",
+      "model": "tag",
+      "foreignKey": "documentId",
+      "through": "tagdocument"
     }
   },
   "acls": [
@@ -71,7 +73,9 @@
         "create",
         "find",
         "findById",
-        "findAll"
+        "findByUrl",
+        "findAll",
+        "__get__tags"
       ]
     },
     {
@@ -84,8 +88,13 @@
         "updateAttributes",
         "updateAll",
         "upsert",
-        "publish",
-        "unpublish"
+        "__create__tags",
+        "__getById__tags",
+        "__updateById__tags",
+        "__count__tags",
+        "__exists__tags",
+        "__link__tags",
+        "__unlink__tags"
       ]
     },
     {

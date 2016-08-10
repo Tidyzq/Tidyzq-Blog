@@ -67,6 +67,10 @@
       }
     }
   },
+  "tagdocument": {
+    "dataSource": "dev",
+    "public": false
+  },
   "post": {
     "dataSource": "memory",
     "public": true

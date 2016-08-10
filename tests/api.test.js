@@ -40,7 +40,8 @@ var data = {
     id: 0,
     accessToken: '',
     documents: []
-  }
+  },
+  tags: []
 };
 
 describe('REST API request', function() {
@@ -57,5 +58,9 @@ describe('REST API request', function() {
 
   require('./user-test')(json, data);
   require('./document-test')(json, data);
+  require('./tag-test')(json, data);
+  // require('./page-test')(json, data);
+  // require('./post-test')(json, data);
+  // require('./setting-test')(json, data);
 
 });
