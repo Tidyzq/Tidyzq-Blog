@@ -20,21 +20,7 @@
     {
       "principalType": "ROLE",
       "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "admin",
-      "permission": "ALLOW",
-      "property": [
-        "upsert",
-        "deleteById",
-        "create",
-        "updateAttributes",
-        "updateAll",
-        "createMany"
-      ]
+      "permission": "DENY"
     },
     {
       "accessType": "EXECUTE",
@@ -47,6 +33,20 @@
         "findOne",
         "count",
         "exists"
+      ]
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": [
+        "create",
+        "upsert",
+        "deleteById",
+        "updateAttributes",
+        "updateAll",
+        "createMany"
       ]
     }
   ],
