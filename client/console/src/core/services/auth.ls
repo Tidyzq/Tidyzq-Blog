@@ -22,7 +22,7 @@ Service = (LoopBackAuth, User) ->
     LoopBackAuth.clear-storage!
     clear-object @current-user
 
-  Auth.prototype.sign-in = (user) ->
+  Auth.prototype.log-in = (user) ->
     self = @
     if _.is-empty @current-user
       User
@@ -61,5 +61,5 @@ Service = (LoopBackAuth, User) ->
   new Auth!
 
 angular
-  .module 'app.services', []
-  .factory 'Auth', ['LoopBackAuth', 'User', Service]
+  .module 'app.core'
+  .factory 'Auth', Service

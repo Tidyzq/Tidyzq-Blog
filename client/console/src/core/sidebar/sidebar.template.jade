@@ -1,0 +1,11 @@
+ul.nav.nav-sidebar
+  .sidebar-header
+    .sidebar-header-icon
+      img(ng-src="{{ vm.sidebarUser.avatar }}")
+    .sidebar-header-detail
+      .sidebar-header-title {{ vm.blogSetting.title }}
+      .sidebar-header-description {{ vm.currnetUser.username }}
+  li(ng-repeat="item in vm.sidebarMenu")
+    a(href="", ui-sref="item.sref")
+      span.glyphicon(ng-class="item.icon", ng-show="item.icon")
+      {{ item.name }}

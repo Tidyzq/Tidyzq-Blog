@@ -19,5 +19,5 @@ todo-detail-controller = (dataSource, $scope, $state, Todo) !->
   vm.get-todo!
 
 angular
-  .module \app
+  .module \app.todo-detail, []
   .controller 'TodoDetailController', todo-detail-controller

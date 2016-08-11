@@ -18,5 +18,5 @@ coverage
 node_modules
 npm-debug.log
 client/vendor
-client/.tmp
+**/.tmp
 storage

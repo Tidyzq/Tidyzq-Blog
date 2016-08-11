@@ -1,0 +1,9 @@
+#login
+  form.login-form(name="login-form")
+    .form-group
+      input.form-control.login-field#login-email(name="email", type="text", ng-model="vm.loginUser.email", placeholder="Enter Email")
+      label.fui-user.login-field-icon(for="login-email")
+    .form-group
+      input.form-control.login-field#login-pass(name="password", type="password", ng-model="vm.loginUser.password", placeholder="Password")
+      label.fui-lock.login-field-icon(for="login-pass")
+    button.btn.btn-primary.btn-lg.btn-block(type="button", ng-click="vm.login()") Log in

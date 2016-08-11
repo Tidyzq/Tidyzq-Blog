@@ -99,7 +99,8 @@
       "properties": {
         "username": "internet.userName",
         "email": "internet.email",
-        "password": "internet.password"
+        "password": "internet.password",
+        "avatar": "image.avatar"
       }
     }
   },

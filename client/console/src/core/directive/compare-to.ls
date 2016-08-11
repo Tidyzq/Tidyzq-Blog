@@ -1,3 +1,5 @@
+'use strict'
+
 compare-to = ->
   require: "ngModel"
   scope:
@@ -10,7 +12,6 @@ compare-to = ->
     scope.$watch "otherModelValue", !->
         ngModel.$validate!
 
-
 angular
-  .module 'app'
+  .module 'app.core'
   .directive 'compareTo', compare-to

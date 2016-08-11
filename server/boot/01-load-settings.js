@@ -18,7 +18,12 @@ module.exports = function(app, done) {
         },
         {
           key: 'navigation',
-          value: '[{\"label\":\"Home\",\"url\":\"/\"}]'
+          value: [
+            {
+              label: 'Home',
+              url: '\\'
+            }
+          ]
         },
         {
           key: 'postsPerPage',

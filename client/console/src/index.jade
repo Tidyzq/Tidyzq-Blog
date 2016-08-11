@@ -1,0 +1,22 @@
+doctype html
+html(ng-app="blog", lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    base(href="/")
+    title Tidyzq's Blog
+    // bower:css
+    // css of bower components will be insert here
+    // endbower
+    // inject:css
+    // css of app style will be insert here
+    // endinject
+  //- body
+  body(ng-controller="IndexController as vm")
+    div(ui-view="main")
+    // bower:js
+    // js of bower components will be insert here
+    // endbower
+    // inject:js
+    // js of app scripts will be insert here
+    // endinject

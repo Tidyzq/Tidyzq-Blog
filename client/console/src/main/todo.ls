@@ -28,5 +28,5 @@ todo-controller = (dataSource, $scope, $state, Todo, LoopBackAuth) !->
   vm.get-todos!
 
 angular
-  .module \app
+  .module \app.todo, []
   .controller 'TodoController', todo-controller
