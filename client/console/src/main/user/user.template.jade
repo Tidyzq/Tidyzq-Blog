@@ -1,0 +1,13 @@
+nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      a.navbar-brand User
+    ul.nav.navbar-nav.navbar-right
+      li
+        button.btn.btn-success.navbar-btn Add User
+.list-group
+  a.list-group-item(href="#" ng-repeat="user in vm.users")
+    image.user-avatar(ng-src="{{ user.avatar }}")
+    span.user-role(ng-repeat="role in user.roles") {{ role }}
+    h6.user-name {{ user.username }}
+    p.user-email {{ user.email }}

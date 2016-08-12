@@ -9,7 +9,8 @@
     "flat-ui": "^2.3.0",
     "jquery": "^3.1.0",
     "bootstrap": "^3.3.7",
-    "lodash": "^4.14.1"
+    "lodash": "^4.14.1",
+    "angular-animate": "^1.5.8"
   },
   "overrides": {
     "bootstrap": {

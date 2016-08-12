@@ -21,7 +21,6 @@ Service = (Setting, $rootScope) ->
   parse-setting = (obj, array) ->
     for item in array
       obj[item.key] = item.value
-    console.log obj
     obj
 
   # clear-object = (obj) ->

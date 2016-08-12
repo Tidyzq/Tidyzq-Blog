@@ -3,5 +3,6 @@
 angular
   .module 'app.core', [
     'lbServices',
-    'ui.router'
+    'ui.router',
+    'ngAnimate'
   ]

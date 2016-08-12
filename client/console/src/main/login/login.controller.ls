@@ -1,12 +1,18 @@
 'use strict'
 
-Login-controller = (Auth) !->
+Login-controller = ($state, $scope, Auth) !->
   vm = @
 
   vm.login = !->
     Auth.log-in vm.login-user
+      .then !->
+        $state.go 'app.main'
+      .catch (response) !->
+        $scope.login-form.password.$invalid = true
 
-  vm.user = Auth.current-user
+  $scope.$watch 'Auth.isLogedIn' (newValue, oldValue) !->
+    if newValue
+      $state.go 'app.main'
 
 angular
   .module \app.login

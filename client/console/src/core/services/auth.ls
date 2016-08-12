@@ -1,26 +1,39 @@
 'use strict'
 
-Service = (LoopBackAuth, User) ->
+Service = (LoopBackAuth, User, $rootScope) ->
   Auth = !->
     @current-user = {}
-    @get-user!
+    @is-loged-in = @is-loged-out = false
 
   Auth.prototype.get-user = ->
     self = @
     id = LoopBackAuth.current-user-id
     if id
       User
-        .get-current!
+        .get-current {
+          filter:
+            include: 'roles'
+        }
         .$promise
         .then (response) !->
-          self.current-user = _.extend self.current-user, response
+          self.confirm-log-in response
         .catch (response) !->
-          self.on-error!
+          self.on-error response
+    else
+      @clear-log-in!
 
-  Auth.prototype.clear = !->
+  Auth.prototype.confirm-log-in = (user-info) !->
+    user-info.is-admin = _.includes user-info.roles, 'admin'
+    @current-user = _.extend @current-user, user-info
+    @is-loged-in = true
+    @is-loged-out = false
+
+  Auth.prototype.clear-log-in = !->
     LoopBackAuth.clear-user!
     LoopBackAuth.clear-storage!
     clear-object @current-user
+    @is-loged-in = false
+    @is-loged-out = true
 
   Auth.prototype.log-in = (user) ->
     self = @
@@ -31,7 +44,7 @@ Service = (LoopBackAuth, User) ->
         .then (response) !->
           self.get-user!
         .catch (response) !->
-          self.on-error!
+          self.on-error response
     else
       Promise.reject 'already signed'
 
@@ -42,14 +55,14 @@ Service = (LoopBackAuth, User) ->
         .logout!
         .$promise
         .then (response) !->
-          self.clear!
+          self.clear-log-in!
         .catch (response) !->
-          self.on-error!
+          self.on-error response
     else
       Promise.reject 'not signed'
 
   Auth.prototype.on-error = (err) !->
-    @clear!
+    @clear-log-in!
     throw err
 
   clear-object = (obj) ->
@@ -58,7 +71,9 @@ Service = (LoopBackAuth, User) ->
         delete obj[key]
     obj
 
-  new Auth!
+  auth = $rootScope.Auth = new Auth!
+  auth.get-user!
+  auth
 
 angular
   .module 'app.core'

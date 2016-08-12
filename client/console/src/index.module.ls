@@ -3,5 +3,7 @@
 angular
   .module \blog, [
     'app.core',
-    'app.login'
+    'app.login',
+    'app.logout',
+    'app.user'
   ]

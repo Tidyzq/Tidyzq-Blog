@@ -1,4 +1,6 @@
 var utils = require('loopback/lib/utils');
+var extendInclude = require('../utils/extend-include');
+var overrideRemoteMethod = require('../utils/override-remote-method');
 var _ = require('lodash');
 
 module.exports = function(User) {
@@ -15,6 +17,84 @@ module.exports = function(User) {
   User.validatesFormatOf('username', {
     with: /^[\w\.]+$/,
     message: 'username can only contains alphanumeric characters, underscores and dots.' });
+
+  // override build-in findById
+  User.remoteFindById = function (id, filter, callback) {
+    callback = callback || utils.createPromiseCallback();
+    filter = filter || {};
+    filter.include = extendInclude(filter.include);
+    if (_.some(filter.include, {relation: 'roles'})) {
+      _.remove(filter.include, {relation: 'roles'});
+      User.origFindById(id, filter, function (err, result) {
+        if (!err) {
+          var user = result;
+          user.getRolesById(function (err, result) {
+            if (!err) {
+              user.roles = result;
+              callback(null, user);
+            } else {
+              callback(err);
+            }
+          });
+        } else {
+          callback(err);
+        }
+      });
+    } else {
+      User.origFindById(id, filter, callback);
+    }
+    return callback.promise;
+  };
+
+  // override build-in find
+  User.remoteFind = function (filter, callback, c) {
+    if (!_.isFunction(callback)) {
+      callback = c;
+    }
+    callback = callback || utils.createPromiseCallback();
+    filter = filter || {};
+    filter.include = extendInclude(filter.include);
+    if (_.some(filter.include, {relation: 'roles'})) {
+      _.remove(filter.include, {relation: 'roles'});
+      User.origFind(filter, function (err, results) {
+        if (!err) {
+          var users = results;
+          var callbacks = [];
+          for (var index = 0; index < users.length; ++index) {
+            (function (index) {
+              callbacks[index] = function () {
+                users[index].getRolesById(function (err, result) {
+                  if (!err) {
+                    users[index].roles = result;
+                    callbacks[index + 1]();
+                  } else {
+                    callback(err);
+                  }
+                });
+              }
+            })(index);
+          }
+          callbacks[users.length] = function () {
+            callback(null, users);
+          }
+          callbacks[0]();
+        } else {
+          callback(err);
+        }
+      });
+    } else {
+      return User.origFind(filter, callback);
+    }
+    return callback.promise;
+  };
+
+  // override build in methods
+  User.on('attached',function () {
+
+    overrideRemoteMethod(User, 'findById', User.remoteFindById);
+    overrideRemoteMethod(User, 'find', User.remoteFind);
+
+  });
 
   // add get role method to User
   User.prototype.getRolesById = function (cb) {

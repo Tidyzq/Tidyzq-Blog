@@ -6,10 +6,10 @@ config = ($state-provider) !->
         url: '/login',
         views:
           'main':
-            templateUrl: 'main/login/login.template.html'
+            template-url: 'main/login/login.template.html'
             controller : 'LoginController as vm'
     }
 
 angular
-  .module 'app.login', []
+  .module 'app.login', ['ngAnimate']
   .config config

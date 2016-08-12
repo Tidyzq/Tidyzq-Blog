@@ -7,13 +7,25 @@
   right: 0;
 }
 
-#login > .login-form {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: 213px;
+.wrapper {
+  text-align: center;
+  height: 100%;
+}
+
+.wrapper:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  /*margin-right: -0.25em;  Adjusts for spacing */
+
+  /* For visualization
+  background: #808080; width: 5px;
+  */
+}
+
+.wrapper .login-form {
+  display: inline-block;
+  vertical-align: middle;
   width: 400px;
-  margin: auto;
 }

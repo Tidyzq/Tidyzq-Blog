@@ -10,7 +10,7 @@ var browserSync = require('browser-sync');
 
 var util = require('util');
 
-gulp.task('serve', ['nodemon', 'watch'], function () {
+gulp.task('serve', ['nodemon'], function () {
     browserSync.init(null, {
         proxy: 'http://localhost:3000',
         port: 7000,
@@ -18,7 +18,7 @@ gulp.task('serve', ['nodemon', 'watch'], function () {
     });
 });
 
-gulp.task('nodemon', function(done) {
+gulp.task('nodemon', ['watch'], function(done) {
 
     var started = false;
 

@@ -1,9 +1,12 @@
 #login
-  form.login-form(name="login-form")
-    .form-group
-      input.form-control.login-field#login-email(name="email", type="text", ng-model="vm.loginUser.email", placeholder="Enter Email")
-      label.fui-user.login-field-icon(for="login-email")
-    .form-group
-      input.form-control.login-field#login-pass(name="password", type="password", ng-model="vm.loginUser.password", placeholder="Password")
-      label.fui-lock.login-field-icon(for="login-pass")
-    button.btn.btn-primary.btn-lg.btn-block(type="button", ng-click="vm.login()") Log in
+  .wrapper
+    form.login-form(name="loginForm", novalidate, ng-submit="vm.login()")
+      .form-group
+        input.form-control#login-email(name="email", type="text", ng-model="vm.loginUser.email", placeholder="Enter Email")
+        label.fui-user.login-field-icon(for="login-email")
+      .form-group(ng-class="{'has-error': loginForm.password.$invalid && loginForm.password.$dirty}")
+        label.fui-lock.login-field-icon(for="login-pass")
+        input.form-control#login-pass(name="password", type="password", ng-model="vm.loginUser.password", placeholder="Password")
+        div.ng-hide(show-animate="loginForm.password.$invalid && loginForm.password.$dirty")
+          span.has-error.control-label(show-animate="loginForm.password.$invalid && loginForm.password.$dirty") Wrong password.
+      button.btn.btn-primary.btn-lg.btn-block Log in

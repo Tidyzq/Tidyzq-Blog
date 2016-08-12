@@ -1,15 +1,9 @@
 'use strict'
 
-Sidebar-controller = (Sidebar-menu, Auth, Blog-setting) !->
+Sidebar-controller = ($scope, $rootScope, $state, Sidebar-menu, Auth, Blog-setting) !->
   vm = @
 
-  Sidebar-menu.save-item {
-    name: 'test'
-    sref: 'app.test'
-    icon: 'glyphicon-star'
-  }
-
-  vm.sidebar-menu = Sidebar-menu.get-menu!
+  vm.sidebar-menu = Sidebar-menu.menu
 
   vm.current-user = Auth.current-user
 
