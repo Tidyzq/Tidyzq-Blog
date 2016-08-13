@@ -22,10 +22,10 @@ Provider = ->
   Sidebar-menu.get-menu = ->
     get-arr menu
 
-  Sidebar-menu.save-item = (item) !->
+  Sidebar-menu.save-item = (state, item) !->
     if item.is-group
       item.sub-menu = {}
-    path = item.state.split '.'
+    path = state.split '.'
     path = path.join '.subMenu.'
     _.set menu, path, item
 

@@ -17,17 +17,16 @@ config = ($state-provider, Sidebar-menu-provider) !->
               }
     }
 
-  Sidebar-menu-provider.save-item {
-    state: 'content'
+  Sidebar-menu-provider.save-item 'content', {
     name: 'Content'
     is-group: true
   }
 
-  Sidebar-menu-provider.save-item {
-    state: 'content.users'
+  Sidebar-menu-provider.save-item 'content.users', {
     name: 'User'
     sref: 'app.users'
     icon: 'fui-user'
+    require-admin: true
   }
 
 angular

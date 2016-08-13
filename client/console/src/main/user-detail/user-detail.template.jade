@@ -14,14 +14,14 @@ mixin form(label, id, model)
       block
 
 mixin error-label(model, message)
-  div.ng-hide(show-animate="userDetailForm." + model + ".$invalid && userDetailForm." + model + ".$dirty")
-    span.has-error.control-label(show-animate="userDetailForm." + model + ".$invalid && userDetailForm." + model + ".$dirty")= message
+  div(show-animate="userDetailForm." + model + ".$invalid && userDetailForm." + model + ".$dirty")
+    span.has-error.control-label= message
 
 nav.main-heading.navbar.navbar-default
   .container-fluid
     .navbar-heading
-      a.navbar-brand.enable(href="" ui-sref="app.users") User
-      a.navbar-brand
+      a.navbar-brand.enable(href="" ui-sref="app.users" ng-show="Auth.isAdmin()") User
+      a.navbar-brand(ng-show="Auth.isAdmin()")
         span.glyphicon.glyphicon-menu-right
       a.navbar-brand {{ vm.user.username }}
     ul.nav.navbar-nav.navbar-right
@@ -45,11 +45,12 @@ form.form-horizontal(name="userDetailForm")
     .col-sm-9
       input#email.form-control(name="email" type='text' pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$" placeholder="email" ng-model="vm.user.email" required)
       +error-label('email', 'Please input a valid email address')
-  +break('role')
-  +form('Role', 'role')
-    .col-sm-9
-      select#role.form-control.multiselect.multiselect-default(select2="vm.user.roles" multiple ng-model="vm.user.roles")
-        option(value="admin") admin
+  div(ng-show="Auth.isAdmin()")
+    +break('role')
+    +form('Role', 'role')
+      .col-sm-9
+        select#role.form-control.multiselect.multiselect-default(select2="vm.user.roles" multiple ng-model="vm.user.roles")
+          option(value="admin") admin
   +break('password')
   +form('Password', 'pwd', 'rpassword')
     .col-sm-9

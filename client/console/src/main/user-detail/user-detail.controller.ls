@@ -1,12 +1,11 @@
 'use strict'
 
-User-detail-controller = (data, $state, $scope, User) !->
+User-detail-controller = (data, $state, $scope, User, Auth, Notification) !->
   vm = @
 
   vm.user = data
 
   save-role = ->
-    console.log vm.user.id
     if not _.includes vm.user.roles, 'admin'
       User
         .prototype$deleteRoleById {
@@ -23,17 +22,20 @@ User-detail-controller = (data, $state, $scope, User) !->
         .$promise
     else
       Promise.resolve!
+
+
   vm.save = !->
     if not $scope.user-detail-form.$invalid
       User
         .prototype$updateAttributes vm.user
         .$promise
         .then ->
-          save-role!
+          if Auth.is-admin!
+            save-role!
         .then !->
-          console.log 'success'
+          Notification.send 'success', 'Save success'
         .catch (response) !->
-          console.error response
+          Notification.send 'danger', response.data.error.message
 
 angular
   .module \app.user-detail

@@ -5,6 +5,10 @@ Service = (LoopBackAuth, User, $rootScope) ->
     @current-user = {}
     @is-loged-in = @is-loged-out = false
 
+  Auth.prototype.is-admin = (user) ->
+    user = user || @current-user
+    user.roles && _.includes user.roles, 'admin'
+
   Auth.prototype.get-user = ->
     self = @
     id = LoopBackAuth.current-user-id
@@ -23,7 +27,6 @@ Service = (LoopBackAuth, User, $rootScope) ->
       @clear-log-in!
 
   Auth.prototype.confirm-log-in = (user-info) !->
-    user-info.is-admin = _.includes user-info.roles, 'admin'
     @current-user = _.extend @current-user, user-info
     @is-loged-in = true
     @is-loged-out = false

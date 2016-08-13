@@ -1,0 +1,13 @@
+.notify-wrapper {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+  clear: right;
+}
+
+.notify-wrapper .notify {
+  display: inline-block;
+  padding: 0 30px;
+  margin: auto;
+}

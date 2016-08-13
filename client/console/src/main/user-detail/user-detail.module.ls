@@ -18,6 +18,12 @@ config = ($state-provider, Sidebar-menu-provider) !->
               }
     }
 
+  Sidebar-menu-provider.save-item 'user.profile', {
+    name: 'Profile'
+    sref: 'app.user-detail(Auth.currentUser)'
+    icon: 'fui-new'
+  }
+
 angular
   .module 'app.user-detail', []
   .config config

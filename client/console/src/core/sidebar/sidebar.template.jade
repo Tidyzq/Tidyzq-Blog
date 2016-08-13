@@ -3,4 +3,4 @@
   .sidebar-header-detail
     .sidebar-header-title {{ vm.blogSetting.title }}
     .sidebar-header-description {{ vm.currentUser.username }}
-ul.nav.nav-sidebar(ng-repeat="item in vm.sidebarMenu" is-group="item.isGroup" sidebar-item="item")
+ul.nav.nav-sidebar(ng-repeat="item in vm.sidebarMenu" sidebar-item="item")
