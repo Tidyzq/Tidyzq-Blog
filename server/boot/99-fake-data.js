@@ -120,7 +120,7 @@ module.exports = function(app, done) {
 
       model.count(function(err, count){
         if (err) {
-          reject('Error on fakeModel: ' + err);
+          console.error('Error on fakeModel: ' + err);
         } else {
           if (count < config.count) {
             log('faking ' + config.modelName);

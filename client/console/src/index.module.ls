@@ -5,5 +5,6 @@ angular
     'app.core',
     'app.login',
     'app.logout',
-    'app.user'
+    'app.users',
+    'app.user-detail'
   ]

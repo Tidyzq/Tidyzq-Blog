@@ -13,7 +13,7 @@ module.exports = function (include) {
         relation: item
       };
     } else {
-      return item
+      return item;
     }
   });
   return include;

@@ -2,12 +2,12 @@
 
 config = ($state-provider, Sidebar-menu-provider) !->
   $state-provider
-    .state 'app.user', {
-        url: '/user',
+    .state 'app.users', {
+        url: '/users',
         views:
           'content':
-            template-url: 'main/user/user.template.html'
-            controller: 'UserController as vm'
+            template-url: 'main/users/users.template.html'
+            controller: 'UsersController as vm'
         resolve:
           data: (User) ->
             User
@@ -24,12 +24,12 @@ config = ($state-provider, Sidebar-menu-provider) !->
   }
 
   Sidebar-menu-provider.save-item {
-    state: 'content.user'
+    state: 'content.users'
     name: 'User'
-    sref: 'app.user'
+    sref: 'app.users'
     icon: 'fui-user'
   }
 
 angular
-  .module 'app.user', []
+  .module 'app.users', []
   .config config

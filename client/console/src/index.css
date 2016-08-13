@@ -102,65 +102,44 @@
  */
 .main {
   position: relative;
-  padding: 60px 0 0 0;
+  padding: 60px 10px 20px 10px;
   right: 0;
 }
 
-.main .navbar {
+.main-heading {
   position: fixed;
   top: 0;
+  right: 0;
   width: inherit;
   border-radius: 0;
   margin: 0;
   background-color: white;
   border-bottom: 1px solid #BDC3C7;
+  z-index: 99;
 }
 
-.main .navbar-brand:hover,
-.main .navbar-brand:focus {
+@media (max-width: 768px) {
+  .main-heading {
+    width: 100%;
+  }
+}
+
+.main-heading .navbar-brand {
+  margin-left: -21px !important;
+  float: left !important;
+}
+
+.main-heading .navbar-brand.enable:hover,
+.main-heading .navbar-brand.enable:focus {
+  color: #3498DB;
+}
+
+.main-heading .navbar-right {
+  margin: 0 !important;
+  float: right !important;
+}
+
+.main-heading .navbar-brand:hover,
+.main-heading .navbar-brand:focus {
   color: inherit;
-}
-
-.main .list-group-item {
-  border: 0;
-  /*display: inline-block;*/
-  vertical-align: middle;
-  height: 75px;
-}
-
-.main .list-group-item > .user-avatar {
-  float: left;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 5px 10px 5px 0;
-  width: 45px;
-  height: 45px;
-  background-color: #222;
-  background-size: 45px;
-  border-radius: 22.5px;
-}
-
-.main .list-group-item > .user-name {
-  margin: 0 0 1px 0;
-  font-size: 1.7rem;
-  line-height: 1.7em;
-  font-weight: 600;
-  color: #2C3E50;
-}
-
-.main .list-group-item > .user-email {
-  margin: 0;
-  color: #95a5a6;
-  font-size: 1.5rem;
-  line-height: 1.5em;
-}
-
-.main .list-group-item > .user-role {
-  float: right;
-  font-size: 1.5rem;
-  display: inline-block;
-  padding: 5px;
-  color: #ECF0F1;
-  margin: 5px 0 5px 10px;
-  background-color: #34495E;
 }

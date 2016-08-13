@@ -1,6 +1,5 @@
 .sidebar-header
-  .sidebar-header-icon
-    img(ng-src="{{ vm.sidebarUser.avatar }}")
+  img.sidebar-header-icon(ng-src="{{ vm.currentUser.avatar }}")
   .sidebar-header-detail
     .sidebar-header-title {{ vm.blogSetting.title }}
     .sidebar-header-description {{ vm.currentUser.username }}

@@ -10,7 +10,7 @@ compare-to = ->
       modelValue == scope.otherModelValue
 
     scope.$watch "otherModelValue", !->
-        ngModel.$validate!
+      ngModel.$validate!
 
 angular
   .module 'app.core'

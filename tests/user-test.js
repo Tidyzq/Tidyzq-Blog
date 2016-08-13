@@ -71,6 +71,7 @@ module.exports = function(json, data) {
     it('获取普通用户身份', function(done) {
       json('get', '/api/users/' + data.userInfo.id + '/roles', data.userInfo.accessToken)
         .expect(200, function(err, res) {
+          // console.log(res);
           assert.ifError(err);
           assert(_.isArray(res.body.roles));
           assert(_.isEmpty(res.body.roles));

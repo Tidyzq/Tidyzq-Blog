@@ -20,6 +20,10 @@ module.exports = function(User) {
 
   // override build-in findById
   User.remoteFindById = function (id, filter, callback) {
+    if (_.isFunction(filter)) {
+      callback = filter;
+      filter = {};
+    }
     callback = callback || utils.createPromiseCallback();
     filter = filter || {};
     filter.include = extendInclude(filter.include);
@@ -60,23 +64,21 @@ module.exports = function(User) {
         if (!err) {
           var users = results;
           var callbacks = [];
-          for (var index = 0; index < users.length; ++index) {
-            (function (index) {
-              callbacks[index] = function () {
-                users[index].getRolesById(function (err, result) {
-                  if (!err) {
-                    users[index].roles = result;
-                    callbacks[index + 1]();
-                  } else {
-                    callback(err);
-                  }
-                });
-              }
-            })(index);
-          }
+          users.forEach(function (user, index) {
+            callbacks[index] = function () {
+              user.getRolesById(function (err, result) {
+                if (!err) {
+                  users[index].roles = result;
+                  callbacks[index + 1]();
+                } else {
+                  callback(err);
+                }
+              });
+            };
+          });
           callbacks[users.length] = function () {
             callback(null, users);
-          }
+          };
           callbacks[0]();
         } else {
           callback(err);
@@ -132,9 +134,14 @@ module.exports = function(User) {
   // add put role method to User
   User.prototype.addRolesById = function (roleNames, cb) {
     cb = cb || utils.createPromiseCallback();
+    console.log(roleNames);
+    if (_.isObject(roleNames) && !_.isArray(roleNames)) {
+      roleNames = roleNames.roleNames;
+    }
     if (!_.isArray(roleNames)) {
       roleNames = [roleNames];
     }
+    console.log(roleNames);
     var RoleMapping = User.app.models.RoleMapping,
         Role = User.app.models.Role,
         user = this;
@@ -192,10 +199,10 @@ module.exports = function(User) {
     {
       description: 'Add role to a user',
       accepts: [
-        {arg: 'roleName', type: 'object', http: {source: 'body'}}
+        {arg: 'roleNames', type: 'object', http: {source: 'body'}}
       ],
       http: {path: '/roles', verb: 'post'},
-      returns: {root: true, type: 'object'},
+      returns: {arg: 'roleMappings', type: 'object'},
       isStatic: false
     }
   );

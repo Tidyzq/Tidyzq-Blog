@@ -10,7 +10,8 @@
     "jquery": "^3.1.0",
     "bootstrap": "^3.3.7",
     "lodash": "^4.14.1",
-    "angular-animate": "^1.5.8"
+    "angular-animate": "^1.5.8",
+    "angular-ui-select": "^0.19.1"
   },
   "overrides": {
     "bootstrap": {
