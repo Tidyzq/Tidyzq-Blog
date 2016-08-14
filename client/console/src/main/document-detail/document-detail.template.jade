@@ -1,4 +1,5 @@
-nav.main-heading.navbar.navbar-default
-  div(ui-view="heading")
-.document-detail-list.col-sm-4.hidden-xs(ui-view="list")
-.document-detail-content.col-sm-8(ui-view="detail")
+include ../../core/mixin/mixin.jade
+
++heading('Document', 'app.documents', false, '{{ vm.document.title }}', 'Save', 'btn-info', null, 'vm.save()')
+.document-detail-list.col-md-4.visible-md-block.visible-lg-block(ui-view="list")
+.document-detail-content.col-md-8(ui-view="detail")

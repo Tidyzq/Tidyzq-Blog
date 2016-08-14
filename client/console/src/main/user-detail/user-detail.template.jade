@@ -1,78 +1,46 @@
-mixin break(name)
-  .form-group
-    .col-xs-4.col-sm-5
-      hr
-    center.col-xs-4.col-sm-2
-      p.text-muted= name
-    .col-xs-4.col-sm-5
-      hr
+include ../../core/mixin/mixin.jade
 
-mixin form(label, id, model)
-  if model
-    .form-group(ng-class="{'has-error': userDetailForm." + model + ".$invalid && userDetailForm." + model + ".$dirty}")
-      +form-content(label, id)
-      block
-  else
-    .form-group
-      +form-content(label, id)
-      block
-
-mixin form-content(label, id)
-  label.col-sm-2.control-label(for=id)= label
-
-mixin error-label(model, message)
-  div(show-animate="userDetailForm." + model + ".$invalid && userDetailForm." + model + ".$dirty")
-    span.has-error.control-label= message
-
-nav.main-heading.navbar.navbar-default
-  .container-fluid
-    .navbar-heading
-      a.navbar-brand.enable(href="" ui-sref="app.users" ng-show="Auth.isAdmin()") User
-      a.navbar-brand(ng-show="Auth.isAdmin()")
-        span.glyphicon.glyphicon-menu-right
-      a.navbar-brand {{ vm.user.username }}
-    ul.nav.navbar-nav.navbar-right
-      li
-        button.btn.btn-info.navbar-btn(ng-disabled="userDetailForm.$invalid" ng-click="vm.save()") Save
++heading('User', 'app.users', true, '{{ vm.user.username }}', 'Save', 'btn-info', 'userDetailForm.$invalid', 'vm.save()')
 .user-detail
   form.form-horizontal(name="userDetailForm")
-    +break('basic info')
-    +form('Avatar', 'avatar', 'avatar')
+
+    +line-break('basic info')
+    .form-group(ng-class="{'has-error': userDetailForm.avatar.$invalid && userDetailForm.avatar.$dirty}")
+      label.col-sm-2.control-label(for="avatar") Avatar
       .col-sm-7
         input#avatar.form-control(name="avatar" type='text' pattern="^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)$" placeholder="avatar url" ng-model="vm.user.avatar")
-        +error-label('avatar', 'Please input a valid url')
+        +error-label('userDetailForm', 'avatar', 'Please input a valid url')
       .col-sm-2.col-xs-4.col-xs-offset-4.col-sm-offset-0
         img#avatar-img.img-responsive.img-thumbnail(ng-src="{{ vm.user.avatar }}")
-    +form('Username', 'username', 'username')
-      .col-sm-9
-        input#username.form-control(name="username" type='text' placeholder="user name" ng-model="vm.user.username" required)
-    +form('Real name', 'realm')
-      .col-sm-9
-        input#realm.form-control(type='text' placeholder="real name" ng-model="vm.user.realm")
-    +form('Email', 'email', 'email')
-      .col-sm-9
-        input#email.form-control(name="email" type='text' pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$" placeholder="email" ng-model="vm.user.email" required)
-        +error-label('email', 'Please input a valid email address')
+
+    +form-input('userDetailForm', 'Username', 'username', 'text', 'user name', 'vm.user.username', true)
+      +error-label('userDetailForm', 'username', 'Username is required')
+    +form-input('userDetailForm', 'Real name', 'realm', 'text', 'real name', 'vm.user.realm')
+    +form-input('userDetailForm', 'Email', 'email', 'text', 'email', 'vm.user.email', true, '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
+      +error-label('userDetailForm', 'email', 'Please input a valid email address')
+
     div(ng-show="Auth.isAdmin()")
-      +break('role')
-      +form('Role', 'role')
+      +line-break('role')
+      .form-group
+        label.col-sm-2.control-label(for="role") Role
         .col-sm-9
           select#role.form-control.multiselect.multiselect-default(select2="vm.user.roles" multiple ng-model="vm.user.roles")
             option(value="admin") admin
-    +break('password')
-    +form('Password', 'pwd', 'rpassword')
+
+    +line-break('password')
+    .form-group(ng-class="{'has-error': userDetailForm.rpassword.$invalid && userDetailForm.rpassword.$dirty}")
+      label.col-sm-2.control-label(for="pwd") Password
       .col-sm-9
         input#pwd.form-control(name='password' type='password' placeholder="new password" ng-model="vm.user.password")
         br
         input.form-control(name='rpassword' type='password' placeholder="repeat password" ng-model="vm.rpassword" compare-to="vm.user.password")
-        +error-label('rpassword', 'Password must be the same')
-  form.form-horizontal(name="deleteForm" ng-show="Auth.isAdmin()")
-    +break('delete')
-    +form('Delete User', 'delete')
-      .col-sm-9
-        input#delete.form-control(name='deleteName' type='text' placeholder="input user name to delete" ng-model="vm.deleteName" compare-to="vm.user.username")
-        div.has-error(show-animate="!deleteForm.deleteName.$invalid")
-          span.control-label Delete action can't be recovered
-          button.btn.btn-block.btn-danger(ng-disabled="deleteForm.deleteName.$invalid" ng-click="vm.delete()") Delete
+        +error-label('userDetailForm', 'rpassword', 'Password must be the same')
+
+  form.form-horizontal.has-error(name="deleteForm" ng-show="Auth.isAdmin()")
+    +line-break('delete')
+    +form-input('deleteForm', 'Delete User', 'deleteName', 'text', 'input user name to delete', 'vm.deleteName', false, null, 'vm.user.username')
+      div(show-animate="!deleteForm.deleteName.$invalid")
+        span.control-label Delete action can't be recovered
+        button.btn.btn-block.btn-danger(ng-disabled="deleteForm.deleteName.$invalid" ng-click="vm.delete()") Delete
 
 

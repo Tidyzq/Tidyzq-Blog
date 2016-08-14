@@ -3,14 +3,16 @@
 compare-to = ->
   require: "ngModel"
   scope:
-    otherModelValue: "=compareTo"
+    other-model-value: "=compareTo"
   link: (scope, element, attributes, ngModel) !->
 
-    ngModel.$validators.compareTo = (modelValue) ->
-      modelValue == scope.otherModelValue
+    if attributes.compare-to
 
-    scope.$watch "otherModelValue", !->
-      ngModel.$validate!
+      ng-model.$validators.compare-to = (model-value) ->
+        model-value == scope.other-model-value
+
+      scope.$watch "otherModelValue", !->
+        ng-model.$validate!
 
 angular
   .module 'app.core'

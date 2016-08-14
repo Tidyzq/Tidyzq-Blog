@@ -1,61 +1,37 @@
-mixin break(name)
-  .form-group
-    .col-xs-4.col-sm-5
-      hr
-    center.col-xs-4.col-sm-2
-      p.text-muted= name
-    .col-xs-4.col-sm-5
-      hr
+include ../../core/mixin/mixin.jade
 
-mixin form(label, id, model)
-  .form-group(ng-class="{'has-error': addUserForm." + model + ".$invalid && addUserForm." + model + ".$dirty}")
-    label.col-sm-2.control-label(for=id)= label
-    if block
-      block
-
-mixin error-label(model, message)
-  div(show-animate="addUserForm." + model + ".$invalid && addUserForm." + model + ".$dirty")
-    span.has-error.control-label= message
-
-nav.main-heading.navbar.navbar-default
-  .container-fluid
-    .navbar-heading
-      a.navbar-brand.enable(href="" ui-sref="app.users") User
-      a.navbar-brand
-        span.glyphicon.glyphicon-menu-right
-      a.navbar-brand Add User
-    ul.nav.navbar-nav.navbar-right
-      li
-        button.btn.btn-info.navbar-btn(ng-disabled="addUserForm.$invalid" ng-click="vm.save()") Save
++heading('User', 'app.users', false, 'Add User', 'Save', 'btn-info', 'addUserForm.$invalid', 'vm.save()')
 .add-user
   form.form-horizontal(name="addUserForm")
-    +break('basic info')
-    +form('Avatar', 'avatar', 'avatar')
+
+    +line-break('basic info')
+    .form-group(ng-class="{'has-error': addUserForm.avatar.$invalid && addUserForm.avatar.$dirty}")
+      label.col-sm-2.control-label(for="avatar") Avatar
       .col-sm-7
         input#avatar.form-control(name="avatar" type='text' pattern="^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)$" placeholder="avatar url" ng-model="vm.user.avatar")
-        +error-label('avatar', 'Please input a valid url')
+        +error-label('addUserForm', 'avatar', 'Please input a valid url')
       .col-sm-2.col-xs-4.col-xs-offset-4.col-sm-offset-0
         img#avatar-img.img-responsive.img-thumbnail(ng-src="{{ vm.user.avatar }}")
-    +form('Username', 'username', 'username')
-      .col-sm-9
-        input#username.form-control(name="username" type='text' placeholder="user name" ng-model="vm.user.username" required)
-    +form('Real name', 'realm')
-      .col-sm-9
-        input#realm.form-control(type='text' placeholder="real name" ng-model="vm.user.realm")
-    +form('Email', 'email', 'email')
-      .col-sm-9
-        input#email.form-control(name="email" type='text' pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$" placeholder="email" ng-model="vm.user.email" required)
-        +error-label('email', 'Please input a valid email address')
-    +break('role')
-    +form('Role', 'role')
+
+    +form-input('addUserForm', 'Username', 'username', 'text', 'user name', 'vm.user.username', true)
+      +error-label('addUserForm', 'username', 'Username is required')
+    +form-input('addUserForm', 'Real name', 'realm', 'text', 'real name', 'vm.user.realm')
+    +form-input('addUserForm', 'Email', 'email', 'text', 'email', 'vm.user.email', true, '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
+      +error-label('addUserForm', 'email', 'Please input a valid email address')
+
+    +line-break('role')
+    .form-group
+      label.col-sm-2.control-label(for="role") Role
       .col-sm-9
         select#role.form-control.multiselect.multiselect-default(select2="vm.user.roles" multiple ng-model="vm.user.roles")
           option(value="admin") admin
-    +break('password')
-    +form('Password', 'pwd', 'rpassword')
+
+    +line-break('password')
+    .form-group(ng-class="{'has-error': addUserForm.rpassword.$invalid && addUserForm.rpassword.$dirty}")
+      label.col-sm-2.control-label(for="pwd") Password
       .col-sm-9
         input#pwd.form-control(name='password' type='password' placeholder="new password" ng-model="vm.user.password" required)
-        +error-label('password', 'Password is required')
+        +error-label('addUserForm', 'password', 'Password is required')
         br
         input.form-control(name='rpassword' type='password' placeholder="repeat password" ng-model="vm.rpassword" compare-to="vm.user.password")
-        +error-label('rpassword', 'Password must be the same')
+        +error-label('addUserForm', 'rpassword', 'Password must be the same')

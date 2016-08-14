@@ -1,4 +1,5 @@
-nav.main-heading.navbar.navbar-default
-  div(ui-view="heading")
+include ../../core/mixin/mixin.jade
+
++heading('Document', 'app.documents', false, null, 'Add Document', 'btn-success', null, null, 'app.add-document')
 div(ui-view="list")
 

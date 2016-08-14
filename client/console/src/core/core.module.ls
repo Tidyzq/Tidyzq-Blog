@@ -2,7 +2,6 @@
 
 angular
   .module 'app.core', [
-    'lbServices',
-    'ui.router',
-    'ngAnimate'
+    'lbServices'
+    'ui.router'
   ]

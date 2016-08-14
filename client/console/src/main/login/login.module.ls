@@ -11,5 +11,5 @@ config = ($state-provider) !->
     }
 
 angular
-  .module 'app.login', ['ngAnimate']
+  .module 'app.login', []
   .config config

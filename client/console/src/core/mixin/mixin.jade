@@ -1,0 +1,42 @@
+mixin heading(parentText, parentSref, parentAdmin, child, btnText, btnClass, btnDisabled, btnClick, btnSref)
+  nav.main-heading.navbar.navbar-default
+    .container-fluid
+      .navbar-heading
+        button.pull-left.btn.navbar-btn.show-sidebar.visible-xs-block(toggle-sidebar="#sidebar")
+          span.fui-list-bulleted
+        if parentAdmin
+          a.navbar-brand.enable(href="" ui-sref=parentSref ng-show="Auth.isAdmin()")= parentText
+          if child
+            a.navbar-brand(ng-show="Auth.isAdmin()")
+              span.glyphicon.glyphicon-menu-right
+            a.navbar-brand= child
+        else
+          a.navbar-brand.enable(href="" ui-sref=parentSref)= parentText
+          if child
+            a.navbar-brand
+              span.glyphicon.glyphicon-menu-right
+            a.navbar-brand= child
+      if btnText
+        ul.nav.navbar-nav.navbar-right
+          li
+            button.btn.navbar-btn(class=btnClass, ng-disabled=btnDisabled, ng-click=btnClick, ui-sref=btnSref)= btnText
+
+mixin line-break(name)
+  .form-group
+    .col-xs-4.col-sm-5
+      hr
+    center.col-xs-4.col-sm-2
+      p.text-muted= name
+    .col-xs-4.col-sm-5
+      hr
+
+mixin form-input(form, label, name, type, placeholder, model, required, pattern, compare)
+  .form-group(ng-class="{'has-error': " + form + "." + name + ".$invalid && " + form + "." + name + ".$dirty}")
+    label.col-sm-2.control-label(for=name)= label
+    .col-sm-9
+      input.form-control(id=name name=name type=type placeholder=placeholder pattern=pattern ng-model=model compare-to=compare required=required)
+      block
+
+mixin error-label(form, model, message)
+  div(show-animate=form + "." + model + ".$invalid && " + form + "." + model + ".$dirty")
+    span.has-error.control-label= message

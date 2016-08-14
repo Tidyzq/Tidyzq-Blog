@@ -1,6 +1,7 @@
-.sidebar-header
-  img.sidebar-header-icon(ng-src="{{ vm.currentUser.avatar }}")
-  .sidebar-header-detail
-    .sidebar-header-title {{ vm.blogSetting.title }}
-    .sidebar-header-description {{ vm.currentUser.username }}
-ul.nav.nav-sidebar(ng-repeat="item in vm.sidebarMenu" sidebar-item="item")
+.container-fluid
+  .sidebar-header
+    img.sidebar-header-icon(ng-src="{{ vm.currentUser.avatar }}")
+    .sidebar-header-detail
+      .sidebar-header-title {{ vm.blogSetting.title }}
+      .sidebar-header-description {{ vm.currentUser.username }}
+  ul.nav.nav-sidebar(ng-repeat="item in vm.sidebarMenu" sidebar-item="item")

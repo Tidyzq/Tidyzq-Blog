@@ -8,8 +8,6 @@ config = ($state-provider, Sidebar-menu-provider) !->
           'content':
             template-url: 'main/documents/documents.template.html'
             controller: 'DocumentsController as vm'
-          'heading@app.documents':
-            template-url: 'main/documents/documents.heading.html'
           'list@app.documents':
             template-url: 'main/documents/documents.list.html'
         resolve:
