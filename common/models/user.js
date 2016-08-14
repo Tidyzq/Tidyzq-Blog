@@ -134,14 +134,12 @@ module.exports = function(User) {
   // add put role method to User
   User.prototype.addRolesById = function (roleNames, cb) {
     cb = cb || utils.createPromiseCallback();
-    console.log(roleNames);
     if (_.isObject(roleNames) && !_.isArray(roleNames)) {
       roleNames = roleNames.roleNames;
     }
     if (!_.isArray(roleNames)) {
       roleNames = [roleNames];
     }
-    console.log(roleNames);
     var RoleMapping = User.app.models.RoleMapping,
         Role = User.app.models.Role,
         user = this;

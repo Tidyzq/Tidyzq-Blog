@@ -8,9 +8,13 @@ Service = (Setting, $rootScope, $timeout) ->
     element = $ '<div class="notify-wrapper"><center><p class="notify bg-' + type + ' text-' + type + '">' + message + '</p><center></div>'
 
     # slide up at begining
-    slide-up element
+    element .hide 0
 
     $ 'body' .append element
+
+    element .show 0
+
+    slide-up element
 
     slide-up-complete = !->
       element.remove!
@@ -25,11 +29,13 @@ Service = (Setting, $rootScope, $timeout) ->
 
   slide-down = (elem, dur, complete) !->
     dur = dur || 0
-    $ elem .animate {top: '+=30'}, dur, complete
+    height = elem .height!
+    elem .animate {top: '+=' + height}, dur, complete
 
   slide-up = (elem, dur, complete) !->
     dur = dur || 0
-    $ elem .animate {top: '-=30'}, dur, complete
+    height = elem .height!
+    elem .animate {top: '-=' + height}, dur, complete
 
   new Notification!
 

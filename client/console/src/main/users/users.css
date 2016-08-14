@@ -1,5 +1,8 @@
 .main .list-group-item {
   border: 0;
+  border-bottom: 1px solid #BDC3C7;
+  border-radius: 0;
+  margin-bottom: 1px;
   /*display: inline-block;*/
   vertical-align: middle;
   height: 75px;
