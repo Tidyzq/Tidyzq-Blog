@@ -6,13 +6,13 @@ Login-controller = ($state, $scope, Auth) !->
   vm.login = !->
     Auth.log-in vm.login-user
       .then !->
-        $state.go 'app.main'
+        $state.go 'app.documents'
       .catch (response) !->
         $scope.login-form.password.$invalid = true
 
   $scope.$watch 'Auth.isLogedIn' (newValue, oldValue) !->
     if newValue
-      $state.go 'app.main'
+      $state.go 'app.documents'
 
 angular
   .module \app.login

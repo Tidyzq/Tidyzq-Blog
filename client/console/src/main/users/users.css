@@ -1,4 +1,8 @@
-.main .list-group-item {
+.user-list-group {
+  padding: 10px;
+}
+
+.user-list-group .list-group-item {
   border: 0;
   border-bottom: 1px solid #BDC3C7;
   border-radius: 0;
@@ -8,7 +12,7 @@
   height: 75px;
 }
 
-.main .list-group-item > .user-avatar {
+.user-list-group .list-group-item > .user-avatar {
   float: left;
   display: inline-block;
   vertical-align: middle;
@@ -20,7 +24,7 @@
   border-radius: 22.5px;
 }
 
-.main .list-group-item > .user-name {
+.user-list-group .list-group-item > .user-name {
   margin: 0 0 1px 0;
   font-size: 1.7rem;
   line-height: 1.7em;
@@ -28,14 +32,14 @@
   color: #2C3E50;
 }
 
-.main .list-group-item > .user-email {
+.user-list-group .list-group-item > .user-email {
   margin: 0;
   color: #95a5a6;
   font-size: 1.5rem;
   line-height: 1.5em;
 }
 
-.main .list-group-item > .user-role {
+.user-list-group .list-group-item > .user-role {
   float: right;
   font-size: 1.5rem;
   display: inline-block;

@@ -1,13 +1,13 @@
-.user-detail {
+.add-user {
   padding: 20px 10px;
 }
 
-.user-detail #avatar-img {
+.add-user #avatar-img {
   width: 100%;
 }
 
 @media (max-width: 768px) {
-  .user-detail #avatar-img {
+  .add-user #avatar-img {
     margin-top: 10px;
   }
 }

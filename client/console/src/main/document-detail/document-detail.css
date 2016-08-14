@@ -1,0 +1,12 @@
+.document-detail-list {
+  padding: 0;
+  border-right: 1px solid #BDC3C7;
+  overflow: scroll;
+  height: inherit;
+}
+
+.document-detail-content {
+  padding: 20px;
+  overflow: scroll;
+  height: inherit;
+}

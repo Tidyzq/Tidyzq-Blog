@@ -13,7 +13,7 @@ html(ng-app="blog", lang="en")
     // endinject
   //- body
   body(ng-controller="IndexController as vm")
-    div(ui-view="main")
+    .inherit-height(ui-view="main")
     // bower:js
     // js of bower components will be insert here
     // endbower

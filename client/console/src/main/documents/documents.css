@@ -1,0 +1,57 @@
+.documents-list {
+  margin: 0;
+}
+
+.documents-list .list-group-item {
+  border: 0;
+  border-bottom: 1px solid #BDC3C7;
+  border-radius: 0;
+  margin-bottom: 1px;
+  padding-right: 0;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.documents-list .document-name {
+  overflow: hidden;
+  margin: 0 0 1px 0;
+  font-size: 1.7rem;
+  line-height: 1.7em;
+  font-weight: 600;
+  color: #2C3E50;
+}
+
+.documents-list .document-detail {
+  overflow: hidden;
+  margin: 0;
+  color: #95a5a6;
+  font-size: 1.5rem;
+  line-height: 1.5em;
+}
+
+.documents-list .document-detail > .document-created {
+  margin-left: 10px;
+}
+
+.documents-list .document-type {
+  font-size: 1.5rem;
+  display: inline-block;
+  padding: 0 5px;
+  color: #ECF0F1;
+  width: 50px;
+  text-align: center;
+  margin: 5px 10px 5px 0;
+  background-color: #34495E;
+}
+
+.documents-list .document-type.document-type-draft {
+  background-color: #C0392B;
+}
+
+.documents-list .document-type.document-type-page {
+  background-color: #7F8C8D;
+}
+
+.documents-list .document-type.document-type-post {
+  background-color: #2C3E50;
+}

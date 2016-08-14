@@ -1,3 +1,12 @@
+html,
+body {
+    height: 100%;
+}
+
+.inherit-height {
+  height: inherit;
+}
+
 /*
  * Sidebar
  */
@@ -7,6 +16,7 @@
   display: none;
   white-space: nowrap;
 }
+
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
@@ -101,9 +111,9 @@
  * Main
  */
 .main {
+  height: inherit;
   position: relative;
-  padding: 60px 10px 20px 10px;
-  right: 0;
+  padding: 50px 0 0 0;
 }
 
 .main-heading {
@@ -116,6 +126,8 @@
   background-color: white;
   border-bottom: 1px solid #BDC3C7;
   z-index: 99;
+  height: 50px;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
@@ -124,9 +136,27 @@
   }
 }
 
+.main-heading .navbar-heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  padding-left: 21px;
+  width: 2000px;
+}
+
 .main-heading .navbar-brand {
   margin-left: -21px !important;
   float: left !important;
+  font-size: 24px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .main-heading .navbar-brand {
+    font-size: 3.5vw;
+  }
 }
 
 .main-heading .navbar-brand.enable:hover,

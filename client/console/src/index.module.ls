@@ -8,4 +8,6 @@ angular
     'app.users'
     'app.add-user'
     'app.user-detail'
+    'app.documents'
+    'app.document-detail'
   ]

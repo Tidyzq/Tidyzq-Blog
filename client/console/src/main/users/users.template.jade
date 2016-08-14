@@ -5,7 +5,7 @@ nav.main-heading.navbar.navbar-default
     ul.nav.navbar-nav.navbar-right
       li
         button.btn.btn-success.navbar-btn(ui-sref="app.add-user") Add User
-.list-group
+.list-group.user-list-group
   a.list-group-item(href="#" ng-repeat="user in vm.users" ui-sref="app.user-detail(user)")
     image.user-avatar(ng-src="{{ user.avatar }}")
     span.user-role(ng-repeat="role in user.roles") {{ role }}

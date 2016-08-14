@@ -4,7 +4,7 @@ mixin break(name)
       hr
     center.col-xs-4.col-sm-2
       p.text-muted= name
-    .col-xs-4.col-sm-4
+    .col-xs-4.col-sm-5
       hr
 
 mixin form(label, id, model)
@@ -34,44 +34,45 @@ nav.main-heading.navbar.navbar-default
     ul.nav.navbar-nav.navbar-right
       li
         button.btn.btn-info.navbar-btn(ng-disabled="userDetailForm.$invalid" ng-click="vm.save()") Save
-form.form-horizontal(name="userDetailForm")
-  +break('basic info')
-  +form('Avatar', 'avatar', 'avatar')
-    .col-sm-7
-      input#avatar.form-control(name="avatar" type='text' pattern="^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)$" placeholder="avatar url" ng-model="vm.user.avatar")
-      +error-label('avatar', 'Please input a valid url')
-    .col-sm-2.col-xs-5
-      img#avatar-img.img-responsive.img-thumbnail(ng-src="{{ vm.user.avatar }}")
-  +form('Username', 'username', 'username')
-    .col-sm-9
-      input#username.form-control(name="username" type='text' placeholder="user name" ng-model="vm.user.username" required)
-  +form('Real name', 'realm')
-    .col-sm-9
-      input#realm.form-control(type='text' placeholder="real name" ng-model="vm.user.realm")
-  +form('Email', 'email', 'email')
-    .col-sm-9
-      input#email.form-control(name="email" type='text' pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$" placeholder="email" ng-model="vm.user.email" required)
-      +error-label('email', 'Please input a valid email address')
-  div(ng-show="Auth.isAdmin()")
-    +break('role')
-    +form('Role', 'role')
+.user-detail
+  form.form-horizontal(name="userDetailForm")
+    +break('basic info')
+    +form('Avatar', 'avatar', 'avatar')
+      .col-sm-7
+        input#avatar.form-control(name="avatar" type='text' pattern="^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)$" placeholder="avatar url" ng-model="vm.user.avatar")
+        +error-label('avatar', 'Please input a valid url')
+      .col-sm-2.col-xs-4.col-xs-offset-4.col-sm-offset-0
+        img#avatar-img.img-responsive.img-thumbnail(ng-src="{{ vm.user.avatar }}")
+    +form('Username', 'username', 'username')
       .col-sm-9
-        select#role.form-control.multiselect.multiselect-default(select2="vm.user.roles" multiple ng-model="vm.user.roles")
-          option(value="admin") admin
-  +break('password')
-  +form('Password', 'pwd', 'rpassword')
-    .col-sm-9
-      input#pwd.form-control(name='password' type='password' placeholder="new password" ng-model="vm.user.password")
-      br
-      input.form-control(name='rpassword' type='password' placeholder="repeat password" ng-model="vm.rpassword" compare-to="vm.user.password")
-      +error-label('rpassword', 'Password must be the same')
-form.form-horizontal(name="deleteForm" ng-show="Auth.isAdmin()")
-  +break('delete')
-  +form('Delete User', 'delete')
-    .col-sm-9
-      input#delete.form-control(name='deleteName' type='text' placeholder="input user name to delete" ng-model="vm.deleteName" compare-to="vm.user.username")
-      div.has-error(show-animate="!deleteForm.deleteName.$invalid")
-        span.control-label Delete action can't be recovered
-        button.btn.btn-block.btn-danger(ng-disabled="deleteForm.deleteName.$invalid" ng-click="vm.delete()") Delete
+        input#username.form-control(name="username" type='text' placeholder="user name" ng-model="vm.user.username" required)
+    +form('Real name', 'realm')
+      .col-sm-9
+        input#realm.form-control(type='text' placeholder="real name" ng-model="vm.user.realm")
+    +form('Email', 'email', 'email')
+      .col-sm-9
+        input#email.form-control(name="email" type='text' pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$" placeholder="email" ng-model="vm.user.email" required)
+        +error-label('email', 'Please input a valid email address')
+    div(ng-show="Auth.isAdmin()")
+      +break('role')
+      +form('Role', 'role')
+        .col-sm-9
+          select#role.form-control.multiselect.multiselect-default(select2="vm.user.roles" multiple ng-model="vm.user.roles")
+            option(value="admin") admin
+    +break('password')
+    +form('Password', 'pwd', 'rpassword')
+      .col-sm-9
+        input#pwd.form-control(name='password' type='password' placeholder="new password" ng-model="vm.user.password")
+        br
+        input.form-control(name='rpassword' type='password' placeholder="repeat password" ng-model="vm.rpassword" compare-to="vm.user.password")
+        +error-label('rpassword', 'Password must be the same')
+  form.form-horizontal(name="deleteForm" ng-show="Auth.isAdmin()")
+    +break('delete')
+    +form('Delete User', 'delete')
+      .col-sm-9
+        input#delete.form-control(name='deleteName' type='text' placeholder="input user name to delete" ng-model="vm.deleteName" compare-to="vm.user.username")
+        div.has-error(show-animate="!deleteForm.deleteName.$invalid")
+          span.control-label Delete action can't be recovered
+          button.btn.btn-block.btn-danger(ng-disabled="deleteForm.deleteName.$invalid" ng-click="vm.delete()") Delete
 
 
