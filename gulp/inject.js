@@ -24,19 +24,19 @@ function buildInjection() {
     var injectStyles = gulp.src([
             path.join(conf.paths.tmp, '/**/*.css')
         ])
-        .pipe($.concatCss('all.css'))
-        .pipe(gulp.dest(conf.paths.tmp))
+        // .pipe($.concatCss('all.css'))
+        // .pipe(gulp.dest(conf.paths.tmp))
 
 
     var injectScripts = gulp.src([
             path.join(conf.paths.tmp, '/**/*.js')
         ])
-        .pipe($.uglify({
-            mangle: false
-        }))
+        // .pipe($.uglify({
+        //     mangle: false
+        // }))
         .pipe($.angularFilesort())
-        .pipe($.concat('all.js'))
-        .pipe(gulp.dest(conf.paths.tmp))
+        // .pipe($.concat('all.js'))
+        // .pipe(gulp.dest(conf.paths.tmp))
 
     var injectOptions = {
         ignorePath  : conf.paths.tmp,

@@ -1,6 +1,6 @@
 'use strict'
 
-Login-controller = ($state, $scope, Auth) !->
+Login-controller = ($state, $scope, $interval, Auth) !->
   vm = @
 
   vm.login = !->
@@ -16,4 +16,4 @@ Login-controller = ($state, $scope, Auth) !->
 
 angular
   .module \app.login
-  .controller 'LoginController', Login-controller
+  .controller 'LoginController', [ \$state \$scope \$interval \Auth Login-controller ]

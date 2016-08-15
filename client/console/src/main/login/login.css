@@ -8,6 +8,7 @@
 }
 
 .wrapper {
+  overflow: hidden;
   text-align: center;
   height: 100%;
 }
@@ -25,6 +26,7 @@
 }
 
 .wrapper .login-form {
+  z-index: 1;
   display: inline-block;
   vertical-align: middle;
   width: 400px;

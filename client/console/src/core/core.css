@@ -202,3 +202,22 @@ body {
   padding: 0 30px;
   margin: auto;
 }
+
+/**
+ *
+ * Markdown
+ *
+ */
+
+.markdown a {
+  color: #34495e;
+}
+
+.markdown a[href] {
+  color: #2980B9;
+}
+
+.markdown a[href]:hover {
+  color: #3498DB;
+}
+
