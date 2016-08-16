@@ -1,7 +1,31 @@
 'use strict'
 
-User-detail-controller = (data, $state, $scope, User, Auth, Notification) !->
+User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notification) !->
   vm = @
+
+  data
+    .$promise
+    .then !->
+      $root-scope.$broadcast 'config toolbar', do
+        parent:
+          text: 'User'
+          sref: 'app.users'
+          need-admin: true
+        child:
+          text: data.username
+        buttons:
+          * text: 'Save'
+            class: 'btn-info'
+
+
+  $scope.$watch 'userDetailForm.$invalid', (new-val) !->
+    if new-val
+      $root-scope.$broadcast 'disable toolbar button', 0
+    else
+      $root-scope.$broadcast 'enable toolbar button', 0
+
+  $scope.$on 'toolbar button clicked', !->
+    vm.save!
 
   vm.user = data
 

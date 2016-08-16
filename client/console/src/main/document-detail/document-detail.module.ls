@@ -2,33 +2,20 @@
 
 config = ($state-provider, Sidebar-menu-provider) !->
   $state-provider
-    .state 'app.document-detail', {
-        url: '/document/:id',
+    .state 'app.documents.detail', do
+        url: '/:id',
         views:
-          'content':
-            template-url: 'main/document-detail/document-detail.template.html'
+          'detail':
             controller: 'DocumentDetailController as vm'
-          'list@app.document-detail':
-            template-url: 'main/documents/documents.list.html'
-            controller: 'DocumentsController as vm'
-          'detail@app.document-detail':
-            controller: 'DocumentDetailShowController as vm'
         resolve:
           document: (Document, $state-params) ->
             Document
-              .find-by-id {
+              .find-by-id do
                 id: $state-params.id
                 filter:
+                  fields:
+                    markdown: false
                   include: 'author'
-              }
-          documents: (Document) ->
-            Document
-              .find {
-                filter:
-                  include: 'author'
-              }
-    }
-
 
 angular
   .module 'app.document-detail', []

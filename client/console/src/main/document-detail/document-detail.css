@@ -1,11 +1,14 @@
-.document-detail-list {
+.split-document-list.documents-list {
   padding: 0;
   border-right: 1px solid #BDC3C7;
-  overflow: scroll;
-  height: inherit;
 }
 
 .document-detail-content {
+  display: none;
+}
+
+.split-document-detail.document-detail-content {
+  display: block;
   padding: 20px;
   overflow: scroll;
   height: inherit;

@@ -23,6 +23,9 @@ function route ($state-provider, $url-router-provider, $location-provider)
         \sidebar@app :
           template-url : '/core/sidebar/sidebar.template.html'
           controller : 'SidebarController as vm'
+        \toolbar@app :
+          template-url : '/core/toolbar/toolbar.template.html'
+          controller : 'ToolbarController as vm'
 
   $url-router-provider .otherwise '/login'
 

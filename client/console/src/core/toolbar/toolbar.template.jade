@@ -1,0 +1,16 @@
+nav.toolbar.navbar.navbar-default
+  .container-fluid
+    .navbar-heading
+      button.pull-left.btn.navbar-btn.show-sidebar.visible-xs-block(toggle-sidebar="#sidebar")
+        span.fui-list-bulleted
+      a.toolbar-parent.navbar-brand(href="" my-sref="toolbar.parent.sref" ng-show="toolbar.parent && (!toolbar.parent.needAdmin || Auth.isAdmin())") {{ toolbar.parent.text }}
+      a.toolbar-arrow.navbar-brand(ng-show="toolbar.child && (!toolbar.parent.needAdmin || Auth.isAdmin())")
+        span.glyphicon.glyphicon-menu-right
+      a.toolbar-child.navbar-brand(ng-show="toolbar.child") {{ toolbar.child.text }}
+      form.toolbar-input-form.navbar-form.navbar-left(ng-show="toolbar.input")
+        .form-group
+          input.toolbar-input.form-control(type="text" placeholder="{{ toolbar.input.placeholder }}" ng-model="toolbar.input.text")
+    ul.nav.navbar-nav.navbar-right
+      li(ng-repeat="button in toolbar.buttons")
+        button.toolbar-button.btn.navbar-btn(ng-class="button.class", ng-disabled="button.disabled", ng-click="click($index)", my-sref="button.sref") {{ button.text }}
+          span(ng-class="button.icon")

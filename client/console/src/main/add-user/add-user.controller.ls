@@ -1,7 +1,27 @@
 'use strict'
 
-Add-user-controller = ($state, $scope, User, Auth, Notification) !->
+Add-user-controller = ($state, $scope, $root-scope, User, Auth, Notification) !->
   vm = @
+
+  $root-scope.$broadcast 'config toolbar', do
+    parent:
+      text: 'User'
+      sref: 'app.users'
+    child:
+      text: 'Add User'
+    buttons:
+      * text: 'Save'
+        class: 'btn-info'
+
+  $scope.$watch 'addUserForm.$invalid', (new-val) !->
+    if new-val
+      $root-scope.$broadcast 'disable toolbar button', 0
+    else
+      $root-scope.$broadcast 'enable toolbar button', 0
+
+  $scope.$on 'toolbar button clicked', !->
+    # console.log 'click'
+    vm.save!
 
   save-role = ->
     if not _.includes vm.user.roles, 'admin'
@@ -20,7 +40,6 @@ Add-user-controller = ($state, $scope, User, Auth, Notification) !->
         .$promise
     else
       Promise.resolve!
-
 
   vm.save = !->
     if not $scope.add-user-form.$invalid

@@ -1,5 +1,8 @@
 .documents-list {
   margin: 0;
+  height: inherit;
+  overflow: scroll;
+  /*width: 100%;*/
 }
 
 .documents-list .list-group-item {

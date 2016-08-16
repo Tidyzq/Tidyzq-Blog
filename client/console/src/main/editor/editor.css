@@ -1,0 +1,45 @@
+.editor-markdown {
+  padding: 0;
+  height: inherit;
+}
+
+.editor-markdown textarea {
+  resize: none;
+  border: 0;
+  height: 100%;
+  width: 100%;
+  outline: 0;
+  outline-offset: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.editor-markdown:focus {
+  border: 0;
+}
+
+.editor-html {
+  border-left: 1px solid #BDC3C7;
+  height: inherit;
+  overflow: scroll;
+  padding: 20px;
+}
+
+#editor-setting {
+  position: absolute;
+  z-index: 98;
+  background-color: #ECF0F1;
+  border-bottom: 1px solid #BDC3C7;
+}
+
+#editor-setting form {
+  margin-top: 20px;
+}
+
+#editor-setting .form-group {
+  margin-bottom: 0;
+}
+
+#editor-setting .split-form-group {
+  margin-bottom: 20px;
+}

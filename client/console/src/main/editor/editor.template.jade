@@ -1,0 +1,18 @@
+include ../../core/mixin/mixin.jade
+
+#editor-setting.collapse.col-xs-12
+  form.form-horizontal(name="editorSettingForm")
+
+    .form-group
+      .split-form-group.col-xs-12.col-md-6(ng-class="{'has-error': editorSettingForm.url.$invalid && editorSettingForm.url.$dirty}")
+        label.col-sm-2.control-label(for='url') Url
+        .col-sm-10
+          input#url.form-control(name='url' type='text' placeholder='Url' pattern='[a-z0-9-]*' ng-model='vm.document.url')
+      .split-form-group.col-xs-12.col-md-6.has-error
+        label.col-sm-2.control-label(for='url') Url
+        .col-sm-10
+          input#url.form-control(name='url' type='text' placeholder='Url' pattern='[a-z0-9-]*' ng-model='vm.document.url')
+
+.editor-markdown.col-xs-12.col-md-6
+  textarea(ng-model="vm.document.markdown")
+.editor-html.markdown.col-md-6.visible-md-block.visible-lg-block

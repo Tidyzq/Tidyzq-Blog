@@ -5,19 +5,22 @@ my-sref = ($state) ->
   scope:
     my-sref: '='
   link: (scope, elem, attr) !->
-    target-sref = scope.my-sref
 
-    [, state, param, tmp] = /([^\(]+)\(([^\)]*)\)|([^\(\)]+)/.exec target-sref
+    scope.$watch 'mySref', !->
+      target-sref = scope.my-sref
 
-    if param
-      param = scope.$root.$eval param
 
-    if not state
-      state = tmp
+      [, state, param, tmp] = /([^\(]+)\(([^\)]*)\)|([^\(\)]+)/.exec target-sref
 
-    if target-sref
-      elem[0].onclick = !->
-        $state.go state, param
+      if param
+        param = scope.$root.$eval param
+
+      if not state
+        state = tmp
+
+      if target-sref
+        elem[0].onclick = !->
+          $state.go state, param
 
 angular
   .module 'app.core'

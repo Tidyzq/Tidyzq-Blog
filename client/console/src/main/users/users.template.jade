@@ -1,6 +1,5 @@
 include ../../core/mixin/mixin.jade
 
-+heading('User', 'app.users', false, null, 'Add User', 'btn-success', null, null, 'app.add-user')
 .list-group.user-list-group
   a.list-group-item(href="#" ng-repeat="user in vm.users" ui-sref="app.user-detail(user)")
     image.user-avatar(ng-src="{{ user.avatar }}")

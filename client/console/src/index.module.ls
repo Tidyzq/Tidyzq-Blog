@@ -10,4 +10,5 @@ angular
     \app.user-detail
     \app.documents
     \app.document-detail
+    \app.editor
   ]

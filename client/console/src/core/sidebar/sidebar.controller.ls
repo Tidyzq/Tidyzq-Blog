@@ -1,6 +1,6 @@
 'use strict'
 
-Sidebar-controller = ($scope, $rootScope, $state, Sidebar-menu, Auth, Blog-setting) !->
+Sidebar-controller = ( $scope, $rootScope, $state, Sidebar-menu, Auth, Blog-setting ) !->
   vm = @
 
   vm.sidebar-menu = Sidebar-menu.menu

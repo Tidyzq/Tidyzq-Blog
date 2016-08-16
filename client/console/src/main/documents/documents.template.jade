@@ -1,5 +1,12 @@
-include ../../core/mixin/mixin.jade
-
-+heading('Document', 'app.documents', false, null, 'Add Document', 'btn-success', null, null, 'app.add-document')
-div(ui-view="list")
+.list-group.documents-list
+  a.list-group-item(href="#" ng-repeat="document in vm.documents" ng-click="vm.detail(document)" ng-dblclick="vm.edit(document)")
+    h6.document-name
+      span.document-type.document-type-draft(ng-show="document.status === 'draft'") Draft
+      span.document-type.document-type-post(ng-show="document.status === 'published' && !document.isPage") Post
+      span.document-type.document-type-page(ng-show="document.status === 'published' && document.isPage") Page
+      {{ document.title }}
+    p.document-detail
+      span.document-author {{ document.author.username }}
+      span.document-created {{ fromNow(document.createdAt) }}
+.document-detail-content.markdown.col-md-8(ui-view="detail")
 
