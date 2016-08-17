@@ -2,12 +2,44 @@
   padding: 20px 10px;
 }
 
-.user-detail #avatar-img {
-  width: 100%;
+.user-detail #avatar {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  padding: 6px;
 }
 
-@media (max-width: 768px) {
-  .user-detail #avatar-img {
-    margin-top: 10px;
-  }
+.user-detail #avatar > .default-avatar,
+.user-detail #avatar > .overlay {
+  margin: 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.user-detail #avatar > .overlay {
+  opacity: 0.3;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.user-detail #avatar:hover > .overlay {
+  background-color: black;
+  z-index: 1;
+}
+
+.user-detail #avatar > .default-avatar {
+  font-size: 140px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.user-detail #avatar > .default-avatar:before {
+  top: -45px;
+  left: 1px;
+  position: relative;
 }

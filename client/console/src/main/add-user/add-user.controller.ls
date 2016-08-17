@@ -3,6 +3,12 @@
 Add-user-controller = ($state, $scope, $root-scope, User, Auth, Notification) !->
   vm = @
 
+  $ '#avatar-input-modal' .on 'shown.bs.modal' !->
+    vm.avatar = vm.user.avatar
+    $scope.$digest!
+
+  vm.user = {}
+
   $root-scope.$broadcast 'config toolbar', do
     parent:
       text: 'User'
@@ -40,6 +46,9 @@ Add-user-controller = ($state, $scope, $root-scope, User, Auth, Notification) !-
         .$promise
     else
       Promise.resolve!
+
+  vm.save-avatar = !->
+    vm.user.avatar = vm.avatar
 
   vm.save = !->
     if not $scope.add-user-form.$invalid

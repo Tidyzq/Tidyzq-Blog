@@ -8,7 +8,6 @@
     "marked": "git@github.com:Tidyzq/marked.git#~0.3.6",
     "flat-ui": "^2.3.0",
     "jquery": "^3.1.0",
-    "bootstrap": "^3.3.7",
     "lodash": "^4.14.1",
     "moment": "^2.14.1",
     "KaTeX": "katex#^0.6.0"
@@ -23,21 +22,15 @@
     "angular-ui-router": {
       "main": "./release/angular-ui-router.js"
     },
-    "bootstrap": {
-      "main": [
-        "dist/css/bootstrap.min.css",
-        "dist/js/bootstrap.min.js"
-      ]
-    },
     "flat-ui": {
       "main": [
+        "dist/css/vendor/bootstrap/css/bootstrap.min.css",
         "dist/css/flat-ui.min.css",
         "dist/js/flat-ui.min.js"
       ],
       "dependencies": {
         "videojs": "~4.7.2",
-        "jquery": "~1.11.1",
-        "bootstrap": "~3.3.7"
+        "jquery": "~1.11.1"
       }
     },
     "jquery": {

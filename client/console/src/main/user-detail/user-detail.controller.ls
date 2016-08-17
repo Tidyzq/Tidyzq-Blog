@@ -27,6 +27,10 @@ User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notific
   $scope.$on 'toolbar button clicked', !->
     vm.save!
 
+  $ '#avatar-input-modal' .on 'shown.bs.modal' !->
+    vm.avatar = vm.user.avatar
+    $scope.$digest!
+
   vm.user = data
 
   save-role = ->
@@ -60,6 +64,9 @@ User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notific
           Notification.send 'success', 'Save success'
         .catch (response) !->
           Notification.send 'danger', response.data.error.message
+
+  vm.save-avatar = !->
+    vm.user.avatar = vm.avatar
 
   vm.delete = !->
     if not $scope.delete-form.$invalid

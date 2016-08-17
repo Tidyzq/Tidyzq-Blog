@@ -6,6 +6,7 @@
 .editor-markdown textarea {
   resize: none;
   border: 0;
+  margin-bottom: -5px;
   height: 100%;
   width: 100%;
   outline: 0;

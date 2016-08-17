@@ -13,21 +13,21 @@ body {
 
 /* Hide for mobile, show later */
 .sidebar {
-    position: fixed;
-    /*top: 51px;*/
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    padding: 0;
-    padding-top: 0;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #ECF0F1;
-    border-right: 1px solid #BDC3C7;
-    white-space: nowrap;
-  }
+  position: fixed;
+  /*top: 51px;*/
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  padding: 0;
+  padding-top: 0;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  background-color: #ECF0F1;
+  border-right: 1px solid #BDC3C7;
+  white-space: nowrap;
+}
 
 @media (max-width: 768px) {
   .sidebar {
@@ -115,19 +115,22 @@ body {
  * Main
  */
 .main {
-  height: inherit;
   position: relative;
-  margin-top: 50px;
   padding: 0;
+  height: 100%;
 }
 
 .toolbar-wrapper {
-  width: inherit;
+  position: absolute;
+  width: 100%;
+  height: 53px;
 }
 
 .content-wrapper {
+  position: absolute;
   width: 100%;
-  height: inherit;
+  height: 100%;
+  padding-top: 53px;
 }
 
 /**
@@ -138,38 +141,33 @@ body {
 
 
 .toolbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
-  width: inherit;
   border-radius: 0;
   margin: 0;
   background-color: white;
   border-bottom: 1px solid #BDC3C7;
   z-index: 99;
   height: 50px;
+  width: 100%;
   white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-  .toolbar {
-    width: 100%;
-  }
+.toolbar .container-fluid {
+  position: relative;
 }
 
 .toolbar .navbar-heading {
   position: absolute;
   top: 0;
   left: 0;
-  overflow: hidden;
-  padding-left: 21px;
-  width: 2000px;
+  z-index: 100;
 }
 
 .toolbar .show-sidebar {
   color: #34495e;
   background-color: transparent;
-  margin-left: -21px;
 }
 
 .toolbar .show-sidebar:hover {
@@ -184,14 +182,16 @@ body {
   vertical-align: middle;
 }
 
-.toolbar .navbar-brand:hover,
-.toolbar .navbar-brand:focus {
-  color: inherit;
+.toolbar .toolbar-child:hover,
+.toolbar .toolbar-arrow:hover,
+.toolbar .toolbar-child:focus,
+.toolbar .toolbar-arrow:focus {
+  color: inherit !important;
 }
 
 .toolbar .toolbar-parent:hover,
 .toolbar .toolbar-parent:focus {
-  color: #3498DB;
+  color: #3498DB !important;
 }
 
 .toolbar .navbar-right {
@@ -199,16 +199,44 @@ body {
   float: right !important;
 }
 
+.toolbar .navbar-left {
+  margin: 0 !important;
+  float: left !important;
+}
+
 .toolbar .navbar-right > li {
   float: left; !important;
 }
 
+.toolbar .toolbar-status,
+.toolbar .toolbar-input-form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 16px;
+  width: 100%;
+  height: 53px;
+  white-space: nowrap;
+}
+
+.toolbar .toolbar-status > li {
+  display: inline-block;
+}
+
+.toolbar .toolbar-status a {
+  padding: 15px 21px;
+}
 
 .toolbar .toolbar-input-form {
   margin: 0;
-  margin-left: -21px;
   border: 0;
-  width: inherit;
+}
+
+@media (max-width: 768px) {
+  .toolbar .toolbar-input-form,
+  .toolbar .toolbar-status {
+    padding-left: 46px;
+  }
 }
 
 .toolbar .form-group {
@@ -221,6 +249,12 @@ body {
   width: inherit;
   border: 0;
   padding: 0;
+}
+
+.toolbar .toolbar-buttons {
+  position: absolute;
+  top: 0;
+  right: 20px;
 }
 
 .toolbar .btn-empty {
@@ -271,3 +305,36 @@ body {
   color: #3498DB;
 }
 
+/**
+ *
+ * Some Helper Classes
+ *
+ */
+
+
+.no-padding {
+  padding: 0;
+}
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+}
+
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+
+.vertical-align-center .modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}

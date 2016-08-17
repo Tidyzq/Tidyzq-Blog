@@ -3,6 +3,8 @@
 Toolbar-controller  = (  $scope, $root-scope, $state ) !->
   vm = @
 
+  $scope.toolbar = {}
+
   clear-object = (obj) ->
     for key in _.keys obj
       if obj.hasOwnProperty key

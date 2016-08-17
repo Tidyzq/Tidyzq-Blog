@@ -4,13 +4,28 @@ include ../../core/mixin/mixin.jade
   form.form-horizontal(name="userDetailForm")
 
     +line-break('basic info')
-    .form-group(ng-class="{'has-error': userDetailForm.avatar.$invalid && userDetailForm.avatar.$dirty}")
+
+    .form-group
       label.col-sm-2.control-label(for="avatar") Avatar
-      .col-sm-7
-        input#avatar.form-control(name="avatar" type='text' pattern="^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)$" placeholder="avatar url" ng-model="vm.user.avatar")
-        +error-label('userDetailForm', 'avatar', 'Please input a valid url')
-      .col-sm-2.col-xs-4.col-xs-offset-4.col-sm-offset-0
-        img#avatar-img.img-responsive.img-thumbnail(ng-src="{{ vm.user.avatar }}")
+      .col-sm-9
+        #avatar.no-padding.img-thumbnail
+          .overlay(data-toggle="modal" data-target="#avatar-input-modal")
+          img.img-responsive(ng-show="vm.user.avatar" ng-src="{{ vm.user.avatar }}")
+          span.fui-user.default-avatar(ng-hide="vm.user.avatar")
+
+      //- avatar input modal
+      #avatar-input-modal.modal(tabindex="-1" role="dialog")
+        .vertical-alignment-helper
+          .modal-dialog.vertical-align-center
+            .modal-content
+              .modal-body
+                .no-padding(ng-show="avatarTypeSwitch")
+                  input.form-control(type='text' placeholder="avatar url" ng-model="vm.avatar")
+              .modal-footer
+                .pull-left
+                  input(checked type="checkbox" data-toggle="switch" data-on-text="link" data-off-text="file" data-on-color="info" bootstrap-switch ng-model="avatarTypeSwitch")
+                button.btn.btn-default(type="button" data-dismiss="modal") Close
+                button.btn.btn-info(type="button" data-dismiss="modal" ng-click="vm.saveAvatar()") Save
 
     +form-input('userDetailForm', 'Username', 'username', 'text', 'user name', 'vm.user.username', true)
       +error-label('userDetailForm', 'username', 'Username is required')
