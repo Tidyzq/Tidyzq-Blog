@@ -16,14 +16,15 @@ bootstrap-datatimepicker = ->
         vertical: 'bottom'
 
     scope.$watch 'model', !->
-      # console.log 'watch'
-      model-date = moment ng-model.$model-value
-      # console.log model-date
-      picker = $ element .data 'DateTimePicker'
-      picker-date = picker .date!
-      if not picker-date
-        # console.log 'set'
-        picker .date model-date
+      console.log 'watch'
+      if ng-model.$model-value
+        model-date = moment ng-model.$model-value
+        console.log model-date
+        picker = $ element .data 'DateTimePicker'
+        picker-date = picker .date!
+        if not picker-date
+          console.log 'set'
+          picker .date model-date
 
     $ element .on 'dp.show', !->
       offset = $ element .offset!

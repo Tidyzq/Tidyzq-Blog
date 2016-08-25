@@ -17,6 +17,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
                   html: false
                   markdown: false
                 include: 'author'
+                order: 'createdAt DESC'
 
     .state 'app.documents.main', do
       url: '/'

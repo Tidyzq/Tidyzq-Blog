@@ -36,17 +36,15 @@ User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notific
   save-role = ->
     if not _.includes vm.user.roles, 'admin'
       User
-        .prototype$delete-role-by-id {
+        .prototype$delete-role-by-id do
           id: vm.user.id
           role-name: 'admin'
-        }
         .$promise
     else if _.includes vm.user.roles, 'admin'
       User
-        .prototype$add-roles-by-id {
+        .prototype$add-roles-by-id do
           id: vm.user.id
           role-names: ['admin']
-        }
         .$promise
     else
       Promise.resolve!
@@ -71,9 +69,8 @@ User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notific
   vm.delete = !->
     if not $scope.delete-form.$invalid
       User
-        .delete-by-id {
+        .delete-by-id do
           id: vm.user.id
-        }
         .$promise
         .then !->
           Notification.send 'danger', 'Delete success'

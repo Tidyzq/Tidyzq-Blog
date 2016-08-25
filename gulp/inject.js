@@ -23,7 +23,7 @@ gulp.task('inject', ['scripts', 'htmls', 'styles', 'loopback'], function() {
 function buildInjection() {
     var injectStyles = gulp.src([
             path.join(conf.paths.tmp, '/**/*.css')
-        ])
+        ]);
         // .pipe($.concatCss('all.css'))
         // .pipe(gulp.dest(conf.paths.tmp))
 
@@ -34,7 +34,7 @@ function buildInjection() {
         // .pipe($.uglify({
         //     mangle: false
         // }))
-        .pipe($.angularFilesort())
+        .pipe($.angularFilesort());
         // .pipe($.concat('all.js'))
         // .pipe(gulp.dest(conf.paths.tmp))
 

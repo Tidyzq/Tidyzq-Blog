@@ -1,14 +1,6 @@
 {
   "name": "tagdocument",
   "base": "PersistedModel",
-  "properties": {
-    "tagId": {
-      "required": true
-    },
-    "documentId": {
-      "required": true
-    }
-  },
   "validations": [],
   "relations": {
     "tag": {
