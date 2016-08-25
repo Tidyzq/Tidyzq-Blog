@@ -52,7 +52,7 @@ include ../../core/mixin/mixin.jade
       .split-form-group.col-xs-12.col-md-6
         label.col-sm-2.control-label(for='status') Status
         .col-sm-10
-          select.form-control.select.select-primary.select-block.mbl(select2 ng-model="vm.document.status")
+          select.form-control.select(select2 ng-model="vm.document.status")
             option(value="published") Published
             option(value="draft") Draft
 

@@ -9,16 +9,12 @@ bootstrap-switch = ->
 
     $ element .bootstrap-switch!
 
-    # $ element .bootstrap-switch '_width'
-
-    if attr.checked
-      ng-model.$set-view-value true
-    else
-      ng-model.$set-view-value false
-
     scope.$watch 'model', !->
-      # console.log <| $ element .bootstrap-switch 'state'
-      $ element .bootstrap-switch 'toggleState', ng-model.$model-value
+      switch-state =  $ element .bootstrap-switch 'state'
+      model-state = ng-model.$model-value
+      # console.log switch-state, model-state
+      if switch-state is not model-state
+        $ element .bootstrap-switch 'toggleState'
 
     $ element .on 'switchChange.bootstrapSwitch', (event, state) !->
       ng-model.$set-view-value state

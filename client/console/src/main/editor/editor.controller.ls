@@ -8,7 +8,6 @@ Editor-controller = (document, all-tags, $state, $scope, $root-scope, Markdown) 
     .$promise
     .then !->
       vm.tags = _.map document.tags, 'id'
-      console.log vm.tags
       $root-scope.$broadcast 'config toolbar', do
         input:
           text: document.title
