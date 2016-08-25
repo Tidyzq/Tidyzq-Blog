@@ -18,7 +18,8 @@ var $ = require('gulp-load-plugins')();
 exports.paths = {
     src : 'client/console/src',
     tmp : 'client/console/.tmp',
-    vendor : '..',
+    doc : 'client/docs',
+    vendor : '../..',
     server: 'server/server.js',
     lbServices: 'lb-services.js',
     models: 'common/models'

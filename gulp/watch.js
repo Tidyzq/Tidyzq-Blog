@@ -12,7 +12,10 @@ function isOnlyChange(event) {
 }
 
 gulp.task('clean', function (cb) {
-    return del(path.join(conf.paths.tmp, '/'), cb);
+    return del([
+        path.join(conf.paths.tmp, '/'),
+        path.join(conf.paths.doc, '/')
+    ], cb);
 });
 
 gulp.task('watch', ['inject'], function () {

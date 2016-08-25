@@ -16,6 +16,14 @@ config = ($state-provider, Sidebar-menu-provider) !->
               filter:
                 fields:
                   html: false
+                include: 'tags'
+        all-tags: (Tag) ->
+          Tag
+            .find do
+              filter:
+                fields:
+                  name: true
+                  id: true
 
 angular
   .module 'app.editor', []

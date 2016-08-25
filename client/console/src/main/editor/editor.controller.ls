@@ -1,12 +1,14 @@
 'use strict'
 
-Editor-controller = (document, $state, $scope, $root-scope, Markdown) !->
+Editor-controller = (document, all-tags, $state, $scope, $root-scope, Markdown) !->
 
   vm = @
 
   document
     .$promise
     .then !->
+      vm.tags = _.map document.tags, 'id'
+      console.log vm.tags
       $root-scope.$broadcast 'config toolbar', do
         input:
           text: document.title
@@ -18,6 +20,7 @@ Editor-controller = (document, $state, $scope, $root-scope, Markdown) !->
             class: 'btn-info'
 
   vm.document = document
+  vm.all-tags = all-tags
 
   $scope.$watch 'vm.document.markdown', !->
     html = Markdown.render vm.document.markdown
@@ -31,6 +34,9 @@ Editor-controller = (document, $state, $scope, $root-scope, Markdown) !->
     switch index
     case 0
       $ '#editor-setting' .collapse 'toggle'
+
+  vm.save-image = !->
+    vm.document.image = vm.image
 
 angular
   .module \app.editor

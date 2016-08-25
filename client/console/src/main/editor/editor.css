@@ -31,16 +31,56 @@
   z-index: 98;
   background-color: #ECF0F1;
   border-bottom: 1px solid #BDC3C7;
+  max-height: 100%;
+  width: 100%;
 }
 
 #editor-setting form {
+  position: relative;
   margin-top: 20px;
+  overflow: scroll;
 }
 
 #editor-setting .form-group {
   margin-bottom: 0;
+  width: 100%;
 }
 
 #editor-setting .split-form-group {
   margin-bottom: 20px;
+  padding: 0;
+}
+
+#editor-setting #image {
+  width: 100%;
+  /*min-height: 55px;*/
+  min-height: 42px;
+  position: relative;
+  padding: 6px;
+  display: block;
+}
+
+/*@media(min-width: 768px) {
+  #editor-setting #image {
+    min-height: 234px;
+  }
+}*/
+
+#editor-setting #image > .overlay {
+  margin: 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.3;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+#editor-setting #image:hover > .overlay {
+  background-color: black;
+  z-index: 1;
 }

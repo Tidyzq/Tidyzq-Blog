@@ -1,6 +1,7 @@
 html,
 body {
-    height: 100%;
+  position: relative;
+  height: 100%;
 }
 
 .inherit-height {
@@ -131,6 +132,15 @@ body {
   width: 100%;
   height: 100%;
   padding-top: 53px;
+}
+
+#toolbar, #content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 /**
@@ -311,30 +321,88 @@ body {
  *
  */
 
+.static {
+  position: static;
+}
 
 .no-padding {
   padding: 0;
 }
 
 .vertical-alignment-helper {
-    display:table;
-    height: 100%;
-    width: 100%;
-    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+  display:table;
+  height: 100%;
+  width: 100%;
+  pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
 }
 
 .vertical-align-center {
-    /* To center vertically */
-    display: table-cell;
-    vertical-align: middle;
-    pointer-events:none;
+  /* To center vertically */
+  display: table-cell;
+  vertical-align: middle;
+  pointer-events:none;
 }
 
 .vertical-align-center .modal-content {
-    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
-    width:inherit;
-    height:inherit;
-    /* To center horizontally */
-    margin: 0 auto;
-    pointer-events: all;
+  /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+  width:inherit;
+  height:inherit;
+  /* To center horizontally */
+  margin: 0 auto;
+  pointer-events: all;
 }
+
+/**
+ *
+ * Bootstrap switch
+ *
+ */
+
+.bootstrap-switch {
+  border: 0;
+  border-radius: 0;
+}
+
+/**
+ *
+ * Date time picker
+ *
+ */
+
+.bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
+  width: 30em !important;
+}
+
+.bootstrap-datetimepicker-widget .datepicker.col-md-6,
+.bootstrap-datetimepicker-widget .timepicker.col-md-6 {
+  width: 50% !important;
+  float: left;
+}
+
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+  background-color: #1abc9c;
+}
+
+.bootstrap-datetimepicker-widget table td.today:before {
+  border-bottom-color: #1abc9c;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu:before,
+.bootstrap-datetimepicker-widget.dropdown-menu:after {
+  display: none;
+}
+
+/*.bootstrap-datetimepicker-widget.dropdown-menu {
+  border: 2px solid #bdc3c7;
+  background-color: #ECF0F1;
+}*/
+
+/*.bootstrap-datetimepicker-widget.dropdown-menu.top:after {
+  border-top-color: #ECF0F1 !important;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom:after {
+  border-bottom-color: #ECF0F1 !important;
+}*/
+

@@ -20,3 +20,4 @@ npm-debug.log
 client/vendor
 **/.tmp
 storage
+mongod.log*

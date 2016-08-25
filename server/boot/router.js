@@ -5,6 +5,7 @@ module.exports = function(app) {
   var router = app.loopback.Router();
   router.use(loopback.static('client/console/.tmp'));
   router.use('/vendor', loopback.static('client/vendor'));
+  router.use('/docs', loopback.static('client/docs'));
   router.use('/api', app.loopback.rest());
   router.get('/status', app.loopback.status());
   router.get('*', function(req, res) {
