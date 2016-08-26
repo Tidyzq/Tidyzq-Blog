@@ -11,4 +11,5 @@ angular
     \app.documents
     \app.document-detail
     \app.editor
+    \app.add-document
   ]

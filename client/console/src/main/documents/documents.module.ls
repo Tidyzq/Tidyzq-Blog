@@ -32,6 +32,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
           buttons:
             * text: 'Add document'
               class: 'btn-success'
+              sref: 'app.add-document'
 
   Sidebar-menu-provider.save-item 'content.documents', do
     name: 'Document'

@@ -11,6 +11,7 @@ Documents-controller = (documents, $state, $scope, $root-scope) !->
     buttons:
       * text: 'Add document'
         class: 'btn-success'
+        sref: 'app.add-document'
 
   vm.documents = documents
 

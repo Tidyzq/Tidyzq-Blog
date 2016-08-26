@@ -1,18 +1,5 @@
 include ../../core/mixin/mixin.jade
 
-//- use to confirm delete operation
-#deleteCheckModal.modal(tabindex="-1" role="dialog")
-  .vertical-alignment-helper
-    .modal-dialog.vertical-align-center
-      .modal-content
-        .modal-header
-          h4.text-danger Are you sure to delete this document?
-        .modal-body
-          p this action can't be recovered.
-        .modal-footer
-          button.btn.btn-default(type="button" data-dismiss="modal") Cancel
-          button.btn.btn-danger(type="button" data-dismiss="modal" ng-click="vm.deleteDocument()") Delete
-
 //- avatar input modal
 #image-input-modal.modal(tabindex="-1" role="dialog")
   .vertical-alignment-helper
@@ -29,14 +16,14 @@ include ../../core/mixin/mixin.jade
           button.btn.btn-info(type="button" data-dismiss="modal" ng-click="vm.saveImage()") Save
 
 #editor-setting.collapse.col-xs-12
-  form.form-horizontal(name="editorSettingForm")
+  form.form-horizontal(name="addDocumentForm")
 
     .form-group
-      .split-form-group.col-xs-12.col-md-6(ng-class="{'has-error': editorSettingForm.url.$invalid && editorSettingForm.url.$dirty}")
+      .split-form-group.col-xs-12.col-md-6(ng-class="{'has-error': addDocumentForm.url.$invalid && addDocumentForm.url.$dirty}")
         label.col-sm-2.control-label(for='url') Url
         .col-sm-10
           input#url.form-control(name='url' type='text' placeholder='Url' pattern='[a-z0-9-]*' ng-model='vm.document.url' required)
-      .split-form-group.col-xs-12.col-md-6(ng-class="{'has-error': editorSettingForm.date.$invalid && editorSettingForm.date.$dirty}")
+      .split-form-group.col-xs-12.col-md-6(ng-class="{'has-error': addDocumentForm.date.$invalid && addDocumentForm.date.$dirty}")
         label.col-sm-2.control-label(for='date') Date
         .col-sm-10
           input#date.form-control(name='date' type='text' placeholder='create date' bootstrap-datatimepicker ng-model='vm.document.createdAt' required)
@@ -68,12 +55,6 @@ include ../../core/mixin/mixin.jade
           select.form-control.select(select2 ng-model="vm.document.status")
             option(value="published") Published
             option(value="draft") Draft
-
-    .form-group
-      .split-form-group.col-xs-12
-        label.col-sm-2.col-md-1.control-label(for="delete") Delete
-        .col-sm-10.col-md-11
-          button.btn.btn-block.btn-danger(data-toggle="modal" data-target="#deleteCheckModal") Delete Document
 
 .editor-markdown.col-xs-12.col-md-6
   textarea(ng-model="vm.document.markdown")

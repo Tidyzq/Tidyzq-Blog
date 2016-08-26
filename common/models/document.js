@@ -47,7 +47,9 @@ module.exports = function(Document) {
   Document.observe('before save', function(context, next) {
     var wait = false;
     if (context.isNewInstance) {
-      context.instance.html = marked(context.instance.markdown);
+      if (context.instance.markdown) {
+        context.instance.html = marked(context.instance.markdown);
+      }
 
       // if url not set
       if (!context.instance.url) {

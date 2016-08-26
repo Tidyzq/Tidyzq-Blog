@@ -23,8 +23,7 @@
       "default": "draft"
     },
     "markdown": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "html": {
       "type": "string"
