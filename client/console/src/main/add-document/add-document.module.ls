@@ -17,6 +17,17 @@ config = ($state-provider, Sidebar-menu-provider) !->
                   name: true
                   id: true
 
+      on-enter: (Toolbar) !->
+        Toolbar.config do
+          input:
+            text: ''
+            placeholder: 'Title'
+          buttons:
+            * icon: 'fui-gear'
+              class: 'btn-empty'
+            * text: 'Save'
+              class: 'btn-info'
+
 angular
   .module 'app.add-document', []
   .config config

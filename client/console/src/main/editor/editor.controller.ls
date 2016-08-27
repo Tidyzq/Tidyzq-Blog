@@ -1,16 +1,18 @@
 'use strict'
 
-Editor-controller = (document, all-tags, $state, $scope, $root-scope, Markdown, Notification, Document, Auth) !->
+Editor-controller = (document, all-tags, $state, $scope, $root-scope, Markdown, Notification, Document, Auth, Toolbar) !->
 
   vm = @
 
   document
     .$promise
     .then !->
+
       vm.tags = _.map document.tags, 'id'
       vm.org-tags = _.clone-deep vm.tags
       vm.image = vm.document.image
-      $root-scope.$broadcast 'config toolbar', do
+
+      Toolbar.config do
         input:
           text: document.title
           placeholder: 'Title'
@@ -30,10 +32,10 @@ Editor-controller = (document, all-tags, $state, $scope, $root-scope, Markdown, 
 
     $ '.editor-html' .html html
 
-  $scope.$on 'toolbar input changed', (event, input) !->
+  Toolbar.input-changed = (input) !->
     vm.document.title = input
 
-  $scope.$on 'toolbar button clicked', (event, index) !->
+  Toolbar.on-click = (index) !->
     switch index
     case 0
       $ '#editor-setting' .collapse 'toggle'
@@ -41,10 +43,7 @@ Editor-controller = (document, all-tags, $state, $scope, $root-scope, Markdown, 
       vm.save-document!
 
   $scope.$watch 'editorSettingForm.$invalid', (new-value) !->
-    if new-value
-      $root-scope.$broadcast 'disable toolbar button', 1
-    else
-      $root-scope.$broadcast 'enable toolbar button', 1
+    Toolbar.enable-btn 1, !new-value
 
   vm.save-image = !->
     vm.document.image = vm.image

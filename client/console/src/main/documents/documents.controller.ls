@@ -4,15 +4,6 @@ Documents-controller = (documents, $state, $scope, $root-scope) !->
 
   vm = @
 
-  $root-scope.$broadcast 'config toolbar', do
-    parent:
-      text: 'Document'
-      sref: 'app.documents.main'
-    buttons:
-      * text: 'Add document'
-        class: 'btn-success'
-        sref: 'app.add-document'
-
   vm.documents = documents
 
   $scope.from-now = (date) ->

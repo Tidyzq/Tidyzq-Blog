@@ -1,6 +1,6 @@
 'use strict'
 
-Document-detail-controller = (document, $state, $scope, $root-scope, $element, Auth) !->
+Document-detail-controller = (document, $state, $scope, $root-scope, $element, Auth, Toolbar) !->
 
   vm = @
 
@@ -10,7 +10,7 @@ Document-detail-controller = (document, $state, $scope, $root-scope, $element, A
   document
     .$promise
     .then !->
-      $root-scope.$broadcast 'config toolbar', do
+      Toolbar.config do
         parent:
           text: 'Document'
           sref: 'app.documents.main'
@@ -26,7 +26,7 @@ Document-detail-controller = (document, $state, $scope, $root-scope, $element, A
   $scope.$watch 'vm.document.html', !->
     $element.html vm.document.html
 
-  $scope.$on 'toolbar button clicked', !->
+  Toolbar.on-click = !->
     $state.go 'app.editor', document
 
 angular

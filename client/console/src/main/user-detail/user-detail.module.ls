@@ -2,7 +2,7 @@
 
 config = ($state-provider, Sidebar-menu-provider) !->
   $state-provider
-    .state 'app.user-detail', {
+    .state 'app.user-detail', do
         url: '/user/:id',
         views:
           'content':
@@ -11,18 +11,15 @@ config = ($state-provider, Sidebar-menu-provider) !->
         resolve:
           data: (User, $state-params) ->
             User
-              .findById {
+              .findById do
                 id: $state-params.id
                 filter:
                   include: 'roles'
-              }
-    }
 
-  Sidebar-menu-provider.save-item 'user.profile', {
+  Sidebar-menu-provider.save-item 'user.profile', do
     name: 'Profile'
     sref: 'app.user-detail(Auth.currentUser)'
     icon: 'fui-new'
-  }
 
 angular
   .module 'app.user-detail', []

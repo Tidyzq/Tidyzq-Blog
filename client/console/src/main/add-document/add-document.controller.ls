@@ -1,18 +1,8 @@
 'use strict'
 
-Add-document-controller = (all-tags, $state, $scope, $root-scope, Markdown, Notification, Document, Auth) !->
+Add-document-controller = (all-tags, $state, $scope, $root-scope, Markdown, Notification, Document, Auth, Toolbar) !->
 
   vm = @
-
-  $root-scope.$broadcast 'config toolbar', do
-    input:
-      text: ''
-      placeholder: 'Title'
-    buttons:
-      * icon: 'fui-gear'
-        class: 'btn-empty'
-      * text: 'Save'
-        class: 'btn-info'
 
   vm.document =
     markdown: ''
@@ -30,10 +20,10 @@ Add-document-controller = (all-tags, $state, $scope, $root-scope, Markdown, Noti
 
     $ '.editor-html' .html html
 
-  $scope.$on 'toolbar input changed', (event, input) !->
+  Toolbar.input-changed = (input) !->
     vm.document.title = input
 
-  $scope.$on 'toolbar button clicked', (event, index) !->
+  Toolbar.on-click = (index) !->
     switch index
     case 0
       $ '#editor-setting' .collapse 'toggle'
@@ -41,10 +31,7 @@ Add-document-controller = (all-tags, $state, $scope, $root-scope, Markdown, Noti
       vm.save-document!
 
   $scope.$watch 'vm.document.title', (new-value) !->
-    if new-value
-      $root-scope.$broadcast 'enable toolbar button', 1
-    else
-      $root-scope.$broadcast 'disable toolbar button', 1
+    Toolbar.enable-btn 1, !!new-value
 
   vm.save-image = !->
     vm.document.image = vm.image

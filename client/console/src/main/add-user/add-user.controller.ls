@@ -1,6 +1,6 @@
 'use strict'
 
-Add-user-controller = ($state, $scope, $root-scope, User, Auth, Notification) !->
+Add-user-controller = ($state, $scope, $root-scope, User, Auth, Notification, Toolbar) !->
   vm = @
 
   $ '#avatar-input-modal' .on 'shown.bs.modal' !->
@@ -9,40 +9,24 @@ Add-user-controller = ($state, $scope, $root-scope, User, Auth, Notification) !-
 
   vm.user = {}
 
-  $root-scope.$broadcast 'config toolbar', do
-    parent:
-      text: 'User'
-      sref: 'app.users'
-    child:
-      text: 'Add User'
-    buttons:
-      * text: 'Save'
-        class: 'btn-info'
-
   $scope.$watch 'addUserForm.$invalid', (new-val) !->
-    if new-val
-      $root-scope.$broadcast 'disable toolbar button', 0
-    else
-      $root-scope.$broadcast 'enable toolbar button', 0
+    Toolbar.enable-btn 0, !new-val
 
-  $scope.$on 'toolbar button clicked', !->
-    # console.log 'click'
+  Toolbar.on-click = !->
     vm.save!
 
   save-role = ->
     if not _.includes vm.user.roles, 'admin'
       User
-        .prototype$deleteRoleById {
+        .prototype$deleteRoleById do
           id: vm.user.id
           role-name: 'admin'
-        }
         .$promise
     else if _.includes vm.user.roles, 'admin'
       User
-        .prototype$addRolesById {
+        .prototype$addRolesById do
           id: vm.user.id
           role-names: ['admin']
-        }
         .$promise
     else
       Promise.resolve!

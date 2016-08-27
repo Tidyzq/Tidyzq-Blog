@@ -1,0 +1,37 @@
+.tags-list {
+  margin: 0;
+  height: inherit;
+  overflow: scroll;
+  /*width: 100%;*/
+}
+
+.tags-list .list-group-item {
+  border: 0;
+  border-bottom: 1px solid #BDC3C7;
+  border-radius: 0;
+  margin-bottom: 1px;
+  padding-right: 0;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.tags-list .tag-name {
+  overflow: hidden;
+  margin: 0 0 1px 0;
+  font-size: 1.7rem;
+  line-height: 1.7em;
+  font-weight: 600;
+  color: #2C3E50;
+}
+
+.tags-list .tag-detail {
+  overflow: hidden;
+  margin: 0;
+  color: #95a5a6;
+  font-size: 1.5rem;
+  line-height: 1.5em;
+}
+
+.tags-list .tag-detail > .tag-url {
+  margin-left: 10px;
+}

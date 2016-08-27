@@ -1,12 +1,12 @@
 'use strict'
 
-User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notification) !->
+User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notification, Toolbar) !->
   vm = @
 
   data
     .$promise
     .then !->
-      $root-scope.$broadcast 'config toolbar', do
+      Toolbar.config do
         parent:
           text: 'User'
           sref: 'app.users'
@@ -19,12 +19,9 @@ User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notific
 
 
   $scope.$watch 'userDetailForm.$invalid', (new-val) !->
-    if new-val
-      $root-scope.$broadcast 'disable toolbar button', 0
-    else
-      $root-scope.$broadcast 'enable toolbar button', 0
+    Toolbar.enable-btn 0, !new-val
 
-  $scope.$on 'toolbar button clicked', !->
+  Toolbar.on-click = !->
     vm.save!
 
   $ '#avatar-input-modal' .on 'shown.bs.modal' !->

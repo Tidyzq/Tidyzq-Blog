@@ -11,4 +11,3 @@ Main-controller = ($scope, $state, Auth) !->
 angular
   .module 'blog'
   .controller 'MainController', Main-controller
-

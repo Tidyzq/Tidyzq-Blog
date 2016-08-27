@@ -21,11 +21,11 @@ config = ($state-provider, Sidebar-menu-provider) !->
 
     .state 'app.documents.main', do
       url: '/'
-      onEnter: ($root-scope) !->
+      onEnter: (Toolbar) !->
         $ '.documents-list' .remove-class 'split-document-list col-md-4 visible-md-block visible-lg-block'
         $ '.document-detail-content' .remove-class 'split-document-detail'
 
-        $root-scope.$broadcast 'config toolbar', do
+        Toolbar.config do
           parent:
             text: 'Document'
             sref: 'app.documents.main'
