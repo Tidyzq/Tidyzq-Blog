@@ -3,7 +3,7 @@
 config = ($state-provider, Sidebar-menu-provider) !->
   $state-provider
     .state 'app.tags.detail', do
-        url: '/:id',
+        url: '/detail/:id',
         views:
           'detail@app.tags':
             controller: 'TagDetailController as vm'

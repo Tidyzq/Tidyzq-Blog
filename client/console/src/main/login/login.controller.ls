@@ -12,7 +12,7 @@ Login-controller = ($state, $scope, $interval, Auth) !->
 
   $scope.$watch 'Auth.isLogedIn' (newValue, oldValue) !->
     if newValue
-      $state.go 'app.documents'
+      $state.go 'app.documents.main'
 
 angular
   .module \app.login

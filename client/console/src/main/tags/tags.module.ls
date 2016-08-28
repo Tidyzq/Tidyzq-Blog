@@ -33,7 +33,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
           buttons:
             * text: 'Add tag'
               class: 'btn-success'
-              sref: 'app.add-tag'
+              sref: 'app.tags.new'
 
   Sidebar-menu-provider.save-item 'content.tags', do
     name: 'Tag'

@@ -3,6 +3,7 @@
 config = ($state-provider, Sidebar-menu-provider) !->
   $state-provider
     .state 'app.documents', do
+      # abstract: true
       url: '/documents'
       views:
         'content':
@@ -22,6 +23,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
     .state 'app.documents.main', do
       url: '/'
       onEnter: (Toolbar) !->
+
         $ '.documents-list' .remove-class 'split-document-list col-md-4 visible-md-block visible-lg-block'
         $ '.document-detail-content' .remove-class 'split-document-detail'
 
