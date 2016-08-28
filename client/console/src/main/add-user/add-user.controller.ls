@@ -15,6 +15,9 @@ Add-user-controller = ($state, $scope, $root-scope, User, Auth, Notification, To
   Toolbar.on-click = !->
     vm.save!
 
+  $scope.$on '$destroy', !->
+    Toolbar.on-click = !-> return
+
   save-role = ->
     if not _.includes vm.user.roles, 'admin'
       User

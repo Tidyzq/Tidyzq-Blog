@@ -24,6 +24,9 @@ User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notific
   Toolbar.on-click = !->
     vm.save!
 
+  $scope.$on '$destroy', !->
+    Toolbar.on-click = !-> return
+
   $ '#avatar-input-modal' .on 'shown.bs.modal' !->
     vm.avatar = vm.user.avatar
     $scope.$digest!

@@ -30,6 +30,10 @@ Add-document-controller = (all-tags, $state, $scope, $root-scope, Markdown, Noti
     case 1
       vm.save-document!
 
+  $scope.$on '$destroy', !->
+    Toolbar.on-click = !-> return
+    Toolbar.input-changed = !-> return
+
   $scope.$watch 'vm.document.title', (new-value) !->
     Toolbar.enable-btn 1, !!new-value
 

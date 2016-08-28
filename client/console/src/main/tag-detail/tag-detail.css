@@ -1,0 +1,51 @@
+.split-tag-list.tags-list {
+  padding: 0;
+  border-right: 1px solid #BDC3C7;
+}
+
+.tag-detail-content {
+  display: none;
+}
+
+.split-tag-detail.tag-detail-content {
+  display: block;
+  padding: 20px;
+  overflow: scroll;
+  height: inherit;
+}
+
+#tag-detail {
+  padding: 0 20px;
+}
+
+#tag-detail textarea {
+  resize: none;
+}
+
+#tag-detail #image {
+  width: 100%;
+  min-height: 42px;
+  position: relative;
+  padding: 6px;
+  display: block;
+}
+
+#tag-detail #image > .overlay {
+  margin: 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.3;
+  cursor: pointer;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+#tag-detail #image:hover > .overlay {
+  background-color: black;
+  z-index: 1;
+}

@@ -29,6 +29,9 @@ Document-detail-controller = (document, $state, $scope, $root-scope, $element, A
   Toolbar.on-click = !->
     $state.go 'app.editor', document
 
+  $scope.$on '$destroy', !->
+    Toolbar.on-click = !-> return
+
 angular
   .module \app.document-detail
   .controller 'DocumentDetailController', Document-detail-controller

@@ -13,4 +13,5 @@ angular
     \app.editor
     \app.add-document
     \app.tags
+    \app.tag-detail
   ]

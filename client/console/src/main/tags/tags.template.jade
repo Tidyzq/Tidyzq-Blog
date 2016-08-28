@@ -1,7 +1,8 @@
 .list-group.tags-list
   a.list-group-item(href="#" ng-repeat="tag in vm.tags" ng-click="vm.detail(tag)")
+    p.tag-document-count {{ tag.documents.length }}
     h6.tag-name
       {{ tag.name }}
     p.tag-detail
       span.tag-url /{{ tag.url }}
-.tag-detail-content.markdown.col-md-8(ui-view="detail")
+.tag-detail-content.col-md-6(ui-view="detail")

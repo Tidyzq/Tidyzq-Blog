@@ -42,6 +42,10 @@ Editor-controller = (document, all-tags, $state, $scope, $root-scope, Markdown, 
     case 1
       vm.save-document!
 
+  $scope.$on '$destroy', !->
+    Toolbar.on-click = !-> return
+    Toolbar.input-changed = !-> return
+
   $scope.$watch 'editorSettingForm.$invalid', (new-value) !->
     Toolbar.enable-btn 1, !new-value
 

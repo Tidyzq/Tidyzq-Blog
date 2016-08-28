@@ -23,12 +23,12 @@ config = ($state-provider, Sidebar-menu-provider) !->
       url: '/'
       on-enter: ($root-scope, Toolbar) !->
 
-        # $ '.documents-list' .remove-class 'split-document-list col-md-4 visible-md-block visible-lg-block'
-        # $ '.document-detail-content' .remove-class 'split-document-detail'
+        $ '.tags-list' .remove-class 'split-tag-list col-md-6 visible-md-block visible-lg-block'
+        $ '.tag-detail-content' .remove-class 'split-tag-detail'
 
         Toolbar.config do
           parent:
-            text: 'Tags'
+            text: 'Tag'
             sref: 'app.tags.main'
           buttons:
             * text: 'Add tag'

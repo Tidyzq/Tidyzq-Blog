@@ -21,6 +21,7 @@
 
 .user-detail #avatar > .overlay {
   opacity: 0.3;
+  cursor: pointer;
   -webkit-transition-duration: 0.5s;
   -moz-transition-duration: 0.5s;
   -o-transition-duration: 0.5s;

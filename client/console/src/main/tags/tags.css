@@ -35,3 +35,12 @@
 .tags-list .tag-detail > .tag-url {
   margin-left: 10px;
 }
+
+.tags-list .tag-document-count {
+  float: right;
+  font-size: 1.8rem;
+  display: inline-block;
+  padding: 5px;
+  color: #95a5a6;
+  margin: 5px 15px 5px 0px;
+}

@@ -1,0 +1,51 @@
+//- use to confirm delete operation
+#deleteCheckModal.modal(tabindex="-1" role="dialog")
+  .vertical-alignment-helper
+    .modal-dialog.vertical-align-center
+      .modal-content
+        .modal-header
+          h4.text-danger Are you sure to delete this tag?
+        .modal-body
+          p this action can't be recovered.
+        .modal-footer
+          button.btn.btn-default(type="button" data-dismiss="modal") Cancel
+          button.btn.btn-danger(type="button" data-dismiss="modal" ng-click="vm.deleteTag()") Delete
+
+//- image input modal
+#image-input-modal.modal(tabindex="-1" role="dialog")
+  .vertical-alignment-helper
+    .modal-dialog.vertical-align-center
+      .modal-content
+        .modal-body
+          .no-padding(ng-show="imageTypeSwitch")
+            input.form-control(type='text' placeholder="image url" ng-model="vm.image" autofocus)
+        .modal-footer
+          .pull-left
+            input(checked type="checkbox" data-toggle="switch" data-on-text="Link" data-off-text="File" data-on-color="info" bootstrap-switch ng-model="imageTypeSwitch")
+
+          button.btn.btn-default(type="button" data-dismiss="modal") Close
+          button.btn.btn-info(type="button" data-dismiss="modal" ng-click="vm.saveImage()") Save
+
+form#tag-detail.form-horizontal(name="tagDetailForm")
+
+  .form-group
+    label.control-label(for='image') Image
+    #image.col-xs-12.no-padding.img-thumbnail
+      .overlay(data-toggle="modal" data-target="#image-input-modal")
+      img.img-responsive(ng-show="vm.tag.image" ng-src="{{ vm.tag.image }}")
+
+  .form-group(ng-class="{'has-error': tagDetailForm.name.$invalid && tagDetailForm.name.$dirty}")
+    label.control-label(for='name') Name
+    input#name.form-control(name='name' type='text' placeholder='Name' ng-model='vm.tag.name' required)
+
+  .form-group(ng-class="{'has-error': tagDetailForm.url.$invalid && tagDetailForm.url.$dirty}")
+    label.control-label(for='url') Url
+    input#url.form-control(name='url' type='text' placeholder='Url' pattern='[a-z0-9-]*' ng-model='vm.tag.url' required)
+
+  .form-group
+    label.control-label(for='description') Description
+    textarea#description.form-control(name='description' type='text' placeholder='Description' ng-model='vm.tag.description' rows='4')
+
+  .form-group
+    label.control-lable(for='delete') Delete
+    button.btn.btn-block.btn-danger(data-toggle="modal" data-target="#deleteCheckModal") Delete Tag
