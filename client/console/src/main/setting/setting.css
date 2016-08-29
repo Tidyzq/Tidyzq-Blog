@@ -1,0 +1,39 @@
+#setting-form {
+  padding: 20px;
+}
+
+#setting-form textarea {
+  resize: none;
+}
+
+#setting-form #logo,
+#setting-form #cover {
+  width: 100%;
+  /*min-height: 55px;*/
+  min-height: 42px;
+  position: relative;
+  padding: 6px;
+  display: block;
+}
+
+#setting-form #logo > .overlay,
+#setting-form #cover > .overlay {
+  margin: 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.3;
+  cursor: pointer;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+#setting-form #logo:hover > .overlay,
+#setting-form #cover:hover > .overlay {
+  background-color: black;
+  z-index: 1;
+}

@@ -15,4 +15,5 @@ angular
     \app.tags
     \app.tag-detail
     \app.add-tag
+    \app.setting
   ]

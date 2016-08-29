@@ -1,0 +1,65 @@
+//- logo input modal
+#logo-input-modal.modal(tabindex="-1" role="dialog")
+  .vertical-alignment-helper
+    .modal-dialog.vertical-align-center
+      .modal-content
+        .modal-body
+          .no-padding(ng-show="imageTypeSwitch")
+            input.form-control(type='text' placeholder="logo url" ng-model="vm.logo" autofocus)
+        .modal-footer
+          .pull-left
+            input(checked type="checkbox" data-toggle="switch" data-on-text="Link" data-off-text="File" data-on-color="info" bootstrap-switch ng-model="imageTypeSwitch")
+
+          button.btn.btn-default(type="button" data-dismiss="modal") Close
+          button.btn.btn-info(type="button" data-dismiss="modal" ng-click="vm.saveLogo()") Save
+
+//- cover input modal
+#cover-input-modal.modal(tabindex="-1" role="dialog")
+  .vertical-alignment-helper
+    .modal-dialog.vertical-align-center
+      .modal-content
+        .modal-body
+          .no-padding(ng-show="imageTypeSwitch")
+            input.form-control(type='text' placeholder="cover url" ng-model="vm.cover" autofocus)
+        .modal-footer
+          .pull-left
+            input(checked type="checkbox" data-toggle="switch" data-on-text="Link" data-off-text="File" data-on-color="info" bootstrap-switch ng-model="imageTypeSwitch")
+
+          button.btn.btn-default(type="button" data-dismiss="modal") Close
+          button.btn.btn-info(type="button" data-dismiss="modal" ng-click="vm.saveCover()") Save
+
+form#setting-form.form-horizontal(name="settingForm")
+
+  .form-group(ng-class="{'has-error': settingForm.title.$invalid && settingForm.title.$dirty}")
+    label.col-sm-2.control-label(for='title') Blog Title
+    .col-sm-10
+      input#title.form-control(name='title' type='text' placeholder='Title' ng-model='vm.setting.title' required)
+      label.text-muted.control-label The name of your blog
+
+  .form-group
+    label.col-sm-2.control-label(for='description') Blog Description
+    .col-sm-10
+      textarea#description.form-control(name='description' type='text' placeholder='Description' ng-model='vm.setting.description' rows='5')
+      label.text-muted.control-label Describe what your blog is about
+
+  .form-group
+    label.col-sm-2.control-label(for='logo') Blog logo
+    .col-sm-10
+      #logo.no-padding.img-thumbnail
+        .overlay(data-toggle="modal" data-target="#logo-input-modal")
+        img.img-responsive(ng-show="vm.setting.logo" ng-src="{{ vm.setting.logo }}")
+      label.text-muted.control-label Display a logo for your publication
+
+  .form-group
+    label.col-sm-2.control-label(for='cover') Blog Cover
+    .col-sm-10
+      #cover.no-padding.img-thumbnail
+        .overlay(data-toggle="modal" data-target="#cover-input-modal")
+        img.img-responsive(ng-show="vm.setting.cover" ng-src="{{ vm.setting.cover }}")
+      label.text-muted.control-label Display a cover image on your site
+
+  .form-group(ng-class="{'has-error': settingForm.postsPerPage.$invalid && settingForm.postsPerPage.$dirty}")
+    label.col-sm-2.control-label(for='posts-per-page') Post per page
+    .col-sm-10
+      input#posts-per-page.form-control(name='postsPerPage' type='number' min='0' max='100' step='1' placeholder='Post per page' ng-model='vm.setting.postsPerPage')
+      label.text-muted.control-label How many posts should be displayed on each page

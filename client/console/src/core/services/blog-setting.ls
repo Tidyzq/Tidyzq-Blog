@@ -3,15 +3,18 @@
 Service = (Setting, $rootScope) ->
   BlogSetting = !->
     @current-setting = {}
+    @is-loaded = false
     @get-settings!
 
   BlogSetting.prototype.get-settings = ->
     self = @
+    self.is-loaded = false
     Setting
       .find!
       .$promise
       .then (response) !->
         parse-setting self.current-setting, response
+        self.is-loaded = true
       .catch self.on-error
 
   BlogSetting.prototype.on-error = (err) !->

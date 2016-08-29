@@ -143,6 +143,11 @@ body {
   border: 0;
 }
 
+#content {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 /**
  *
  * Toolbar

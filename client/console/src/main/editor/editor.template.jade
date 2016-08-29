@@ -1,7 +1,7 @@
 include ../../core/mixin/mixin.jade
 
 //- use to confirm delete operation
-#deleteCheckModal.modal(tabindex="-1" role="dialog")
+#delete-check-modal.modal(tabindex="-1" role="dialog")
   .vertical-alignment-helper
     .modal-dialog.vertical-align-center
       .modal-content
@@ -73,7 +73,7 @@ include ../../core/mixin/mixin.jade
       .split-form-group.col-xs-12
         label.col-sm-2.col-md-1.control-label(for="delete") Delete
         .col-sm-10.col-md-11
-          button.btn.btn-block.btn-danger(data-toggle="modal" data-target="#deleteCheckModal") Delete Document
+          button.btn.btn-block.btn-danger(data-toggle="modal" data-target="#delete-check-modal") Delete Document
 
 .editor-markdown.col-xs-12.col-md-6
   textarea(ng-model="vm.document.markdown")
