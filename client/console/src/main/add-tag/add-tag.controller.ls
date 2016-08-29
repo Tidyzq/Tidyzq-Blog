@@ -15,6 +15,9 @@ Add-tag-controller = ($state, $scope, $root-scope, Notification, Tag, Toolbar) !
   $scope.$on '$destroy', !->
     Toolbar.on-click = !-> return
 
+  $scope.$watch 'tagDetailForm.$invalid', (new-val) !->
+    Toolbar.enable-btn 0, !new-val
+
   reload-tags = !->
     $root-scope.$broadcast 'reload'
 

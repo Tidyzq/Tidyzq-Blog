@@ -1,7 +1,8 @@
 .documents-list {
   margin: 0;
   height: inherit;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
   /*width: 100%;*/
 }
 

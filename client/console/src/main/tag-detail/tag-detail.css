@@ -10,7 +10,8 @@
 .split-tag-detail.tag-detail-content {
   display: block;
   padding: 20px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
   height: inherit;
 }
 
