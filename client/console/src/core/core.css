@@ -411,3 +411,59 @@ body {
   border-bottom-color: #ECF0F1 !important;
 }*/
 
+/**
+ *
+ * jquery sortable
+ *
+ */
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+.jquery-sortable {
+  list-style-type: none;
+}
+
+.jquery-sortable li.placeholder {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: none;
+  /** More li styles **/
+}
+/*
+.jquery-sortable li.placeholder:before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  margin-top: -5px;
+  left: -5px;
+  top: -4px;
+  border: 5px solid transparent;
+  border-left-color: #1abc9c;
+  border-right: none;
+}*/
+
+.jquery-sortable span.drag-item {
+  font-size: 24px;
+  cursor: move;
+}
+
+/**
+ *
+ * Bootstrap
+ *
+ */
+
+.btn.btn-clear,
+.btn.btn-clear:hover {
+  background-color: transparent;
+}

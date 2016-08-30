@@ -20,6 +20,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
   Sidebar-menu-provider.save-item 'setting', do
     name: 'Setting'
     is-group: true
+    require-admin: true
 
   Sidebar-menu-provider.save-item 'setting.general', do
     name: 'General'

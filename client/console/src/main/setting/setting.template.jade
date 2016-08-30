@@ -63,3 +63,20 @@ form#setting-form.form-horizontal(name="settingForm")
     .col-sm-10
       input#posts-per-page.form-control(name='postsPerPage' type='number' min='0' max='100' step='1' placeholder='Post per page' ng-model='vm.setting.postsPerPage')
       label.text-muted.control-label How many posts should be displayed on each page
+
+  .form-group
+    label.col-sm-2.control-label(for='navigation') Navigation
+    .col-sm-10
+      ul#navigation.no-padding(sortable on-drop='vm.onDrop' on-drag-start='vm.onDragStart')
+        li.navigation-item(ng-repeat='item in vm.setting.navigation')
+          .col-xs-1
+            center
+              span.text-muted.fui-list.drag-item
+          .col-xs-3
+            input.form-control(ng-model='item.label')
+          .col-xs-7
+            input.form-control(ng-model='item.url')
+          .col-xs-1
+            button.btn.btn-block.btn-clear(ng-click='vm.deleteNavigationItem(item)')
+              span.text-danger.fui-trash
+      button.btn.btn-success(ng-click='vm.addNavigationItem()') Add

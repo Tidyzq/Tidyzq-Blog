@@ -37,3 +37,17 @@
   background-color: black;
   z-index: 1;
 }
+
+#setting-form .navigation-item {
+  margin: 10px 10px;
+}
+
+#setting-form #navigation li {
+  margin: 0;
+  padding: 5px 0;
+  height: 52px;
+}
+
+#setting-form #navigation li > div {
+  padding: 0 5px 0 0;
+}

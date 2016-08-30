@@ -11,7 +11,8 @@
     "lodash": "^4.14.1",
     "moment": "^2.14.1",
     "KaTeX": "katex#^0.6.0",
-    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "jquery-sortable": "^0.9.13"
   },
   "overrides": {
     "angular": {
@@ -68,7 +69,12 @@
       ]
     },
     "select2": {
-      "main": ["select2.min.js", "select2.png", "select2x2.png", "select2-spinner.gif"]
+      "main": [
+        "select2.min.js",
+        "select2.png",
+        "select2x2.png",
+        "select2-spinner.gif"
+      ]
     }
   }
 }
