@@ -6,7 +6,7 @@ config = ($state-provider) !->
         url: '/login',
         views:
           'main':
-            template-url: 'main/login/login.template.html'
+            template-url: '/console/main/login/login.template.html'
             controller : 'LoginController as vm'
     }
 

@@ -6,7 +6,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
         url: '/add-user',
         views:
           'content':
-            template-url: 'main/add-user/add-user.template.html'
+            template-url: '/console/main/add-user/add-user.template.html'
             controller: 'AddUserController as vm'
 
         on-enter: (Toolbar) ->

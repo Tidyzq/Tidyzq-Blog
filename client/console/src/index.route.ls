@@ -15,16 +15,17 @@ function route ($state-provider, $url-router-provider, $location-provider)
 
   $state-provider
     .state \app, do
+      url: '/console'
       abstract: true
       views:
         main :
-          template-url : '/core/layout/layout.template.html'
+          template-url : '/console/core/layout/layout.template.html'
           controller : 'MainController as vm'
         \sidebar@app :
-          template-url : '/core/sidebar/sidebar.template.html'
+          template-url : '/console/core/sidebar/sidebar.template.html'
           controller : 'SidebarController as vm'
         \toolbar@app :
-          template-url : '/core/toolbar/toolbar.template.html'
+          template-url : '/console/core/toolbar/toolbar.template.html'
           controller : 'ToolbarController as vm'
 
   $url-router-provider .otherwise '/login'

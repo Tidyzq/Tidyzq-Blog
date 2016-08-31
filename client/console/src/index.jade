@@ -5,18 +5,28 @@ html(ng-app="blog", lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     base(href="/")
     title Tidyzq's Blog
+    // build:css styles/vendor.css
     // bower:css
-    // css of bower components will be insert here
+    //- css of bower components will be insert here
     // endbower
+    // endbuild
+
+    // build:css styles/app.css
     // inject:css
-    // css of app style will be insert here
+    //- css of app style will be insert here
     // endinject
+    // endbuild
   //- body
   body(ng-controller="IndexController as vm")
     .inherit-height(ui-view="main")
+    // build:js scirpts/vendor.js
     // bower:js
-    // js of bower components will be insert here
+    //- js of bower components will be insert here
     // endbower
+    // endbuild
+
+    // build:js scirpts/app.js
     // inject:js
-    // js of app scripts will be insert here
+    //- js of app scripts will be insert here
     // endinject
+    // endbuild

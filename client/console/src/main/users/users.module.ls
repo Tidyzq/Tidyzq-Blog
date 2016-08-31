@@ -7,7 +7,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
 
         views:
           'content':
-            template-url: 'main/users/users.template.html'
+            template-url: '/console/main/users/users.template.html'
             controller: 'UsersController as vm'
 
         resolve:

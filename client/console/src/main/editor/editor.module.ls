@@ -6,7 +6,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
       url: '/editor/:id',
       views:
         'content@app':
-          template-url: 'main/editor/editor.template.html'
+          template-url: '/console/main/editor/editor.template.html'
           controller: 'EditorController as vm'
       resolve:
         document: (Document, $state-params) ->

@@ -2,7 +2,8 @@
 
 var path = require('path');
 var gulp = require('gulp');
-var conf = require('./conf');
+var merge = require('merge-stream');
+var conf = require('../conf');
 
 var $ = require('gulp-load-plugins')();
 
@@ -11,44 +12,38 @@ var _ = require('lodash');
 
 var browserSync = require('browser-sync');
 
-gulp.task('inject-reload', function() {
+gulp.task('console:inject-reload', function() {
     return buildInjection()
         .pipe(browserSync.stream());
 });
 
-gulp.task('inject', ['scripts', 'htmls', 'styles', 'loopback'], function() {
+gulp.task('console:inject', ['console:scripts', 'console:templates', 'console:styles', 'console:loopback'], function() {
     return buildInjection();
 });
 
 function buildInjection() {
     var injectStyles = gulp.src([
-            path.join(conf.paths.tmp, '/**/*.css')
+            path.join(conf.paths.console.tmp, '/**/*.css')
         ]);
-        // .pipe($.concatCss('all.css'))
-        // .pipe(gulp.dest(conf.paths.tmp))
-
 
     var injectScripts = gulp.src([
-            path.join(conf.paths.tmp, '/**/*.js')
+            path.join(conf.paths.console.tmp, '/**/*.js')
         ])
-        // .pipe($.uglify({
-        //     mangle: false
-        // }))
         .pipe($.angularFilesort());
-        // .pipe($.concat('all.js'))
-        // .pipe(gulp.dest(conf.paths.tmp))
 
     var injectOptions = {
-        ignorePath  : conf.paths.tmp,
-        addRootSlash: false
+        ignorePath  : conf.paths.console.tmp,
+        addRootSlash: false,
+        addPrefix   : 'console'
     };
 
-    return gulp.src(path.join(conf.paths.tmp, '/index.html'))
+    return gulp.src(path.join(conf.paths.console.tmp, '/index.html'))
         .pipe($.inject(injectStyles, injectOptions))
         .pipe($.inject(injectScripts, injectOptions))
+        .on('error', conf.errorHandler('inject'))
         .pipe(wiredep(_.extend({
             ignorePath: conf.paths.vendor
         }, conf.wiredep)))
         .on('error', conf.errorHandler('wiredep'))
-        .pipe(gulp.dest(conf.paths.tmp));
+        .pipe(gulp.dest(conf.paths.console.tmp));
 }

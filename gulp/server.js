@@ -23,6 +23,7 @@ gulp.task('nodemon', ['watch'], function(done) {
     var started = false;
 
     process.env.FAKE = 1;
+    process.env.DEV = 1;
 
     return nodemon({
         script: 'server/server.js',

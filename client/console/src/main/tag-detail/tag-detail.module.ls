@@ -7,7 +7,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
         views:
           'detail@app.tags':
             controller: 'TagDetailController as vm'
-            template-url: 'main/tag-detail/tag-detail.template.html'
+            template-url: '/console/main/tag-detail/tag-detail.template.html'
         resolve:
           tag: (Tag, $state-params) ->
             Tag

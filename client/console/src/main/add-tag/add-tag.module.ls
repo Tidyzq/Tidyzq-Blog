@@ -7,7 +7,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
       views:
         'detail@app.tags':
           controller: 'AddTagController as vm'
-          template-url: 'main/add-tag/add-tag.template.html'
+          template-url: '/console/main/add-tag/add-tag.template.html'
       on-enter: (Toolbar) !->
         Toolbar.config do
           parent:

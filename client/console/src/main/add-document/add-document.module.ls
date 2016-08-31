@@ -6,7 +6,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
       url: '/add-document',
       views:
         'content@app':
-          template-url: 'main/add-document/add-document.template.html'
+          template-url: '/console/main/add-document/add-document.template.html'
           controller: 'AddDocumentController as vm'
       resolve:
         all-tags: (Tag) ->

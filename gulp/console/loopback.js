@@ -2,29 +2,26 @@
 
 var path = require('path');
 var gulp = require('gulp');
-var rename = require('gulp-rename');
-var loopbackAngular = require('gulp-loopback-sdk-angular');
-var conf = require('./conf');
+var merge = require('merge-stream');
+var conf = require('../conf');
 
 var browserSync = require('browser-sync');
 
 var $ = require('gulp-load-plugins')();
 
-gulp.task('loopback-reload', function () {
+gulp.task('console:loopback-reload', function () {
   return buildLoopbackService()
     .pipe(browserSync.stream());
 });
 
-gulp.task('loopback', function () {
+gulp.task('console:loopback', function () {
   return buildLoopbackService();
 });
 
 function buildLoopbackService() {
   return gulp.src(conf.paths.server)
-    .pipe(loopbackAngular())
+    .pipe($.loopbackSdkAngular())
     .on('error', conf.errorHandler('loopbackAngular'))
-    // .pipe($.uglify())
-    .on('error', conf.errorHandler('uglify'))
-    .pipe(rename(conf.paths.lbServices))
-    .pipe(gulp.dest(conf.paths.tmp));
+    .pipe($.rename(conf.paths.lbServices))
+    .pipe(gulp.dest(conf.paths.console.tmp));
 }

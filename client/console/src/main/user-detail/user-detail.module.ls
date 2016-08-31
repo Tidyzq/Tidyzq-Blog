@@ -6,7 +6,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
         url: '/user/:id',
         views:
           'content':
-            template-url: 'main/user-detail/user-detail.template.html'
+            template-url: '/console/main/user-detail/user-detail.template.html'
             controller: 'UserDetailController as vm'
         resolve:
           data: (User, $state-params) ->

@@ -13,46 +13,11 @@ function isOnlyChange(event) {
 
 gulp.task('clean', function (cb) {
     return del([
-        path.join(conf.paths.tmp, '/'),
-        path.join(conf.paths.doc, '/')
+        path.join(conf.paths.console.tmp, '/'),
+        path.join(conf.paths.console.dist, '/'),
+        path.join(conf.paths.blog.tmp, '/'),
+        path.join(conf.paths.blog.dist, '/')
     ], cb);
 });
 
-gulp.task('watch', ['inject'], function () {
-    gulp.watch([
-        path.join(conf.paths.src, '/**/*.html'),
-        path.join(conf.paths.src, '/**/*.jade'),
-        'bower.json'
-    ], function (event) {
-        gulp.start('htmls-reload');
-    });
-
-    gulp.watch([
-        path.join(conf.paths.src, '/**/*.css'),
-        '!' + path.join(conf.paths.tmp, '/**/*.css')
-    ], function (event) {
-        if (isOnlyChange(event)) {
-            gulp.start('styles-reload');
-        } else {
-            gulp.start('inject-reload');
-        }
-    });
-
-    gulp.watch([
-        path.join(conf.paths.src, '/**/*.ls'),
-        path.join(conf.paths.src, '/**/*.js'),
-        '!' + path.join(conf.paths.tmp, '/**/*.js')
-    ], function (event) {
-        if (isOnlyChange(event)) {
-            gulp.start('scripts-reload');
-        } else {
-            gulp.start('inject-reload');
-        }
-    });
-
-    gulp.watch([
-        path.join(conf.paths.models, '/*.js'),
-        path.join(conf.paths.models, '/*.json'),
-    ], ['loopback-reload']);
-
-});
+gulp.task('watch', ['console:watch']);

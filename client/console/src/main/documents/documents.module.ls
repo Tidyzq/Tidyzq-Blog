@@ -7,7 +7,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
       url: '/documents'
       views:
         'content':
-          template-url: 'main/documents/documents.template.html'
+          template-url: '/console/main/documents/documents.template.html'
           controller: 'DocumentsController as vm'
       resolve:
         documents: (Document) ->

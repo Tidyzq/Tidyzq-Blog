@@ -6,7 +6,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
       url: '/tags'
       views:
         'content':
-          template-url: 'main/tags/tags.template.html'
+          template-url: '/console/main/tags/tags.template.html'
           controller: 'TagsController as vm'
       resolve:
         tags: (Tag) ->

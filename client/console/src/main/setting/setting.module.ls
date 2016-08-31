@@ -7,7 +7,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
       views:
         'content@app':
           controller: 'SettingController as vm'
-          template-url: 'main/setting/setting.template.html'
+          template-url: '/console/main/setting/setting.template.html'
       on-enter: (Toolbar) !->
         Toolbar.config do
           parent:
