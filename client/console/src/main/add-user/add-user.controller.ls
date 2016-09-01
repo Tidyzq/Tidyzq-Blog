@@ -1,6 +1,7 @@
 'use strict'
 
-Add-user-controller = ($state, $scope, $root-scope, User, Auth, Notification, Toolbar) !->
+Add-user-controller.$inject = [\$state,\$scope,\$rootScope,\User,\Auth,\Notification,\Toolbar ]
+function Add-user-controller  ( $state, $scope, $root-scope, User, Auth, Notification, Toolbar )
   vm = @
 
   $ '#avatar-input-modal' .on 'shown.bs.modal' !->
@@ -51,6 +52,8 @@ Add-user-controller = ($state, $scope, $root-scope, User, Auth, Notification, To
           $state.go 'app.users'
         .catch (response) !->
           Notification.send 'danger', response.data.error.message
+
+  return
 
 angular
   .module \app.add-user

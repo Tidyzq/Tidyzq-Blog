@@ -1,6 +1,7 @@
 'use strict'
 
-Add-tag-controller = ($state, $scope, $root-scope, Notification, Tag, Toolbar) !->
+Add-tag-controller.$inject = [\$state,\$scope,\$rootScope,\Notification,\Tag,\Toolbar ]
+function Add-tag-controller  ( $state, $scope, $root-scope, Notification, Tag, Toolbar )
 
   vm = @
 
@@ -34,6 +35,8 @@ Add-tag-controller = ($state, $scope, $root-scope, Notification, Tag, Toolbar) !
 
   vm.save-image = !->
     vm.tag.image = vm.image
+
+  return
 
 angular
   .module \app.add-tag

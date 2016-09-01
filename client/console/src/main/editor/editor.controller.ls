@@ -1,6 +1,7 @@
 'use strict'
 
-Editor-controller = (document, all-tags, $state, $scope, $root-scope, Markdown, Notification, Document, Auth, Toolbar) !->
+Editor-controller.$inject = [\document,\allTags,\$state,\$scope,\$rootScope,\Markdown,\Notification,\Document,\Auth,\Toolbar ]
+function Editor-controller  ( document, all-tags, $state, $scope, $root-scope, Markdown, Notification, Document, Auth, Toolbar )
 
   vm = @
 
@@ -103,6 +104,7 @@ Editor-controller = (document, all-tags, $state, $scope, $root-scope, Markdown, 
         # console.log response
         Notification.send 'danger', response.data.error.message
 
+  return
 
 angular
   .module \app.editor

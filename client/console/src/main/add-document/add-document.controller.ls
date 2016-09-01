@@ -1,6 +1,7 @@
 'use strict'
 
-Add-document-controller = (all-tags, $state, $scope, $root-scope, Markdown, Notification, Document, Auth, Toolbar) !->
+Add-document-controller.$inject = [\allTags,\$state,\$scope,\$rootScope,\Markdown,\Notification,\Document,\Auth,\Toolbar ]
+function Add-document-controller  ( all-tags, $state, $scope, $root-scope, Markdown, Notification, Document, Auth, Toolbar )
 
   vm = @
 
@@ -70,6 +71,7 @@ Add-document-controller = (all-tags, $state, $scope, $root-scope, Markdown, Noti
         # console.log response
         Notification.send 'danger', response.data.error.message
 
+  return
 
 angular
   .module \app.add-document

@@ -1,6 +1,6 @@
 'use strict'
 
-bootstrap-datatimepicker = ->
+function bootstrap-datatimepicker
   restrict: 'A'
   require: 'ngModel'
   scope:

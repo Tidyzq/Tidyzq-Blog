@@ -1,6 +1,7 @@
 'use strict'
 
-my-sref = ($state) ->
+my-sref.$inject = [\$state ]
+function my-sref  ( $state )
   restrict: 'A'
   scope:
     my-sref: '='

@@ -1,6 +1,7 @@
 'use strict'
 
-Tag-detail-controller = (tag, $state, $scope, $root-scope, Notification, Tag, Toolbar) !->
+Tag-detail-controller.$inject = [\tag,\$state,\$scope,\$rootScope,\Notification,\Tag,\Toolbar ]
+function Tag-detail-controller  ( tag, $state, $scope, $root-scope, Notification, Tag, Toolbar )
 
   vm = @
 
@@ -57,6 +58,8 @@ Tag-detail-controller = (tag, $state, $scope, $root-scope, Notification, Tag, To
         Notification.send 'danger', 'Delete success'
       .catch (response) !->
         Notification.send 'danger', response.data.error.message
+
+  return
 
 angular
   .module \app.tag-detail

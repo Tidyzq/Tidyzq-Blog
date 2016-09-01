@@ -1,6 +1,6 @@
 'use strict'
 
-compare-to = ->
+function compare-to
   require: "ngModel"
   scope:
     other-model-value: "=compareTo"

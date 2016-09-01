@@ -1,6 +1,7 @@
 'use strict'
 
-Service = (Setting, $rootScope, $timeout) ->
+Service.$inject = [\Setting,\$rootScope,\$timeout ]
+function Service  ( Setting, $rootScope, $timeout )
   Notification = !->
 
   Notification.prototype.send = (type, message) !->

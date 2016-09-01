@@ -1,6 +1,7 @@
 'use strict'
 
-config = ($state-provider, Sidebar-menu-provider) !->
+config.$inject = [\$stateProvider,\SidebarMenuProvider ]
+function config  ( $state-provider, Sidebar-menu-provider )
   $state-provider
     .state 'app.documents.detail', do
         url: '/:id',
@@ -8,7 +9,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
           'detail':
             controller: 'DocumentDetailController as vm'
         resolve:
-          document: (Document, $state-params) ->
+          document: [\Document \$stateParams (Document, $state-params) ->
             Document
               .find-by-id do
                 id: $state-params.id
@@ -16,6 +17,9 @@ config = ($state-provider, Sidebar-menu-provider) !->
                   fields:
                     markdown: false
                   include: 'author'
+          ]
+
+  return
 
 angular
   .module 'app.document-detail', []

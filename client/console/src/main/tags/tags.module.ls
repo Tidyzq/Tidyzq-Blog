@@ -1,15 +1,16 @@
 'use strict'
 
-config = ($state-provider, Sidebar-menu-provider) !->
+config.$inject = [\$stateProvider,\SidebarMenuProvider ]
+function config  ( $state-provider, Sidebar-menu-provider )
   $state-provider
     .state 'app.tags', do
       url: '/tags'
       views:
         'content':
-          template-url: '/console/main/tags/tags.template.html'
+          template-url: 'console/main/tags/tags.template.html'
           controller: 'TagsController as vm'
       resolve:
-        tags: (Tag) ->
+        tags: [\Tag (Tag) ->
           Tag
             .find do
               filter:
@@ -18,6 +19,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
                   scope:
                     fields:
                       id: true
+        ]
 
     .state 'app.tags.main', do
       url: '/'
@@ -40,6 +42,8 @@ config = ($state-provider, Sidebar-menu-provider) !->
     sref: 'app.tags.main'
     icon: 'fui-tag'
     weight: 1
+
+  return
 
 angular
   .module 'app.tags', []

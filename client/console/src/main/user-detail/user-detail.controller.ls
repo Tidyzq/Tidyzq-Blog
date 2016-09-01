@@ -1,6 +1,7 @@
 'use strict'
 
-User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notification, Toolbar) !->
+User-detail-controller.$inject = [\data,\$state,\$scope,\$rootScope,\User,\Auth,\Notification,\Toolbar ]
+function User-detail-controller  ( data, $state, $scope, $root-scope, User, Auth, Notification, Toolbar )
   vm = @
 
   data
@@ -77,6 +78,8 @@ User-detail-controller = (data, $state, $scope, $root-scope, User, Auth, Notific
           $state.go 'app.users'
         .catch (response) !->
           Notification.send 'danger', response.data.error.message
+
+  return
 
 angular
   .module \app.user-detail

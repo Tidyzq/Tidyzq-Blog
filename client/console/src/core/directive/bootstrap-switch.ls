@@ -1,6 +1,6 @@
 'use strict'
 
-bootstrap-switch = ->
+function bootstrap-switch
   restrict: 'A'
   require: 'ngModel'
   scope:

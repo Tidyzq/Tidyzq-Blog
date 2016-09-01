@@ -1,6 +1,6 @@
 'use strict'
 
-Service = ->
+function Service
 
   marked.set-options do
     math: (text) ->

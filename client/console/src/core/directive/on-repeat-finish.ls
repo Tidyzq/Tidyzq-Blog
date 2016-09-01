@@ -1,6 +1,7 @@
 'use strict'
 
-on-repeat-finish = ($timeout) ->
+on-repeat-finish.$inject = [\$timeout ]
+function on-repeat-finish  ( $timeout )
   restrict: 'A',
   link: (scope, element, attr) ->
     if scope.$last

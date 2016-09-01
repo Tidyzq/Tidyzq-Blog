@@ -1,16 +1,17 @@
 'use strict'
 
-config = ($state-provider, Sidebar-menu-provider) !->
+config.$inject = [\$stateProvider,\SidebarMenuProvider ]
+function config  ( $state-provider, Sidebar-menu-provider )
   $state-provider
     .state 'app.documents', do
       # abstract: true
       url: '/documents'
       views:
         'content':
-          template-url: '/console/main/documents/documents.template.html'
+          template-url: 'console/main/documents/documents.template.html'
           controller: 'DocumentsController as vm'
       resolve:
-        documents: (Document) ->
+        documents: [\Document (Document) ->
           Document
             .find do
               filter:
@@ -19,10 +20,11 @@ config = ($state-provider, Sidebar-menu-provider) !->
                   markdown: false
                 include: 'author'
                 order: 'createdAt DESC'
+        ]
 
     .state 'app.documents.main', do
       url: '/'
-      onEnter: (Toolbar) !->
+      onEnter: [\Toolbar (Toolbar) !->
 
         $ '.documents-list' .remove-class 'split-document-list col-md-4 visible-md-block visible-lg-block'
         $ '.document-detail-content' .remove-class 'split-document-detail'
@@ -35,12 +37,15 @@ config = ($state-provider, Sidebar-menu-provider) !->
             * text: 'Add document'
               class: 'btn-success'
               sref: 'app.add-document'
+      ]
 
   Sidebar-menu-provider.save-item 'content.documents', do
     name: 'Document'
     sref: 'app.documents.main'
     icon: 'fui-document'
     weight: 1
+
+  return
 
 angular
   .module 'app.documents', []

@@ -1,6 +1,6 @@
 'use strict'
 
-Service = ->
+function Service
 
   Toolbar = !->
     @setting = {}

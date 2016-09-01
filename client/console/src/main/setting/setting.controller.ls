@@ -1,6 +1,7 @@
 'use strict'
 
-Setting-controller = ($state, $root-scope, $scope, Blog-setting, Notification, Toolbar, Setting) !->
+Setting-controller.$inject = [\$state,\$rootScope,\$scope,\BlogSetting,\Notification,\Toolbar,\Setting ]
+function Setting-controller  ( $state, $root-scope, $scope, Blog-setting, Notification, Toolbar, Setting )
   vm = @
 
   watch = ->
@@ -68,6 +69,8 @@ Setting-controller = ($state, $root-scope, $scope, Blog-setting, Notification, T
         Notification.send 'success', 'Save success'
       .catch (response) !->
         Notification.send 'danger', response.data.error.message
+
+  return
 
 angular
   .module \app.setting

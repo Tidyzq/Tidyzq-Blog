@@ -1,4 +1,6 @@
-sortable = ->
+'use strict'
+
+function sortable
   restrict: 'A'
   scope:
     on-drop: '='

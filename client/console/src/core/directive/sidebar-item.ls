@@ -1,6 +1,7 @@
 'use strict'
 
-sidebar-item = ($compile) ->
+sidebar-item.$inject = [\$compile ]
+function sidebar-item  ( $compile )
   restrict: 'A'
   scope:
     sidebar-item: '='

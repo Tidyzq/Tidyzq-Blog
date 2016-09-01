@@ -1,6 +1,6 @@
 'use strict'
 
-Provider = ->
+function Provider
   menu = {}
   Sidebar-menu = {}
 

@@ -1,4 +1,6 @@
-select2 = ->
+'use strict'
+
+function select2
   restrict: 'A'
   require: 'ngModel'
   link: (scope, element, attr, ng-model) ->

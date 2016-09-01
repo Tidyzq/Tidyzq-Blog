@@ -1,6 +1,7 @@
 'use strict'
 
-Document-detail-controller = (document, $state, $scope, $root-scope, $element, Auth, Toolbar) !->
+Document-detail-controller.$inject = [\document,\$state,\$scope,\$rootScope,\$element,\Auth,\Toolbar ]
+function Document-detail-controller  ( document, $state, $scope, $root-scope, $element, Auth, Toolbar )
 
   vm = @
 
@@ -31,6 +32,8 @@ Document-detail-controller = (document, $state, $scope, $root-scope, $element, A
 
   $scope.$on '$destroy', !->
     Toolbar.on-click = !-> return
+
+  return
 
 angular
   .module \app.document-detail

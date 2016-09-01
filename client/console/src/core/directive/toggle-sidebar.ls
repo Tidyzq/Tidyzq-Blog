@@ -1,6 +1,6 @@
 'use strict'
 
-toggle-sidebar = ->
+function toggle-sidebar
   restrict: 'A'
   link: (scope, elem, attr) !->
 

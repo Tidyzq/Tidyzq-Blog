@@ -1,6 +1,7 @@
 'use strict'
 
-Service = (Setting, $rootScope) ->
+Service.$inject = [\Setting,\$rootScope ]
+function Service  ( Setting, $rootScope )
   BlogSetting = !->
     @current-setting = {}
     @is-loaded = false

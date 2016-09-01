@@ -1,14 +1,15 @@
 'use strict'
 
-config = ($state-provider, Sidebar-menu-provider) !->
+config.$inject = [\$stateProvider,\SidebarMenuProvider ]
+function config  ( $state-provider, Sidebar-menu-provider )
   $state-provider
     .state 'app.setting', do
       url: '/setting'
       views:
         'content@app':
           controller: 'SettingController as vm'
-          template-url: '/console/main/setting/setting.template.html'
-      on-enter: (Toolbar) !->
+          template-url: 'console/main/setting/setting.template.html'
+      on-enter: [\Toolbar (Toolbar) !->
         Toolbar.config do
           parent:
             text: 'Setting'
@@ -16,6 +17,7 @@ config = ($state-provider, Sidebar-menu-provider) !->
           buttons:
             * text: 'Save'
               class: 'btn-success'
+      ]
 
   Sidebar-menu-provider.save-item 'setting', do
     name: 'Setting'
@@ -27,6 +29,8 @@ config = ($state-provider, Sidebar-menu-provider) !->
     sref: 'app.setting'
     icon: 'fui-cmd'
     require-admin: true
+
+  return
 
 angular
   .module 'app.setting', []

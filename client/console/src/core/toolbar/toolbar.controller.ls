@@ -1,6 +1,7 @@
 'use strict'
 
-Toolbar-controller  = ($scope, $root-scope, $state, Toolbar) !->
+Toolbar-controller.$inject = [\$scope,\$rootScope,\$state,\Toolbar]
+function Toolbar-controller  ( $scope, $root-scope, $state, Toolbar)
   vm = @
 
   $scope.toolbar = Toolbar.setting
@@ -10,6 +11,8 @@ Toolbar-controller  = ($scope, $root-scope, $state, Toolbar) !->
 
   $scope.click = (index) !->
     Toolbar.on-click index
+
+  return
 
 angular
   .module \app.core

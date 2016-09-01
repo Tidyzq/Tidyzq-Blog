@@ -1,6 +1,6 @@
 'use strict'
 
-show-animate = ->
+function show-animate
   restrict: 'A'
   link: (scope, elem, attr) !->
 

@@ -1,6 +1,7 @@
 'use strict'
 
-Service = (LoopBackAuth, User, $rootScope) ->
+Service.$inject = [\LoopBackAuth,\User,\$rootScope ]
+function Service  ( LoopBackAuth, User, $rootScope )
   Auth = !->
     @current-user = {}
     @is-loged-in = @is-loged-out = false

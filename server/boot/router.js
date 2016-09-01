@@ -22,6 +22,7 @@ module.exports = function(app) {
   router.get(/\/console\/(.+)/, function(req, res) {
     // Use res.sendfile, as it streams instead of reading the file into memory.
     var file = req.params[0]
+    console.log(path.join(__dirname, '../../client/console', dir, file));
     fs.access(path.join(__dirname, '../../client/console', dir, file), fs.F_OK, function (err) {
       if (err) {
         res.sendFile(path.join(__dirname, '../../client/console', dir, 'index.html'));

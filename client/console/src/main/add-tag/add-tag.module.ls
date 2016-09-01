@@ -1,14 +1,15 @@
 'use strict'
 
-config = ($state-provider, Sidebar-menu-provider) !->
+config.$inject = [\$stateProvider,\SidebarMenuProvider ]
+function config  ( $state-provider, Sidebar-menu-provider )
   $state-provider
     .state 'app.tags.new', do
       url: '/new'
       views:
         'detail@app.tags':
           controller: 'AddTagController as vm'
-          template-url: '/console/main/add-tag/add-tag.template.html'
-      on-enter: (Toolbar) !->
+          template-url: 'console/main/add-tag/add-tag.template.html'
+      on-enter: [\Toolbar (Toolbar) !->
         Toolbar.config do
           parent:
             text: 'Tag'
@@ -18,6 +19,9 @@ config = ($state-provider, Sidebar-menu-provider) !->
           buttons:
             * text: 'Save'
               class: 'btn-success'
+      ]
+
+  return
 
 angular
   .module 'app.add-tag', []

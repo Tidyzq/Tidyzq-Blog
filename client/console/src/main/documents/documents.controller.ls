@@ -1,6 +1,7 @@
 'use strict'
 
-Documents-controller = (documents, $state, $scope, $root-scope) !->
+Documents-controller.$inject = [\documents,\$state,\$scope,\$rootScope ]
+function Documents-controller  ( documents, $state, $scope, $root-scope )
 
   vm = @
 
@@ -15,6 +16,8 @@ Documents-controller = (documents, $state, $scope, $root-scope) !->
   vm.edit = (document) !->
     console.log document
     $state.go 'app.editor', document
+
+  return
 
 angular
   .module \app.documents

@@ -1,6 +1,7 @@
 'use strict'
 
-Tags-controller = (tags, $state, $scope, $root-scope, Tag) !->
+Tags-controller.$inject = [\tags,\$state,\$scope,\$rootScope,\Tag ]
+function Tags-controller  ( tags, $state, $scope, $root-scope, Tag )
 
   vm = @
 
@@ -18,6 +19,8 @@ Tags-controller = (tags, $state, $scope, $root-scope, Tag) !->
 
   vm.detail = (tag) !->
     $state.go 'app.tags.detail', tag
+
+  return
 
 angular
   .module \app.tags

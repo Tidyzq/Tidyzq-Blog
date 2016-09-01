@@ -1,14 +1,16 @@
 'use strict'
 
-config = ($state-provider) !->
+config.$inject = [\$stateProvider, \SidebarMenuProvider ]
+function config  ( $state-provider, Sidebar-menu-provider )
   $state-provider
-    .state 'login', {
-        url: '/login',
+    .state 'login', do
+        url: '/console/login',
         views:
           'main':
-            template-url: '/console/main/login/login.template.html'
+            template-url: 'console/main/login/login.template.html'
             controller : 'LoginController as vm'
-    }
+
+  return
 
 angular
   .module 'app.login', []

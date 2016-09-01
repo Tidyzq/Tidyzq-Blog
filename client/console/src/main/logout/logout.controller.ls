@@ -1,6 +1,7 @@
 'use strict'
 
-Logout-controller = (data, $state, $scope, Notification) !->
+Logout-controller.$inject = [\data,\$state,\$scope,\Notification ]
+function Logout-controller  ( data, $state, $scope, Notification )
   vm = @
 
   data!
@@ -9,6 +10,8 @@ Logout-controller = (data, $state, $scope, Notification) !->
       Notification.send 'success', 'Log out success'
     .catch !->
       $state.go 'login'
+
+  return
 
 angular
   .module \app.logout
