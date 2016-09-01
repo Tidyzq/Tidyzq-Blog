@@ -44,6 +44,8 @@
     "gulp-livescript": "^3.0.1",
     "gulp-load-plugins": "^1.2.4",
     "gulp-loopback-sdk-angular": "^0.1.4",
+    "gulp-main-bower-files": "^1.5.3",
+    "gulp-modify-css-urls": "^0.2.2",
     "gulp-print": "^2.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^7.1.2",

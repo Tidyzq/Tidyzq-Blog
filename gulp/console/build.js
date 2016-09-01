@@ -48,34 +48,25 @@ gulp.task('console:build:html', ['console:inject', 'console:partials'], function
         return filePath.replace('console', 'console/.tmp');
       }
     }))
-    // .pipe($.size({
-        // showFiles: true
-    // }))
     .pipe($.rename(function (filePath) {
       filePath.dirname = filePath.dirname.replace('console/', '');
     }))
-    // .pipe($.print())
     .pipe(jsFilter)
-    // .pipe($.sourcemaps.init())
-    // .pipe($.ngAnnotate())
-    // .pipe($.uglify()).on('error', conf.errorHandler('Uglify'))
+    .pipe($.uglify()).on('error', conf.errorHandler('Uglify'))
     .pipe($.rev())
-    // .pipe($.sourcemaps.write('maps'))
     .pipe(jsFilter.restore)
 
     .pipe(cssFilter)
+    .pipe($.modifyCssUrls({
+      modify: function (url, filePath) {
+        return path.join('../fonts/', path.basename(url));
+      }
+    }))
     .pipe($.cssnano())
     .pipe($.rev())
     .pipe(cssFilter.restore)
     .pipe($.revReplace())
-    // .pipe($.revReplace())
-    // .pipe(htmlFilter)
-    // .pipe($.htmlmin({
-    //     collapseWhitespace: true,
-    //     maxLineLength     : 120,
-    //     removeComments    : true
-    // }))
-    // .pipe(htmlFilter.restore)
+
     .pipe(gulp.dest(path.join(conf.paths.console.dist, '/')))
     .pipe($.size({
         title    : path.join(conf.paths.console.dist, '/'),
@@ -87,13 +78,10 @@ gulp.task('console:build:fonts', function () {
 
   var fontFilter = $.filter('**/*.{eot,svg,ttf,woff,woff2}');
 
-  return gulp.src(path.join(conf.paths.vendor, '/**/*.{eot,svg,ttf,woff,woff2}'))
-    // .pipe($.mainBowerFiles())
-    // .pipe(fontFilter)
-    .pipe($.rename(function (filePath) {
-      filePath.dirname = filePath.dirname.replace(/^.+fonts/, '');
-    }))
-    // .pipe($.print())
-    // .pipe($.flatten())
+  return gulp.src('./bower.json')
+    .pipe($.mainBowerFiles())
+    .pipe(fontFilter)
+    .pipe($.flatten())
+    .pipe($.print())
     .pipe(gulp.dest(path.join(conf.paths.console.dist, '/fonts/')));
 });
