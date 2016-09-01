@@ -42,7 +42,7 @@ function buildInjection() {
         .pipe($.inject(injectScripts, injectOptions))
         .on('error', conf.errorHandler('inject'))
         .pipe(wiredep(_.extend({
-            ignorePath: conf.paths.vendor
+            ignorePath: '../..'
         }, conf.wiredep)))
         .on('error', conf.errorHandler('wiredep'))
         .pipe(gulp.dest(conf.paths.console.tmp));

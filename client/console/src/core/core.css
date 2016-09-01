@@ -220,7 +220,7 @@ body {
 }
 
 .toolbar .navbar-right > li {
-  float: left; !important;
+  float: left !important;
 }
 
 .toolbar .toolbar-status,
