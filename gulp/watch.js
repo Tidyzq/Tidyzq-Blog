@@ -13,10 +13,8 @@ function isOnlyChange(event) {
 
 gulp.task('clean', function (cb) {
     return del([
-        path.join(conf.paths.console.tmp, '/'),
-        path.join(conf.paths.console.dist, '/'),
-        path.join(conf.paths.blog.tmp, '/'),
-        path.join(conf.paths.blog.dist, '/')
+        path.join(conf.paths.tmp, '/'),
+        path.join(conf.paths.dist, '/')
     ], cb);
 });
 

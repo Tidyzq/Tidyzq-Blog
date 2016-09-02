@@ -35,18 +35,17 @@ gulp.task('console:build:html', ['console:inject', 'console:partials'], function
   var partialsInjectFile = gulp.src(path.join(conf.paths.console.tmp, '/templateCacheHtml.js'), {read: false});
   var partialsInjectOptions = {
       starttag    : '<!-- inject:partials -->',
-      ignorePath  : path.join(conf.paths.console.tmp),
-      addRootSlash: false,
-      addPrefix   : '/console'
+      ignorePath  : path.join(conf.paths.tmp),
+      addRootSlash: false
   };
 
   return gulp.src(path.join(conf.paths.console.tmp, '/*.html'))
     .pipe($.inject(partialsInjectFile, partialsInjectOptions))
     .pipe($.useref({
-      searchPath: conf.paths.client,
-      transformPath: function(filePath) {
-        return filePath.replace('console', 'console/.tmp');
-      }
+      searchPath: [
+        conf.paths.tmp,
+        conf.paths.client
+      ]
     }))
     .pipe($.rename(function (filePath) {
       filePath.dirname = filePath.dirname.replace('console/', '');
@@ -82,6 +81,6 @@ gulp.task('console:build:fonts', function () {
     .pipe($.mainBowerFiles())
     .pipe(fontFilter)
     .pipe($.flatten())
-    .pipe($.print())
+    // .pipe($.print())
     .pipe(gulp.dest(path.join(conf.paths.console.dist, '/fonts/')));
 });

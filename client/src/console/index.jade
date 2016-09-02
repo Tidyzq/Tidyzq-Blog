@@ -1,8 +1,8 @@
 doctype html
-html(ng-app="blog", lang="en")
+html(ng-app="blog" lang="en" ng-controller="IndexController as vm")
   head
     meta(charset="utf-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     base(href="/")
     title Tidyzq's Blog
     // build:css console/styles/vendor.css
@@ -17,7 +17,7 @@ html(ng-app="blog", lang="en")
     // endinject
     // endbuild
   //- body
-  body(ng-controller="IndexController as vm")
+  body
     .inherit-height(ui-view="main")
     // build:js console/scirpts/vendor.js
     // bower:js

@@ -32,9 +32,8 @@ function buildInjection() {
         .pipe($.angularFilesort());
 
     var injectOptions = {
-        ignorePath  : conf.paths.console.tmp,
-        addRootSlash: false,
-        addPrefix   : 'console'
+        ignorePath  : conf.paths.tmp,
+        addRootSlash: false
     };
 
     return gulp.src(path.join(conf.paths.console.tmp, '/index.html'))
@@ -42,7 +41,7 @@ function buildInjection() {
         .pipe($.inject(injectScripts, injectOptions))
         .on('error', conf.errorHandler('inject'))
         .pipe(wiredep(_.extend({
-            ignorePath: '../..'
+            ignorePath: '../../'
         }, conf.wiredep)))
         .on('error', conf.errorHandler('wiredep'))
         .pipe(gulp.dest(conf.paths.console.tmp));
