@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+
+    title= setting.title
+    link(rel="icon" type="image/*" href=setting.logo)
+    meta(name="description" content=setting.description)
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+
+    base(href="/")
+
+    link(rel="stylesheet" type="text/css" href="vendor/flat-ui/dist/css/flat-ui.min.css")
+    link(rel="stylesheet" type="text/css" href="vendor/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet" type="text/css" href="vendor/videojs/dist/video-js/video-js.css")
+    link(rel="stylesheet" type="text/css" href="vendor/KaTeX/dist/katex.min.css")
+    link(rel="stylesheet" type="text/css" href="index.css")
+
+    block head
+
+  body(class=body_class)
+    .site-wrapper
+
+      block body
+
+      footer.site-footer.clearfix
+        section.copyright!= `Copyright &copy; Tidyzq ${(new Date()).getFullYear()}`
+        section.poweredby
+          a(href="http://www.miitbeian.gov.cn") 粤ICP备15094345号-1
+
+      script(type="text/javascript" src="vendor/jquery/dist/jquery.js")
+      script(type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.js")
+      script(type="text/javascript" src="vendor/jquery-ui/ui/jquery-ui.js")
+      script(type="text/javascript" src="vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js")
+      script(type="text/javascript" src="vendor/videojs/dist/video-js/video.js")
+      script(type="text/javascript" src="vendor/typeahead.js/dist/typeahead.bundle.js")
+      script(type="text/javascript" src="vendor/flat-ui/dist/js/flat-ui.js")
+      script(type="text/javascript" src="vendor/moment/moment.js")
+      script(type="text/javascript" src="vendor/KaTeX/dist/katex.min.js")
+      script(type="text/javascript" src="index.js")
+
+    block foot

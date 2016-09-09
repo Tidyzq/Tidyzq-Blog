@@ -1,0 +1,18 @@
+extends template.jade
+
+block body
+  include partials.jade
+  header.main-header(class=setting.cover ? '' : 'no-cover' style=setting.cover ? `background-image: url(${setting.cover})` : '')
+    +navigation(setting)
+    .vertical
+      .main-header-content.inner
+        h1.page-title=setting.title
+        h2.page-description=setting.description
+    a.scroll-down.icon-arrow-left(href="#content" data-offset="-45")
+      span.hidden Scroll Down
+
+  main#content.content(role="main")
+    each post in posts
+      +post(post)
+
+    +pagination(pagination)

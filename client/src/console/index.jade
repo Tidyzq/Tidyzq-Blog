@@ -4,7 +4,8 @@ html(ng-app="blog" lang="en" ng-controller="IndexController as vm")
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     base(href="/")
-    title Tidyzq's Blog
+    link(rel="icon" type="image/*" ng-href="{{vm.logo}}")
+    title {{ vm.title }}
     // build:css console/styles/vendor.css
     // bower:css
     //- css of bower components will be insert here

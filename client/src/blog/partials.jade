@@ -1,0 +1,47 @@
+mixin navigation(setting)
+  nav.navbar.navbar-default.navbar-costom
+    .container-fluid
+      .navbar-header
+        button.navbar-toggle.collapsed(type='button' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1' aria-expanded='false')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        span.navbar-brand(href='#')= setting.title
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-right
+          each navigation in setting.navigation
+            li(role='presentation')
+              a(href=navigation.url)= navigation.label
+
+mixin post(post)
+  article.loop-post(class=post.class)
+    header.post-header
+      h2.post-title
+        a(href=post.url)= post.title
+      ul.tags
+        - var tags = post.tags();
+        each tag, index in tags
+          li
+            a(href=`/tag/${tag.url}`)= tag.name
+      div(style="clear:both")
+    section.post-excerpt
+      p= shortenHtml(post.html)
+    footer.post-meta
+      - author = post.author();
+      if author.avatar
+        img.author-thumb(src=author.avatar alt=author.username nopin="nopin")
+      p= author.username
+      time.post-date= post.createdAt
+
+mixin pagination(pagination)
+  nav.pagination(role="navigation")
+    span.page-number= `Page ${pagination.index} of ${pagination.totle}`
+      if !pagination.first
+        a.newer-posts(href=(pagination.index == 2) ? '/' : `/page/${pagination.index - 1}/`)
+          span(aria-hidden="true") ←
+          |  Newer Posts
+      if !pagination.last
+        a.older-posts(href=`/page/${pagination.index + 1}/`)
+          | Older Posts&nbsp;
+          span(aria-hidden="true") →

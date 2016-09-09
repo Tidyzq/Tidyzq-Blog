@@ -7,4 +7,4 @@ var conf = require('./conf');
 
 var $ = require('gulp-load-plugins')();
 
-gulp.task('build', ['console:build']);
+gulp.task('build', ['console:build', 'blog:build']);

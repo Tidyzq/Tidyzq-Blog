@@ -23,8 +23,8 @@ exports.paths = {
     },
     blog: {
         src  : 'client/src/blog',
-        tmp  : 'client/.tmp/blog',
-        dist : 'client/dist/blog'
+        tmp  : 'client/.tmp/',
+        dist : 'client/dist/'
     },
     client: 'client',
     src: 'client/src',

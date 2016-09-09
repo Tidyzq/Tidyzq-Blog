@@ -23,7 +23,8 @@ gulp.task('console:watch', ['console:inject'], function () {
     // html and jade
     gulp.watch([
         path.join(conf.paths.console.src, '/**/*.jade'),
-        path.join(conf.paths.console.src, '/**/*.html')
+        path.join(conf.paths.console.src, '/**/*.html'),
+        '!' + path.join(conf.paths.console.src, '/*.jade')
     ], function (event) {
         if (isOnlyChange(event)) {
             gulp.start('console:templates-reload');

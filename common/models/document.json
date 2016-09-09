@@ -1,6 +1,14 @@
 {
   "name": "document",
   "base": "PersistedModel",
+  "indexes": {
+    "isPage_status_index": {
+      "keys": {
+        "isPage": 1,
+        "status": 1
+      }
+    }
+  },
   "properties": {
     "title": {
       "type": "string",
@@ -13,7 +21,9 @@
     "url": {
       "type": "string",
       "required": true,
-      "index": {"unique": true}
+      "index": {
+        "unique": true
+      }
     },
     "image": {
       "type": "string"
@@ -35,7 +45,9 @@
       "type": "date"
     },
     "authorId": {
-      "required": true
+      "type": {
+        "required": true
+      }
     }
   },
   "validations": [],
@@ -103,13 +115,5 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {},
-  "indexes": {
-    "isPage_status_index": {
-      "keys": {
-        "isPage": 1,
-        "status": 1
-      }
-    }
-  }
+  "methods": {}
 }

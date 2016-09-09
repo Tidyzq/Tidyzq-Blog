@@ -18,4 +18,4 @@ gulp.task('clean', function (cb) {
     ], cb);
 });
 
-gulp.task('watch', ['console:watch']);
+gulp.task('watch', ['console:watch', 'blog:watch']);

@@ -107,5 +107,9 @@
   "setting": {
     "dataSource": "dev",
     "public": true
+  },
+  "render": {
+    "dataSource": "memory",
+    "public": true
   }
 }

@@ -12,7 +12,7 @@ var _ = require('lodash');
 
 var browserSync = require('browser-sync');
 
-gulp.task('console:inject-reload', function() {
+gulp.task('console:inject-reload', ['console:scripts', 'console:templates', 'console:styles', 'console:loopback'], function() {
     return buildInjection()
         .pipe(browserSync.stream());
 });

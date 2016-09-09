@@ -32,7 +32,7 @@ module.exports = function(app) {
     })
   });
 
-  router.use(loopback.static(path.join('client/', dir, '/blog')));
+  router.use(loopback.static(path.join('client/', dir)));
 
   app.use(router);
 };
