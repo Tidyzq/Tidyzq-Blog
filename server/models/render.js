@@ -68,10 +68,12 @@ var dev = !!process.env.DEV;
 
 var indexTemplate = 'client/src/blog/render-template/index.pug';
 var postTemplate = 'client/src/blog/render-template/post.pug';
+var pageTemplate = 'client/src/blog/render-template/page.pug';
 var tagTemplate = 'client/src/blog/render-template/tag.pug';
 
 var indexRender = jade.compileFile(indexTemplate);
 var postRender = jade.compileFile(postTemplate);
+var pageRender = jade.compileFile(pageTemplate);
 var tagRender = jade.compileFile(tagTemplate);
 
 var distPath = 'client/dist';
@@ -125,6 +127,17 @@ module.exports = function(Render) {
         });
       });
   };
+
+  var getPages = function (data) {
+    var Page = Render.app.models.page;
+    return Page
+      .remoteFind()
+      .then(function (pages) {
+        return _.extend(data, {
+          pages: pages
+        });
+      });
+  }
 
   var getTags = function (data) {
     var Tag = Render.app.models.tag;
@@ -241,6 +254,42 @@ module.exports = function(Render) {
     }
   );
 
+  Render.pageRender = function (callback) {
+    callback = callback || utils.createPromiseCallback();
+
+    return getSettings({})
+      .then(getPages)
+      .then(function (data) {
+        var renderPromises = data.pages.map(function (page) {
+          var locals = _.extend({
+            setting: data.settings,
+            page: page
+          }, renderLocals);
+          var html = pageRender(locals);
+          var filePath = page.url + '/index.html';
+          return createFile(path.join(distPath, filePath), html);
+        });
+        return Promise.all(renderPromises);
+      })
+      .then(function (results) {
+        callback(null, 'success');
+        return results;
+      })
+      .catch(function (err) {
+        callback(err);
+        throw err;
+      });
+  };
+
+  Render.remoteMethod(
+    'pageRender',
+    {
+      description: 'Render page pages',
+      http: {path: '/page-render', verb: 'post'},
+      returns: {arg: 'result', type: 'object'}
+    }
+  );
+
   Render.tagRender = function (callback) {
     callback = callback || utils.createPromiseCallback();
     return getSettings({})
@@ -290,5 +339,4 @@ module.exports = function(Render) {
       returns: {arg: 'result', type: 'object'}
     }
   );
-
 };

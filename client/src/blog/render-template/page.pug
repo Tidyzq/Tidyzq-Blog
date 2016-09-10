@@ -1,0 +1,15 @@
+extends template.pug
+
+block body
+  include partials.pug
+  .navbar-fixed-top
+    +navigation(setting)
+  header.main-header.post-head(class= page.image ? '' : 'no-cover' style= page.image ? `background-image: url(${page.image})` : '')
+    nav.main-nav.clearfix(class= page.image ? 'overlay' : '')
+  a.scroll-up.icon-arrow-left(href='#content', data-position='0')
+    span.hidden Scroll Up
+  main.content(role='main')
+    article(class= page.class)
+      header.post-header
+        h1.post-title= page.title
+      section.post-content!= page.html
