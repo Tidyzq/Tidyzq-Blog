@@ -251,3 +251,10 @@
 
     };
 })(jQuery);
+
+$(function() {
+    $('time').each(function (index) {
+        var time = $(this).text();
+        $(this).text(moment(time).toNow());
+    });
+});

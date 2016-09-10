@@ -52,13 +52,27 @@ function shortenHtml(str) {
   return text;
 }
 
+function getPagination (base) {
+  return function (a, index, array) {
+    return {
+      base: base,
+      index: index + 1,
+      totle: array.length,
+      first: index === 0,
+      last: index === array.length - 1
+    };
+  };
+}
+
 var dev = !!process.env.DEV;
 
-var indexTemplate = 'client/src/blog/index.pug';
-var postTemplate = 'client/src/blog/post.pug';
+var indexTemplate = 'client/src/blog/render-template/index.pug';
+var postTemplate = 'client/src/blog/render-template/post.pug';
+var tagTemplate = 'client/src/blog/render-template/tag.pug';
 
 var indexRender = jade.compileFile(indexTemplate);
 var postRender = jade.compileFile(postTemplate);
+var tagRender = jade.compileFile(tagTemplate);
 
 var distPath = 'client/dist';
 
@@ -68,6 +82,9 @@ if (dev) {
   };
   postRender = function(locals) {
     return jade.compileFile(postTemplate)(locals);
+  };
+  tagRender = function(locals) {
+    return jade.compileFile(tagTemplate)(locals);
   };
   distPath = 'client/.tmp';
 }
@@ -109,6 +126,35 @@ module.exports = function(Render) {
       });
   };
 
+  var getTags = function (data) {
+    var Tag = Render.app.models.tag;
+    return Tag
+      .find()
+      .then(function (tags) {
+        var promises = tags.map(function (tag) {
+          return Tag['__get__posts']
+            (
+              tag.url,
+              {
+                include: ['tags', 'author']
+              }
+            )
+            .then(function (posts) {
+              var result = _.extend({
+                posts: posts
+              }, tag);
+              return result;
+            });
+        });
+        return Promise.all(promises);
+      })
+      .then(function (tags) {
+        return _.extend(data, {
+          tags: tags
+        });
+      });
+  };
+
   Render.indexRender = function (callback) {
     callback = callback || utils.createPromiseCallback();
 
@@ -117,14 +163,7 @@ module.exports = function(Render) {
       // split page and calculate pagination
       .then(function (data) {
         data.posts = _.chunk(data.posts, data.settings.postsPerPage);
-        data.paginations = data.posts.map(function (posts, index, array) {
-          return {
-            index: index + 1,
-            totle: array.length,
-            first: index === 0,
-            last: index === array.length - 1
-          };
-        });
+        data.paginations = data.posts.map(getPagination(''));
         data.bodyClasses = data.posts.map(function (posts, index, array) {
           return index === 0 ? 'home-template' : 'paged archive-template';
         });
@@ -198,6 +237,56 @@ module.exports = function(Render) {
     {
       description: 'Render post pages',
       http: {path: '/post-render', verb: 'post'},
+      returns: {arg: 'result', type: 'object'}
+    }
+  );
+
+  Render.tagRender = function (callback) {
+    callback = callback || utils.createPromiseCallback();
+    return getSettings({})
+      .then(getTags)
+      .then(function (data) {
+        data.tags = data.tags.map(function (tag) {
+          tag.posts = _.chunk(tag.posts, data.settings.postsPerPage);
+          tag.paginations = tag.posts.map(getPagination('tag/' + tag.url));
+          tag.pageNumber = tag.posts.length;
+          return tag;
+        });
+        return data;
+      })
+      .then(function (data) {
+        var renderPromises = _.flatMap(data.tags, function (tag) {
+          return tag.posts.map(function (posts, index) {
+            var locals = _.extend({
+              setting: data.settings,
+              tag: tag,
+              posts: posts,
+              pagination: tag.paginations[index]
+            }, renderLocals);
+            var html = tagRender(locals);
+            var filePath = 'tag/' + tag.url + '/';
+            filePath += (index === 0) ? 'index.html'
+                                      : ('page/' + (index + 1) + '/index.html');
+            return createFile(path.join(distPath, filePath), html);
+          });
+        });
+        return Promise.all(renderPromises);
+      })
+      .then(function (results) {
+        callback(null, 'success');
+        return results;
+      })
+      .catch(function (err) {
+        callback(err);
+        throw err;
+      });
+  };
+
+  Render.remoteMethod(
+    'tagRender',
+    {
+      description: 'Render tag pages',
+      http: {path: '/tag-render', verb: 'post'},
       returns: {arg: 'result', type: 'object'}
     }
   );

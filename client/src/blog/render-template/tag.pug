@@ -1,0 +1,20 @@
+extends template.pug
+
+block body
+  include partials.pug
+  header.main-header.tag-head(class= tag.image ? '' : 'no-cover' style= tag.image ? `background-image: url(${tag.image})` : '')
+    +navigation(setting)
+    nav.main-nav.overlay.clearfix
+    .vertical
+      .main-header-content.inner
+        h1.page-title= tag.name
+        if tag.description
+          h2.page-description= tag.description
+  main.content(role='main')
+    each post in posts
+      +post(post)
+
+    +pagination(pagination)
+
+block foot
+  script(type="text/javascript" src="index.js")

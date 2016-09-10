@@ -38,10 +38,10 @@ mixin pagination(pagination)
   nav.pagination(role="navigation")
     span.page-number= `Page ${pagination.index} of ${pagination.totle}`
       if !pagination.first
-        a.newer-posts(href=(pagination.index == 2) ? '/' : `/page/${pagination.index - 1}/`)
+        a.newer-posts(href=(pagination.index == 2) ? pagination.base : `${pagination.base}/page/${pagination.index - 1}/`)
           span(aria-hidden="true") ←
           |  Newer Posts
       if !pagination.last
-        a.older-posts(href=`/page/${pagination.index + 1}/`)
+        a.older-posts(href=`${pagination.base}/page/${pagination.index + 1}/`)
           | Older Posts&nbsp;
           span(aria-hidden="true") →
