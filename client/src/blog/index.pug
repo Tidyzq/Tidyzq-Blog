@@ -1,7 +1,7 @@
-extends template.jade
+extends template.pug
 
 block body
-  include partials.jade
+  include partials.pug
   header.main-header(class=setting.cover ? '' : 'no-cover' style=setting.cover ? `background-image: url(${setting.cover})` : '')
     +navigation(setting)
     .vertical
@@ -16,3 +16,7 @@ block body
       +post(post)
 
     +pagination(pagination)
+
+block foot
+  script(type="text/javascript" src="index.js")
+
