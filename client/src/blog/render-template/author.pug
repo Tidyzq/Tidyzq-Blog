@@ -1,0 +1,31 @@
+extends template.pug
+
+block body
+  include partials.pug
+  header.main-header.post-head(class= author.cover ? '' : 'no-cover' style= author.cover ? `background-image: url(${author.cover})` : '')
+    +navigation(setting)
+  section.author-profile.inner
+    if author.avatar
+      figure.author-image
+        .img(style=`background-image: url(${author.avatar})`)
+    h1.author-title= author.username
+    if author.bio
+      h2.author-bio= author.bio
+    .author-meta
+      span.author-email.icon-email= author.email
+      if author.website
+        span.author-link.icon-link
+          a(href=author.website)= author.website
+      span.author-stats
+        i.icon-stats
+        if author.totlePosts === 1
+          = `${author.totlePosts} post`
+        else if author.totlePosts > 1
+          = `${author.totlePosts} posts`
+        else
+          | no posts
+  main.content(role='main')
+    each post in posts
+      +post(post)
+
+    +pagination(pagination)

@@ -70,11 +70,13 @@ var indexTemplate = 'client/src/blog/render-template/index.pug';
 var postTemplate = 'client/src/blog/render-template/post.pug';
 var pageTemplate = 'client/src/blog/render-template/page.pug';
 var tagTemplate = 'client/src/blog/render-template/tag.pug';
+var authorTemplate = 'client/src/blog/render-template/author.pug';
 
 var indexRender = jade.compileFile(indexTemplate);
 var postRender = jade.compileFile(postTemplate);
 var pageRender = jade.compileFile(pageTemplate);
 var tagRender = jade.compileFile(tagTemplate);
+var authorRender = jade.compileFile(authorTemplate);
 
 var distPath = 'client/dist';
 
@@ -85,8 +87,14 @@ if (dev) {
   postRender = function(locals) {
     return jade.compileFile(postTemplate)(locals);
   };
+  pageRender = function(locals) {
+    return jade.compileFile(pageTemplate)(locals);
+  };
   tagRender = function(locals) {
     return jade.compileFile(tagTemplate)(locals);
+  };
+  authorRender = function(locals) {
+    return jade.compileFile(authorTemplate)(locals);
   };
   distPath = 'client/.tmp';
 }
@@ -167,6 +175,36 @@ module.exports = function(Render) {
         });
       });
   };
+
+  var getAuthors = function (data) {
+    var User = Render.app.models.user,
+        Post = Render.app.models.post;
+    return User
+      .find()
+      .then(function (users) {
+        var promises = users.map(function (user) {
+          return Post
+            .find({
+              where: {
+                authorId: user.id
+              },
+              include: ['tags', 'author']
+            })
+            .then(function (posts) {
+              return _.extend({
+                posts: posts,
+                totlePosts: posts.length
+              }, user);
+            });
+        });
+        return Promise.all(promises);
+      })
+      .then(function (users) {
+        return _.extend(data, {
+          authors: users
+        });
+      });
+    };
 
   Render.indexRender = function (callback) {
     callback = callback || utils.createPromiseCallback();
@@ -336,6 +374,56 @@ module.exports = function(Render) {
     {
       description: 'Render tag pages',
       http: {path: '/tag-render', verb: 'post'},
+      returns: {arg: 'result', type: 'object'}
+    }
+  );
+
+  Render.authorRender = function (callback) {
+    callback = callback || utils.createPromiseCallback();
+    return getSettings({})
+      .then(getAuthors)
+      .then(function (data) {
+        data.authors = data.authors.map(function (author) {
+          author.posts = _.chunk(author.posts, data.settings.postsPerPage);
+          author.paginations = author.posts.map(getPagination('author/' + author.username));
+          author.pageNumber = author.posts.length;
+          return author;
+        });
+        return data;
+      })
+      .then(function (data) {
+        var renderPromises = _.flatMap(data.authors, function (author) {
+          return author.posts.map(function (posts, index) {
+            var locals = _.extend({
+              setting: data.settings,
+              author: author,
+              posts: posts,
+              pagination: author.paginations[index]
+            }, renderLocals);
+            var html = authorRender(locals);
+            var filePath = 'author/' + author.username + '/';
+            filePath += (index === 0) ? 'index.html'
+                                      : ('page/' + (index + 1) + '/index.html');
+            return createFile(path.join(distPath, filePath), html);
+          });
+        });
+        return Promise.all(renderPromises);
+      })
+      .then(function (results) {
+        callback(null, 'success');
+        return results;
+      })
+      .catch(function (err) {
+        callback(err);
+        throw err;
+      });
+  };
+
+  Render.remoteMethod(
+    'authorRender',
+    {
+      description: 'Render author pages',
+      http: {path: '/author-render', verb: 'post'},
       returns: {arg: 'result', type: 'object'}
     }
   );

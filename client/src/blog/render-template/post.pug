@@ -22,16 +22,16 @@ block body
         - var author = post.author();
         if author.avatar
           figure.author-image
-            a.img(href=author.url, style=`background-image: url(${author.avatar})`)
+            a.img(href=`/author/${author.username}`, style=`background-image: url(${author.avatar})`)
         section.author
           h4
-            a(href=author.url)= author.username
+            a(href=`/author/${author.username}`)= author.username
           if author.bio
             p= author.bio
           else
             p
               | Read
-              a(href=author.url) more posts
+              a(href=`/author/${author.username}`) more posts
               |  by this author.
           .author-meta
             if author.website
