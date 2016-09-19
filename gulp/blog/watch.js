@@ -12,7 +12,7 @@ function isOnlyChange(event) {
     return event.type === 'changed';
 }
 
-gulp.task('blog:watch', ['blog:scripts', 'blog:styles'], function () {
+gulp.task('blog:watch', ['blog:scripts', 'blog:styles', 'blog:fonts'], function () {
 
     // css and sass
     gulp.watch([

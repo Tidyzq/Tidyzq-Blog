@@ -24,13 +24,21 @@ function buildCss() {
     .pipe(gulp.dest(conf.paths.blog.dist));
 }
 
-function build() {
-  var _js = buildJavascripts(),
-      _css = buildCss();
-
-  return merge(_js, _css);
+function buildFonts() {
+  return gulp.src([
+    path.join(conf.paths.blog.tmp, '/**/*.{eot,svg,ttf,woff,woff2}')
+  ])
+    .pipe(gulp.dest(conf.paths.blog.dist));
 }
 
-gulp.task('blog:build', ['blog:scripts', 'blog:styles'], function () {
+function build() {
+  var _js = buildJavascripts(),
+      _css = buildCss(),
+      _fonts = buildFonts();
+
+  return merge(_js, _css, _fonts);
+}
+
+gulp.task('blog:build', ['blog:scripts', 'blog:styles', 'blog:fonts'], function () {
   return build();
 });

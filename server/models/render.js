@@ -10,16 +10,20 @@ function createDir(dir) {
     if (dir !== '.') {
       createDir(path.dirname(dir))
         .then(function () {
-          fs.readdir(dir, function (err) {
-            if (err) {
-              fs.mkdir(dir, function (err) {
-                if (err) reject(err);
-                else resolve(dir);
-              });
-            } else {
+          try {
+            var read = fs.readdirSync(dir);
+            resolve(dir);
+          } catch (readErr) {
+            try {
+              var make = fs.mkdirSync(dir);
               resolve(dir);
+            } catch (mkErr) {
+              reject(mkErr);
             }
-          });
+          }
+        })
+        .catch(function (err) {
+          reject(err);
         });
     } else {
       resolve(dir);
@@ -39,6 +43,9 @@ function createFile(file, data, options) {
             resolve(data);
           }
         });
+      })
+      .catch(function (err) {
+        console.error(err);
       });
   });
 }
@@ -204,12 +211,14 @@ module.exports = function(Render) {
           authors: users
         });
       });
-    };
+  };
 
-  Render.indexRender = function (callback) {
+  Render.indexRender = function (callback, settings) {
+
     callback = callback || utils.createPromiseCallback();
+    settings = settings ? Promise.resolve(settings) : getSettings({});
 
-    return getSettings({})
+    return settings
       .then(getPosts)
       // split page and calculate pagination
       .then(function (data) {
@@ -257,9 +266,11 @@ module.exports = function(Render) {
     }
   );
 
-  Render.postRender = function (callback) {
+  Render.postRender = function (callback, settings) {
     callback = callback || utils.createPromiseCallback();
-    return getSettings({})
+    settings = settings ? Promise.resolve(settings) : getSettings({});
+
+    return settings
       .then(getPosts)
       .then(function (data) {
         var renderPromises = data.posts.map(function (post) {
@@ -292,10 +303,11 @@ module.exports = function(Render) {
     }
   );
 
-  Render.pageRender = function (callback) {
+  Render.pageRender = function (callback, settings) {
     callback = callback || utils.createPromiseCallback();
+    settings = settings ? Promise.resolve(settings) : getSettings({});
 
-    return getSettings({})
+    return settings
       .then(getPages)
       .then(function (data) {
         var renderPromises = data.pages.map(function (page) {
@@ -328,9 +340,11 @@ module.exports = function(Render) {
     }
   );
 
-  Render.tagRender = function (callback) {
+  Render.tagRender = function (callback, settings) {
     callback = callback || utils.createPromiseCallback();
-    return getSettings({})
+    settings = settings ? Promise.resolve(settings) : getSettings({});
+
+    return settings
       .then(getTags)
       .then(function (data) {
         data.tags = data.tags.map(function (tag) {
@@ -378,9 +392,11 @@ module.exports = function(Render) {
     }
   );
 
-  Render.authorRender = function (callback) {
+  Render.authorRender = function (callback, settings) {
     callback = callback || utils.createPromiseCallback();
-    return getSettings({})
+    settings = settings ? Promise.resolve(settings) : getSettings({});
+
+    return settings
       .then(getAuthors)
       .then(function (data) {
         data.authors = data.authors.map(function (author) {
@@ -424,6 +440,39 @@ module.exports = function(Render) {
     {
       description: 'Render author pages',
       http: {path: '/author-render', verb: 'post'},
+      returns: {arg: 'result', type: 'object'}
+    }
+  );
+
+  Render.renderAll = function (callback) {
+    callback = callback || utils.createPromiseCallback();
+
+    return getSettings()
+      .then(function (settings) {
+        var promises = [
+          Render.indexRender(null, settings),
+          Render.postRender(null, settings),
+          Render.pageRender(null, settings),
+          Render.tagRender(null, settings),
+          Render.authorRender(null, settings)
+        ];
+        return Promise.all(promises);
+      })
+      .then(function (results) {
+        callback(null, 'success');
+        return results;
+      })
+      .catch(function (err) {
+        callback(err);
+        throw err;
+      });
+  };
+
+  Render.remoteMethod(
+    'renderAll',
+    {
+      description: 'Render all pages',
+      http: {path: '/all', verb: 'post'},
       returns: {arg: 'result', type: 'object'}
     }
   );

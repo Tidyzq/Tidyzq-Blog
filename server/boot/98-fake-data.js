@@ -1,6 +1,6 @@
 'use strict';
 
-var log = require('debug')('boot:99-fake-data');
+var log = require('debug')('boot:98-fake-data');
 var modelConfig = require('../model-config.json');
 var faker = require('faker');
 var _ = require('lodash');
