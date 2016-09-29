@@ -18,4 +18,8 @@ gulp.task('clean', function (cb) {
     ], cb);
 });
 
-gulp.task('watch', ['console:watch', 'blog:watch']);
+gulp.task('watch', ['clean'], function () {
+  gulp.start('watch-task');
+});
+
+gulp.task('watch-task', ['console:watch', 'blog:watch'])

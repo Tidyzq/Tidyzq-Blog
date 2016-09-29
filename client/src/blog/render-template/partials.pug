@@ -1,5 +1,5 @@
 mixin navigation(setting)
-  nav.navbar.navbar-default.navbar-costom
+  nav.navbar.navbar-costom
     .container-fluid
       .navbar-header
         button.navbar-toggle.collapsed(type='button' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1' aria-expanded='false')
@@ -7,7 +7,7 @@ mixin navigation(setting)
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        span.navbar-brand(href='#')= setting.title
+        a.navbar-brand(href='#')= setting.title
       #bs-example-navbar-collapse-1.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-right
           each navigation in setting.navigation
@@ -15,7 +15,7 @@ mixin navigation(setting)
               a(href=navigation.url)= navigation.label
 
 mixin post(post)
-  article.loop-post(class=post.class)
+  article.loop-post.post(class=post.class)
     header.post-header
       h2.post-title
         a(href=post.url)= post.title
@@ -31,8 +31,9 @@ mixin post(post)
       - author = post.author();
       if author.avatar
         img.author-thumb(src=author.avatar alt=author.username nopin="nopin")
-      p= author.username
-      time.post-date= post.createdAt
+      p
+        = author.username
+        time.post-date= post.createdAt
 
 mixin pagination(pagination)
   nav.pagination(role="navigation")

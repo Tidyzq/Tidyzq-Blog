@@ -2,7 +2,7 @@ extends template.pug
 
 block body
   include partials.pug
-  header.main-header.post-head(class= author.cover ? '' : 'no-cover' style= author.cover ? `background-image: url(${author.cover})` : '')
+  header.main-header.author-head(class= author.cover ? '' : 'no-cover' style= author.cover ? `background-image: url(${author.cover})` : '')
     +navigation(setting)
   section.author-profile.inner
     if author.avatar
@@ -24,7 +24,7 @@ block body
           = `${author.totlePosts} posts`
         else
           | no posts
-  main.content(role='main')
+  main.content.container(role='main')
     each post in posts
       +post(post)
 

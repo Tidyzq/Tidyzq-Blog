@@ -51,7 +51,7 @@ function createFile(file, data, options) {
 }
 
 function shortenHtml(str) {
-  var cut = 100;
+  var cut = 256;
   var text = $(str).text();
   if (text.length > cut) {
     text = text.substr(0, cut) + '...';
@@ -276,7 +276,8 @@ module.exports = function(Render) {
         var renderPromises = data.posts.map(function (post) {
           var locals = _.extend({
             setting: data.settings,
-            post: post
+            post: post,
+            bodyClass: 'post-template'
           }, renderLocals);
           var html = postRender(locals);
           var filePath = post.url + '/index.html';
@@ -313,7 +314,8 @@ module.exports = function(Render) {
         var renderPromises = data.pages.map(function (page) {
           var locals = _.extend({
             setting: data.settings,
-            page: page
+            page: page,
+            bodyClass: 'page-template'
           }, renderLocals);
           var html = pageRender(locals);
           var filePath = page.url + '/index.html';
