@@ -13,6 +13,11 @@ function Setting-controller  ( $state, $root-scope, $scope, Blog-setting, Notifi
       vm.logo = vm.setting.logo
       vm.cover = vm.setting.cover
 
+  $scope.$watch ->
+    $scope.setting-form.$dirty
+  , (new-val) !->
+    vm.dirty = new-val
+
   vm.save-logo = !->
     vm.setting.logo = vm.logo
 
@@ -24,6 +29,16 @@ function Setting-controller  ( $state, $root-scope, $scope, Blog-setting, Notifi
 
   $scope.$on '$destroy', !->
     Toolbar.on-click = !-> return
+    if vm.dirty
+      temp = _.map vm.setting, (value, key) ->
+      key: key
+      value: value
+
+      promises = _.map temp, (item) ->
+        Setting.upsert item .$promise
+
+      Promise
+        .all promises
 
   vm.add-navigation-item = !->
     vm.setting.navigation.push do

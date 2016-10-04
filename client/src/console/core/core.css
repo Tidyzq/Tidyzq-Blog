@@ -79,6 +79,35 @@ body {
   line-height: 1.5em;
 }
 
+.sidebar-footer {
+  margin-left: -20px;
+  margin-bottom: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.sidebar-footer > .sidebar-footer-item {
+  padding: 3px 0;
+  list-style-type: none;
+  border-top: solid #BDC3C7 1px;
+}
+
+.sidebar-footer > .sidebar-footer-item > a {
+  display: inline-block;
+  width: 100%;
+  font-size: 1.3rem;
+  color: #2C3E50;
+  text-align: center;
+  cursor: pointer;
+}
+
+.sidebar-footer > .sidebar-footer-item > a:hover {
+  color: #95A5A6;
+  /*background-color: #BDC3C7;*/
+}
+
 /* Sidebar navigation */
 .nav-sidebar {
   margin-right: -21px; /* 20px padding + 1px border */

@@ -10,7 +10,7 @@ var browserSync = require('browser-sync');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('console:templates-reload', function() {
-  return buildTemplates()
+  return rebuildJade()
     .pipe(browserSync.stream());
 });
 
@@ -27,6 +27,16 @@ function copyHtml() {
 
 function buildJade() {
   return gulp.src(path.join(conf.paths.console.src, '/**/*.jade'))
+    .pipe($.jade({ pretty: true }))
+    .on('error', conf.errorHandler('jade'))
+    .pipe(gulp.dest(conf.paths.console.tmp));
+}
+
+function rebuildJade() {
+  return gulp.src([
+      path.join(conf.paths.console.src, '/**/*.jade'),
+      '!' + path.join(conf.paths.console.src, '/*.jade')
+    ])
     .pipe($.jade({ pretty: true }))
     .on('error', conf.errorHandler('jade'))
     .pipe(gulp.dest(conf.paths.console.tmp));

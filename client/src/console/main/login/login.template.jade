@@ -2,7 +2,7 @@
   .wrapper
     form.login-form(name="loginForm", novalidate, ng-submit="vm.login()")
       .form-group(ng-class="{'has-error': loginForm.password.$invalid}")
-        input.form-control#login-email(name="email", type="text", ng-model="vm.loginUser.email", placeholder="Enter Email")
+        input.form-control#login-email(name="emailOrUsername", type="text", ng-model="vm.emailOrUsername", placeholder="Enter Email or Username")
         label.fui-user.login-field-icon(for="login-email")
       .form-group(ng-class="{'has-error': loginForm.password.$invalid}")
         input.form-control#login-pass(name="password", type="password", ng-model="vm.loginUser.password", placeholder="Password")

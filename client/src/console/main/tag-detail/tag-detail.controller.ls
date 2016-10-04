@@ -26,14 +26,26 @@ function Tag-detail-controller  ( tag, $state, $scope, $root-scope, Notification
 
   vm.tag = tag
 
+  $scope.$watch ->
+    $scope.tag-detail-form.$dirty
+  , (new-val) !->
+    vm.dirty = new-val
+
   Toolbar.on-click = !->
     save-tag!
 
   $scope.$on '$destroy', !->
     Toolbar.on-click = !-> return
+    if vm.dirty
+      Tag
+        .prototype$updateAttributes vm.tag
+        .$promise
+        .then !->
+          reload-tags!
+          Notification.send 'success', 'Save success'
 
   reload-tags = !->
-    $root-scope.$broadcast 'reload'
+    $root-scope.$broadcast 'reload tags'
 
   save-tag = !->
     Tag

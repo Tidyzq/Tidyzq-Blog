@@ -7,7 +7,7 @@ function Tags-controller  ( tags, $state, $scope, $root-scope, Tag )
 
   vm.tags = tags
 
-  $scope.$on 'reload', !->
+  $scope.$on 'reload tags', !->
     vm.tags = Tag
                 .find do
                   filter:

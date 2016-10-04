@@ -5,3 +5,8 @@
       .sidebar-header-title {{ vm.blogSetting.title }}
       .sidebar-header-description {{ vm.currentUser.username }}
   ul.nav.nav-sidebar(ng-repeat="item in vm.sidebarMenu" sidebar-item="item")
+  ul.sidebar-footer
+    li.sidebar-footer-item
+      a(ng-click="vm.render()") refresh blog
+    li.sidebar-footer-item
+      a(href='/') view blog

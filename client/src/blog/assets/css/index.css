@@ -133,7 +133,7 @@ a[href]:hover {
     position: fixed;
     z-index: 100;
     bottom: 45px;
-    right: -34px;
+    right: -44px;
     width: 34px;
     height: 34px;
     font-size: 34px;
@@ -142,6 +142,8 @@ a[href]:hover {
     -webkit-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
+    -webkit-transition: none;
+    transition: none;
 }
 
 .scroll-up:focus {

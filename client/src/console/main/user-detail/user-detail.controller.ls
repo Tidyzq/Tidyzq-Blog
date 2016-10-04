@@ -27,12 +27,26 @@ function User-detail-controller  ( data, $state, $scope, $root-scope, User, Auth
 
   $scope.$on '$destroy', !->
     Toolbar.on-click = !-> return
+    if vm.dirty
+      User
+        .prototype$update-attributes vm.user
+        .$promise
+        .then ->
+          if Auth.is-admin!
+            save-role!
+        .then !->
+          Notification.send 'success', 'Save success'
 
   $ '#avatar-input-modal' .on 'shown.bs.modal' !->
     vm.avatar = vm.user.avatar
     $scope.$digest!
 
   vm.user = data
+
+  $scope.$watch ->
+    $scope.user-detail-form.$dirty
+  , (new-val) !->
+    vm.dirty = new-val
 
   save-role = ->
     if not _.includes vm.user.roles, 'admin'
@@ -49,7 +63,6 @@ function User-detail-controller  ( data, $state, $scope, $root-scope, User, Auth
         .$promise
     else
       Promise.resolve!
-
 
   vm.save = !->
     if not $scope.user-detail-form.$invalid
