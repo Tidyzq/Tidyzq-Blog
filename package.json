@@ -20,7 +20,7 @@
     "loopback-boot": "^2.6.5",
     "loopback-connector-mongodb": "^1.15.2",
     "loopback-datasource-juggler": "^2.19.0",
-    "marked": "git@github.com:Tidyzq/marked.git",
+    "marked": "https://github.com/Tidyzq/marked.git",
     "pug": "^2.0.0-beta6",
     "serve-favicon": "^2.0.1",
     "unidecode": "^0.1.8"

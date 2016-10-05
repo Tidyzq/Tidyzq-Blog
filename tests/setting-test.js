@@ -122,10 +122,16 @@ module.exports = function(json, data) {
           json('get', '/api/settings/' + data.settings[0].key)
             .expect(404, function (err, res) {
               assert.ifError(err);
-              data.settings.shift();
               done();
             });
         });
+    });
+
+    it('将删除的设置重新放回', function(done) {
+      var setting = _.cloneDeep(data.settings[0]);
+      json('put', '/api/settings/', data.adminInfo.accessToken)
+        .send(setting)
+        .expect(200, done);
     });
 
   });

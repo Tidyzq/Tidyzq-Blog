@@ -115,8 +115,8 @@ module.exports = function(json, data) {
         .send(['admin'])
         .expect(200, function(err, res) {
           assert.ifError(err);
-          assert(_.isArray(res.body));
-          assert(_.every(res.body, function(r) { return r.principalId === data.userInfo.id; }));
+          assert(_.isArray(res.body.roleMappings));
+          assert(_.every(res.body.roleMappings, function(r) { return r.principalId === data.userInfo.id; }));
           // 查看是否有admin身份
           json('get', '/api/users/' + data.userInfo.id + '/roles', data.userInfo.accessToken)
             .expect(200, function(err, res) {

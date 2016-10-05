@@ -8,6 +8,26 @@
   "properties": {},
   "validations": [],
   "relations": {},
-  "acls": [],
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": [
+        "indexRender",
+        "postRender",
+        "pageRender",
+        "tagRender",
+        "authorRender",
+        "renderAll"
+      ]
+    }
+  ],
   "methods": {}
 }

@@ -63,5 +63,6 @@ describe('REST API request', function() {
   require('./page-test')(json, data);
   require('./post-test')(json, data);
   require('./setting-test')(json, data);
+  require('./render-test')(json, data);
 
 });

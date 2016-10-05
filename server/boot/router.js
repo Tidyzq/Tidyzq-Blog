@@ -21,7 +21,7 @@ module.exports = function(app) {
   router.use('/console', loopback.static(path.join('client/', dir, '/console')));
   router.get(/\/console\/(.+)/, function(req, res) {
     // Use res.sendfile, as it streams instead of reading the file into memory.
-    var file = req.params[0]
+    var file = req.params[0];
     console.log(path.join(__dirname, '../../client/', dir, '/console', file));
     fs.access(path.join(__dirname, '../../client/', dir, '/console', file), fs.F_OK, function (err) {
       if (err) {
@@ -29,7 +29,7 @@ module.exports = function(app) {
       } else {
         res.sendFile(path.join(__dirname, '../../client/', dir, '/console', file));
       }
-    })
+    });
   });
 
   router.use(loopback.static(path.join('client/', dir)));

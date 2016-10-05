@@ -152,7 +152,7 @@ module.exports = function(Render) {
           pages: pages
         });
       });
-  }
+  };
 
   var getTags = function (data) {
     var Tag = Render.app.models.tag;
